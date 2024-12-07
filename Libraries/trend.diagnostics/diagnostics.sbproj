@@ -1,0 +1,15 @@
+{
+  "Title": "Error List",
+  "Type": "library",
+  "Org": "trend",
+  "Ident": "diagnostics",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": null,
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "IsWhitelistDisabled": false,
+  "Metadata": {
+    "CsProjName": ""
+  }
+}
