@@ -2,30 +2,14 @@
   "__guid": "cd285893-d0ab-4423-9b5f-9a94f46ce96c",
   "GameObjects": [
     {
-      "__guid": "73f72866-200a-46df-b519-c7d099f389f5",
+      "__guid": "3ee1c9f4-07be-4e0b-8b23-67bee2d8ec8a",
       "Flags": 0,
-      "Name": "Scene Information",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SceneInformation",
-          "__guid": "49a6e898-c19d-46f8-8c8e-ac2d1ecd875a",
-          "Changes": "",
-          "Description": "",
-          "SceneTags": "",
-          "Title": "minimal"
-        }
-      ]
-    },
-    {
-      "__guid": "f51bede4-6635-4412-84a5-70a775b2523e",
-      "Flags": 2048,
       "Name": "Camera",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
-          "__guid": "f627a9d1-5fe1-4a0b-bb8e-ce15b1179ae2",
+          "__guid": "d3e929e2-6c1f-48f2-94ff-dfa7125d2444",
           "BackgroundColor": "0.33333,0.46275,0.52157,1",
           "ClearFlags": "All",
           "FieldOfView": 90,
@@ -42,7 +26,7 @@
         },
         {
           "__type": "Sandbox.Tonemapping",
-          "__guid": "891f8b25-cab3-450b-93e0-a4433e359ae4",
+          "__guid": "bb1d4e00-68b9-4153-b1ed-499d0521de51",
           "__version": 1,
           "AutoExposureEnabled": true,
           "ExposureBias": 2,
@@ -55,7 +39,7 @@
         },
         {
           "__type": "Sandbox.Bloom",
-          "__guid": "70e8fff6-cf3e-4297-98e4-2fc021617986",
+          "__guid": "308d42e8-ef37-47c1-bd44-af456b34ba64",
           "BloomColor": {
             "blend": "Linear",
             "color": [
@@ -94,24 +78,21 @@
       ]
     },
     {
-      "__guid": "c2e2b2e8-62e8-4ef3-8336-002a3a68f88e",
+      "__guid": "66cee047-c868-48ac-a5c2-ec230a2274e3",
       "Flags": 0,
-      "Name": "Map Loader",
+      "Name": "UI",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.MapInstance",
-          "__guid": "053b9354-3f9b-4cbf-837b-932a5a04f3ae",
-          "__version": 1,
-          "EnableCollision": true,
-          "MapName": "facepunch.datacore",
-          "NoOrigin": true,
-          "OnMapLoaded": null,
-          "OnMapUnloaded": null,
-          "UseMapFromLaunch": true
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "95f61551-065c-4412-8f96-a99621d0555d",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "FollowDesktopScaling",
+          "ZIndex": 100
         }
-      ],
-      "Children": []
+      ]
     }
   ],
   "SceneProperties": {
@@ -123,9 +104,7 @@
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
-    "Metadata": {
-      "Title": "minimal"
-    },
+    "Metadata": {},
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -140,7 +119,7 @@
     }
   },
   "ResourceVersion": 2,
-  "Title": "minimal",
+  "Title": null,
   "Description": null,
   "__references": [],
   "__version": 2

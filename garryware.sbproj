@@ -1,7 +1,7 @@
 {
-  "Title": "Garryware",
+  "Title": "GarryWare",
   "Type": "game",
-  "Org": "local",
+  "Org": "softsplit",
   "Ident": "garryware",
   "Schema": 1,
   "IncludeSourceFiles": false,

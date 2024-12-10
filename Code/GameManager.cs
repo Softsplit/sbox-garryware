@@ -1,35 +1,53 @@
-using Sandbox;
-
-public sealed class GameManager : Component
+public sealed class GameManager : GameObjectSystem<GameManager>, Component.INetworkListener, ISceneStartup
 {
-	public static GameManager Current { get; set; } = new();
-	
-	[Property]
-	public GameObject PlayerPrefab { get; set; }
-
-	protected override void OnAwake()
+	public GameManager( Scene scene ) : base( scene )
 	{
-		Current = this;
 	}
 
-	
+	void ISceneStartup.OnHostPreInitialize( SceneFile scene )
+	{
+		Log.Info( $"Walker: Loading scene {scene.ResourceName}" );
+	}
+
+	void ISceneStartup.OnHostInitialize()
+	{
+		//
+		// TODO: We don't have a menu, but if we did we could put a special component in the menu
+		// scene that we'd now be able to detect, and skip doing the stuff below.
+		//
+
+		//
+		// Spawn the engine scene.
+		// This scene is sent to clients when they join.
+		//
+		var slo = new SceneLoadOptions();
+		slo.IsAdditive = true;
+		slo.SetScene( "scenes/engine.scene" );
+		Scene.Load( slo );
+
+		// If we're not hosting a lobby, start hosting one
+		// so that people can join this game.
+		Networking.CreateLobby();
+	}
+
+	void Component.INetworkListener.OnActive( Connection channel )
+	{
+		SpawnPlayerForConnection( channel );
+	}
+
 	public void SpawnPlayerForConnection( Connection channel )
 	{
-		if ( Game.ActiveScene.GetAllComponents<Player>().Any( x => x.Network.Owner == channel ) )
-		{
-			Log.Info( "GameManager: Tried to spawn multiple instances of the same player! Ignoring." );
-			return;
-		}
-
+		// Find a spawn location for this player
 		var startLocation = FindSpawnLocation().WithScale( 1 );
 
 		// Spawn this object and make the client the owner
-		var playerGo = PlayerPrefab.Clone( new CloneConfig { Name = $"Player - {channel.DisplayName}", StartEnabled = true, Transform = startLocation } );
+		var playerGo = GameObject.Clone( "/prefabs/player.prefab", new CloneConfig { Name = $"Player - {channel.DisplayName}", StartEnabled = true, Transform = startLocation } );
 		var player = playerGo.Components.Get<Player>( true );
 		playerGo.NetworkSpawn( channel );
 
 		IPlayerEvent.PostToGameObject( player.GameObject, x => x.OnSpawned() );
 	}
+
 
 	/// <summary>
 	/// Find the most appropriate place to respawn
@@ -48,6 +66,6 @@ public sealed class GameManager : Component
 		//
 		// Failing that, spawn where we are
 		//
-		return Transform.World;
+		return Transform.Zero;
 	}
 }

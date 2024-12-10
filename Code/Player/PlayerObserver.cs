@@ -3,14 +3,14 @@
 /// </summary>
 public sealed class PlayerObserver : Component
 {
-	Angles eyeAngles;
+	Angles EyeAngles;
 	TimeSince timeSinceStarted;
 
 	protected override void OnEnabled()
 	{
 		base.OnEnabled();
 
-		eyeAngles = Scene.Camera.WorldRotation;
+		EyeAngles = Scene.Camera.WorldRotation;
 		timeSinceStarted = 0;
 	}
 
@@ -40,10 +40,10 @@ public sealed class PlayerObserver : Component
 		}
 	}
 
-	[Rpc.Broadcast]
+	[Rpc.Owner]
 	public void Respawn()
 	{
-		if ( IsProxy ) return;
+		if ( !Networking.IsHost ) return;
 
 		GameManager.Current.SpawnPlayerForConnection( Network.Owner );
 		GameObject.Destroy();
@@ -52,24 +52,23 @@ public sealed class PlayerObserver : Component
 	private void RotateAround( PlayerCorpse target )
 	{
 		// Find the corpse eyes
-
 		if ( !target.Components.Get<SkinnedModelRenderer>().TryGetBoneTransform( "head", out var tx ) )
 		{
 			tx.Position = target.GameObject.GetBounds().Center;
 		}
 
-		var e = eyeAngles;
+		var e = EyeAngles;
 		e += Input.AnalogLook;
 		e.pitch = e.pitch.Clamp( -90, 90 );
 		e.roll = 0.0f;
-		eyeAngles = e;
+		EyeAngles = e;
 
 		var center = tx.Position;
-		var targetPos = center - eyeAngles.Forward * 150.0f;
+		var targetPos = center - EyeAngles.Forward * 150.0f;
 
 		var tr = Scene.Trace.FromTo( center, targetPos ).Radius( 1.0f ).WithoutTags( "ragdoll" ).Run();
 
 		Scene.Camera.WorldPosition = Vector3.Lerp( Scene.Camera.WorldPosition, tr.EndPosition, timeSinceStarted, true );
-		Scene.Camera.WorldRotation = eyeAngles;
+		Scene.Camera.WorldRotation = EyeAngles;
 	}
 }
