@@ -18,14 +18,26 @@
       ]
     },
     {
-      "__guid": "f51bede4-6635-4412-84a5-70a775b2523e",
-      "Flags": 2048,
+      "__guid": "7bc9fa91-32be-4930-951d-519d7b207113",
+      "Flags": 0,
+      "Name": "Game Manager",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "GameManager",
+          "__guid": "fa28f466-c220-4bfb-b24f-00d4471b4d93"
+        }
+      ]
+    },
+    {
+      "__guid": "0c339912-bf0b-44bd-8d33-8e332d73e8cb",
+      "Flags": 0,
       "Name": "Camera",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
-          "__guid": "f627a9d1-5fe1-4a0b-bb8e-ce15b1179ae2",
+          "__guid": "cc44fe5e-eff7-413f-b9ad-874b8ec6455f",
           "BackgroundColor": "0.33333,0.46275,0.52157,1",
           "ClearFlags": "All",
           "FieldOfView": 90,
@@ -42,7 +54,7 @@
         },
         {
           "__type": "Sandbox.Tonemapping",
-          "__guid": "891f8b25-cab3-450b-93e0-a4433e359ae4",
+          "__guid": "a8f28f6e-402a-403a-a500-f7a6d1eed2e0",
           "__version": 1,
           "AutoExposureEnabled": true,
           "ExposureBias": 2,
@@ -55,7 +67,7 @@
         },
         {
           "__type": "Sandbox.Bloom",
-          "__guid": "70e8fff6-cf3e-4297-98e4-2fc021617986",
+          "__guid": "7c41d9ee-70df-4b31-9a98-57ac05716a8b",
           "BloomColor": {
             "blend": "Linear",
             "color": [
@@ -94,6 +106,23 @@
       ]
     },
     {
+      "__guid": "7ed642e7-8262-4f17-91bc-7dd969b25495",
+      "Flags": 0,
+      "Name": "UI",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "dd311741-4a9e-4fd4-a6b4-8ead6b22396e",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "FollowDesktopScaling",
+          "ZIndex": 100
+        }
+      ]
+    },
+    {
       "__guid": "c2e2b2e8-62e8-4ef3-8336-002a3a68f88e",
       "Flags": 0,
       "Name": "Map Loader",
@@ -106,8 +135,6 @@
           "EnableCollision": true,
           "MapName": "facepunch.datacore",
           "NoOrigin": true,
-          "OnMapLoaded": null,
-          "OnMapUnloaded": null,
           "UseMapFromLaunch": true
         }
       ],

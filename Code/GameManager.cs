@@ -1,71 +1,190 @@
-public sealed class GameManager : GameObjectSystem<GameManager>, Component.INetworkListener, ISceneStartup
+public sealed class GameManager : Component, Component.INetworkListener, ISceneStartup
 {
-	public GameManager( Scene scene ) : base( scene )
+	private enum GameState
 	{
+		Intermission,
+		Round
 	}
 
-	void ISceneStartup.OnHostPreInitialize( SceneFile scene )
+	[Sync] private GameState CurrentState { get; set; } = GameState.Intermission;
+	[Sync] private RealTimeSince TimeSinceStateStart { get; set; }
+	[Sync] private int MinPlayers { get; set; } = 2;
+
+	private const float INTERMISSION_DURATION = 30f;
+	private const float ROUND_DURATION = 300f; // 5 minutes
+
+	private readonly List<Connection> ActivePlayers = new();
+
+	// Add singleton instance property
+	public static GameManager Current { get; private set; }
+
+	protected override void OnEnabled()
 	{
-		Log.Info( $"Walker: Loading scene {scene.ResourceName}" );
+		// Set singleton instance when enabled
+		Current = this;
+
+		if ( Networking.IsHost )
+		{
+			Networking.CreateLobby( new Sandbox.Network.LobbyConfig() );
+
+			// Start with intermission
+			ChangeState( GameState.Intermission );
+		}
 	}
 
-	void ISceneStartup.OnHostInitialize()
+	protected override void OnDisabled()
 	{
-		//
-		// TODO: We don't have a menu, but if we did we could put a special component in the menu
-		// scene that we'd now be able to detect, and skip doing the stuff below.
-		//
-
-		//
-		// Spawn the engine scene.
-		// This scene is sent to clients when they join.
-		//
-		var slo = new SceneLoadOptions();
-		slo.IsAdditive = true;
-		slo.SetScene( "scenes/engine.scene" );
-		Scene.Load( slo );
-
-		// If we're not hosting a lobby, start hosting one
-		// so that people can join this game.
-		Networking.CreateLobby();
+		// Clear singleton instance when disabled
+		if ( Current == this )
+			Current = null;
 	}
 
-	void Component.INetworkListener.OnActive( Connection channel )
+	protected override void OnFixedUpdate()
 	{
+		CheckGameState();
+	}
+
+	void INetworkListener.OnActive( Connection channel )
+	{
+		ActivePlayers.Add( channel );
 		SpawnPlayerForConnection( channel );
+	}
+
+	void INetworkListener.OnDisconnected( Connection channel )
+	{
+		ActivePlayers.Remove( channel );
+		CheckMinimumPlayers();
+	}
+
+	private void CheckGameState()
+	{
+		if ( !Networking.IsHost ) return;
+
+		switch ( CurrentState )
+		{
+			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION && HasMinimumPlayers():
+				StartRound();
+				break;
+			case GameState.Round when TimeSinceStateStart >= ROUND_DURATION:
+				EndRound();
+				break;
+		}
+	}
+
+	private bool HasMinimumPlayers() => ActivePlayers.Count >= MinPlayers;
+
+	private void CheckMinimumPlayers()
+	{
+		if ( !HasMinimumPlayers() && CurrentState == GameState.Round )
+		{
+			Log.Info( "Not enough players, returning to intermission" );
+			ChangeState( GameState.Intermission );
+		}
+	}
+
+	[Rpc.Broadcast]
+	private void ChangeState( GameState newState )
+	{
+		CurrentState = newState;
+		TimeSinceStateStart = 0;
+
+		switch ( newState )
+		{
+			case GameState.Intermission:
+				Log.Info( $"Intermission started! Waiting {INTERMISSION_DURATION} seconds..." );
+				break;
+			case GameState.Round:
+				Log.Info( $"Round started! Duration: {ROUND_DURATION} seconds" );
+				break;
+		}
+	}
+
+	private void StartRound()
+	{
+		ChangeState( GameState.Round );
+		RespawnAllPlayers();
+	}
+
+	private void EndRound()
+	{
+		ChangeState( GameState.Intermission );
+		RespawnAllPlayers();
 	}
 
 	public void SpawnPlayerForConnection( Connection channel )
 	{
-		// Find a spawn location for this player
 		var startLocation = FindSpawnLocation().WithScale( 1 );
 
-		// Spawn this object and make the client the owner
-		var playerGo = GameObject.Clone( "/prefabs/player.prefab", new CloneConfig { Name = $"Player - {channel.DisplayName}", StartEnabled = true, Transform = startLocation } );
+		var playerGo = GameObject.Clone( "/prefabs/player.prefab", new CloneConfig
+		{
+			Name = $"Player - {channel.DisplayName}",
+			StartEnabled = true,
+			Transform = startLocation
+		} );
+
 		var player = playerGo.Components.Get<Player>( true );
 		playerGo.NetworkSpawn( channel );
 
 		IPlayerEvent.PostToGameObject( player.GameObject, x => x.OnSpawned() );
 	}
 
-
-	/// <summary>
-	/// Find the most appropriate place to respawn
-	/// </summary>
-	Transform FindSpawnLocation()
+	[Rpc.Broadcast]
+	private void RespawnAllPlayers()
 	{
-		//
-		// If we have any SpawnPoint components in the scene, then use those
-		//
+		foreach ( var player in Scene.GetAllComponents<Player>() )
+		{
+			var startLocation = FindSpawnLocation().WithScale( 1 );
+			player.GameObject.WorldTransform = startLocation;
+		}
+	}
+
+	private Transform FindSpawnLocation()
+	{
 		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 		if ( spawnPoints.Length > 0 )
 		{
 			return Random.Shared.FromArray( spawnPoints ).Transform.World;
 		}
+		return global::Transform.Zero;
+	}
 
-		//
-		// Failing that, spawn where we are
-		//
-		return Transform.Zero;
+	// Developer commands
+	[ConCmd( "game_state" )]
+	public static void CmdGameState()
+	{
+		if ( !Networking.IsHost ) return;
+
+		if ( Current == null ) return;
+
+		var state = Current.CurrentState;
+		var timeLeft = state == GameState.Intermission ?
+			INTERMISSION_DURATION - Current.TimeSinceStateStart :
+			ROUND_DURATION - Current.TimeSinceStateStart;
+
+		Log.Info( $"Current State: {state}, Time Left: {timeLeft:F1}s" );
+	}
+
+	[ConCmd( "game_force_intermission" )]
+	public static void CmdForceIntermission()
+	{
+		if ( !Networking.IsHost ) return;
+		Current?.ChangeState( GameState.Intermission );
+	}
+
+	[ConCmd( "game_force_round" )]
+	public static void CmdForceRound()
+	{
+		if ( !Networking.IsHost ) return;
+		Current?.StartRound();
+	}
+
+	[ConCmd( "game_set_minplayers" )]
+	public static void CmdSetMinPlayers( int count )
+	{
+		if ( !Networking.IsHost ) return;
+		if ( Current == null ) return;
+
+		Current.MinPlayers = count;
+		Log.Info( $"Minimum players set to {count}" );
 	}
 }
