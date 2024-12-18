@@ -6,35 +6,29 @@ public sealed class GameManager : Component, Component.INetworkListener
 		Round
 	}
 
-	[Sync] public GameState CurrentState { get; set; } = GameState.Intermission;
-	[Sync] public RealTimeSince TimeSinceStateStart { get; set; }
-	[Sync] public int MinPlayers { get; set; } = 2;
+	public static GameManager Current { get; private set; }
+
+	[Sync( Flags = SyncFlags.FromHost )] public GameState CurrentState { get; set; } = GameState.Intermission;
+	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeSinceStateStart { get; set; }
+	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
 
 	public const float INTERMISSION_DURATION = 30f;
 	public const float ROUND_DURATION = 300f; // 5 minutes
 
-	private readonly List<Connection> ActivePlayers = new();
-
-	// Add singleton instance property
-	public static GameManager Current { get; private set; }
-
 	protected override void OnEnabled()
 	{
-		// Set singleton instance when enabled
 		Current = this;
 
 		if ( Networking.IsHost )
 		{
 			Networking.CreateLobby( new Sandbox.Network.LobbyConfig() );
 
-			// Start with intermission
 			ChangeState( GameState.Intermission );
 		}
 	}
 
 	protected override void OnDisabled()
 	{
-		// Clear singleton instance when disabled
 		if ( Current == this )
 			Current = null;
 	}
@@ -46,13 +40,11 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	void INetworkListener.OnActive( Connection channel )
 	{
-		ActivePlayers.Add( channel );
 		SpawnPlayerForConnection( channel );
 	}
 
 	void INetworkListener.OnDisconnected( Connection channel )
 	{
-		ActivePlayers.Remove( channel );
 		CheckMinimumPlayers();
 	}
 
@@ -60,7 +52,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 	{
 		if ( !Networking.IsHost ) return;
 
-		// Only reset timer during intermission if we don't have enough players
 		if ( CurrentState == GameState.Intermission && !HasMinimumPlayers() )
 		{
 			TimeSinceStateStart = 0;
@@ -79,7 +70,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 		}
 	}
 
-	public bool HasMinimumPlayers() => ActivePlayers.Count >= MinPlayers;
+	public bool HasMinimumPlayers() => Connection.All.Count >= MinPlayers;
 
 	private void CheckMinimumPlayers()
 	{
@@ -90,7 +81,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 		}
 	}
 
-	[Rpc.Broadcast]
 	private void ChangeState( GameState newState )
 	{
 		CurrentState = newState;
@@ -136,7 +126,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 		IPlayerEvent.PostToGameObject( player.GameObject, x => x.OnSpawned() );
 	}
 
-	[Rpc.Broadcast]
 	private void RespawnAllPlayers()
 	{
 		foreach ( var player in Scene.GetAllComponents<Player>() )
@@ -167,12 +156,9 @@ public sealed class GameManager : Component, Component.INetworkListener
 		return global::Transform.Zero;
 	}
 
-	// Developer commands
 	[ConCmd( "gw_state" )]
 	public static void CmdGameState()
 	{
-		if ( !Networking.IsHost ) return;
-
 		if ( Current == null ) return;
 
 		var state = Current.CurrentState;
@@ -187,7 +173,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 	public static void CmdForceIntermission()
 	{
 		if ( !Networking.IsHost ) return;
-		Current?.ChangeState( GameState.Intermission );
+		Current?.EndRound();
 	}
 
 	[ConCmd( "gw_force_round" )]

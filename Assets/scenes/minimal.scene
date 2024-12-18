@@ -269,7 +269,7 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "5b193c1b-3c9d-4ee6-bef8-0eef64b81f82",
-              "Color": "0.05098,0.8902,0.12092,1"
+              "Color": "0.8902,0.52654,0.05098,1"
             }
           ]
         }
@@ -300,6 +300,7 @@
       "Position": "-17.88966,-152.06,64.04259",
       "Rotation": "0,0,0.7071068,0.7071068",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "Sandbox.Prop",

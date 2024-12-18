@@ -8,11 +8,8 @@
             @CurrentState
         </div>
         <div class="time">
-            @if (GameManager.Current?.HasMinimumPlayers() ?? false)
-            {
-                @FormatTime(Math.Max(0, TimeLeft))
-            }
-            else if (CurrentState == GameManager.GameState.Intermission)
+            @if (CurrentState == GameManager.GameState.Intermission && !(GameManager.Current?.HasMinimumPlayers() ??
+            false))
             {
                 <span class="waiting">Waiting for players...</span>
             }

@@ -73,24 +73,6 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		GameObject.Destroy();
 	}
 
-	protected override void OnUpdate()
-	{
-		base.OnUpdate();
-
-		if ( !IsProxy )
-			OnControl();
-	}
-
-	void OnControl()
-	{
-		if ( Input.Pressed( "die" ) )
-		{
-			IPlayerEvent.PostToGameObject( GameObject, x => x.OnSuicide() );
-			Health = 0;
-			Death();
-		}
-	}
-
 	void IDamageable.OnDamage( in DamageInfo damage )
 	{
 		TakeDamage( damage.Damage );
