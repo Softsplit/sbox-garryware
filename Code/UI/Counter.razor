@@ -12,9 +12,13 @@
             {
                 @($"{Math.Max(0, TimeLeft).ToString("0")}s")
             }
-            else 
+            else if (CurrentState == GameManager.GameState.Intermission)
             {
                 <span class="waiting">Waiting for players...</span>
+            }
+            else
+            {
+                @($"{Math.Max(0, TimeLeft).ToString("0")}s")
             }
         </div>
     </div>
@@ -28,5 +32,5 @@
 
     public GameManager.GameState CurrentState => GameManager.Current?.CurrentState ?? GameManager.GameState.Intermission;
 
-    protected override int BuildHash() => HashCode.Combine(TimeLeft, CurrentState);
+    protected override int BuildHash() => HashCode.Combine(TimeLeft, CurrentState, GameManager.Current?.HasMinimumPlayers());
 }

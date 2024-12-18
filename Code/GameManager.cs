@@ -1,4 +1,4 @@
-public sealed class GameManager : Component, Component.INetworkListener, ISceneStartup
+public sealed class GameManager : Component, Component.INetworkListener
 {
 	public enum GameState
 	{
@@ -60,10 +60,9 @@ public sealed class GameManager : Component, Component.INetworkListener, ISceneS
 	{
 		if (!Networking.IsHost) return;
 
-		// Only tick timer if we have minimum players
-		if (!HasMinimumPlayers())
+		// Only reset timer during intermission if we don't have enough players
+		if (CurrentState == GameState.Intermission && !HasMinimumPlayers())
 		{
-			// Reset timer when we don't have enough players
 			TimeSinceStateStart = 0;
 			return;
 		}
@@ -71,7 +70,8 @@ public sealed class GameManager : Component, Component.INetworkListener, ISceneS
 		switch (CurrentState)
 		{
 			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION:
-				StartRound();
+				if (HasMinimumPlayers())
+					StartRound();
 				break;
 			case GameState.Round when TimeSinceStateStart >= ROUND_DURATION:
 				EndRound();
@@ -157,7 +157,7 @@ public sealed class GameManager : Component, Component.INetworkListener, ISceneS
 	}
 
 	// Developer commands
-	[ConCmd( "game_state" )]
+	[ConCmd( "gw_state" )]
 	public static void CmdGameState()
 	{
 		if ( !Networking.IsHost ) return;
@@ -172,21 +172,21 @@ public sealed class GameManager : Component, Component.INetworkListener, ISceneS
 		Log.Info( $"Current State: {state}, Time Left: {timeLeft:F1}s" );
 	}
 
-	[ConCmd( "game_force_intermission" )]
+	[ConCmd( "gw_force_intermission" )]
 	public static void CmdForceIntermission()
 	{
 		if ( !Networking.IsHost ) return;
 		Current?.ChangeState( GameState.Intermission );
 	}
 
-	[ConCmd( "game_force_round" )]
+	[ConCmd( "gw_force_round" )]
 	public static void CmdForceRound()
 	{
 		if ( !Networking.IsHost ) return;
 		Current?.StartRound();
 	}
 
-	[ConCmd( "game_set_minplayers" )]
+	[ConCmd( "gw_set_minplayers" )]
 	public static void CmdSetMinPlayers( int count )
 	{
 		if ( !Networking.IsHost ) return;
