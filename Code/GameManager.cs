@@ -1,17 +1,17 @@
 public sealed class GameManager : Component, Component.INetworkListener, ISceneStartup
 {
-	private enum GameState
+	public enum GameState
 	{
 		Intermission,
 		Round
 	}
 
-	[Sync] private GameState CurrentState { get; set; } = GameState.Intermission;
-	[Sync] private RealTimeSince TimeSinceStateStart { get; set; }
-	[Sync] private int MinPlayers { get; set; } = 2;
+	[Sync] public GameState CurrentState { get; set; } = GameState.Intermission;
+	[Sync] public RealTimeSince TimeSinceStateStart { get; set; }
+	[Sync] public int MinPlayers { get; set; } = 2;
 
-	private const float INTERMISSION_DURATION = 30f;
-	private const float ROUND_DURATION = 300f; // 5 minutes
+	public const float INTERMISSION_DURATION = 30f;
+	public const float ROUND_DURATION = 300f; // 5 minutes
 
 	private readonly List<Connection> ActivePlayers = new();
 

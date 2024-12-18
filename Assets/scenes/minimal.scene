@@ -118,7 +118,21 @@
           "Opacity": 1,
           "Scale": 1,
           "ScaleStrategy": "FollowDesktopScaling",
-          "ZIndex": 100
+          "ZIndex": 0
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "13c316db-fe76-4a6f-ae70-fbd26d12da5f",
+          "Flags": 0,
+          "Name": "Counter",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Counter",
+              "__guid": "223ce23e-8e89-4729-bf6a-5498ce32f706"
+            }
+          ]
         }
       ]
     },
