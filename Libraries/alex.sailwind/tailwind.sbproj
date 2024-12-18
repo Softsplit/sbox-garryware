@@ -1,0 +1,15 @@
+{
+  "Title": "Sailwind",
+  "Type": "library",
+  "Org": "alex",
+  "Ident": "sailwind",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": null,
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "IsWhitelistDisabled": false,
+  "Metadata": {
+    "CsProjName": ""
+  }
+}
