@@ -22,6 +22,7 @@
       "Flags": 0,
       "Name": "Game Manager",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "GameManager",
@@ -137,6 +138,144 @@
       ]
     },
     {
+      "__guid": "4a5725e3-fdb9-4492-9e04-be455686922e",
+      "Flags": 0,
+      "Name": "Environment",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "e3d439b7-dfb0-4e75-bac3-d011888fca83",
+          "Flags": 0,
+          "Name": "2D Skybox",
+          "Tags": "skybox",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SkyBox2D",
+              "__guid": "0512ba5a-0354-4a18-8b27-dcf6fb20221c",
+              "SkyIndirectLighting": true,
+              "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "5d8c4418-5a22-4e2d-98e1-dea0f906d0fa",
+          "Flags": 0,
+          "Name": "Sun",
+          "Rotation": "0.2132118,0.409576,-0.409576,0.7867882",
+          "Tags": "light_directional,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DirectionalLight",
+              "__guid": "916a46fa-8413-402e-a069-0d7fe58611f9",
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.91373,0.98039,1,1",
+              "Shadows": true,
+              "SkyColor": "0,0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "dd0368e0-6828-4298-99df-5733ba639f2c",
+          "Flags": 0,
+          "Name": "Envmap Probe",
+          "Position": "0,2560,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.EnvmapProbe",
+              "__guid": "e06607ce-a30a-451f-ba10-b1ca49d446dc",
+              "Bounds": {
+                "Mins": "-1000,-1000,-1000",
+                "Maxs": "1000,1000,1000"
+              },
+              "DelayBetweenUpdates": 0.1,
+              "Feathering": 0.02,
+              "FrameInterval": 5,
+              "MaxDistance": 512,
+              "MultiBounce": false,
+              "Projection": "Box",
+              "RenderDynamically": true,
+              "Texture": "textures/cubemaps/default2.vtex",
+              "TintColor": "1,1,1,1",
+              "UpdateStrategy": "OnEnabled",
+              "ZFar": 4096,
+              "ZNear": 16
+            }
+          ]
+        },
+        {
+          "__guid": "768faff9-3abd-43d0-99d0-cd4545a6b271",
+          "Flags": 0,
+          "Name": "Envmap Probe",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.EnvmapProbe",
+              "__guid": "9bb65bb6-f387-44f5-b937-15d63433e1e6",
+              "Bounds": {
+                "Mins": "-1000,-1000,-1000",
+                "Maxs": "1000,1000,1000"
+              },
+              "DelayBetweenUpdates": 0.1,
+              "Feathering": 0.02,
+              "FrameInterval": 5,
+              "MaxDistance": 512,
+              "MultiBounce": false,
+              "Projection": "Box",
+              "RenderDynamically": true,
+              "Texture": "textures/cubemaps/default2.vtex",
+              "TintColor": "1,1,1,1",
+              "UpdateStrategy": "OnEnabled",
+              "ZFar": 4096,
+              "ZNear": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "041ef2ff-20ca-43b1-a6e7-b5fc2c201341",
+      "Flags": 0,
+      "Name": "Spawn Points",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "58647bd1-ebf6-4471-843c-e9404d06a5e9",
+          "Flags": 0,
+          "Name": "Game Spawn",
+          "Position": "0,2560,64",
+          "Tags": "round",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "2cb42f2e-f10a-4764-b1a5-49b2fff10631",
+              "Color": "0.05098,0.8902,0.12092,1"
+            }
+          ]
+        },
+        {
+          "__guid": "7371ef63-0c0a-4d5a-9119-60673ac7a090",
+          "Flags": 0,
+          "Name": "Lobby Spawn",
+          "Position": "0,0,64",
+          "Tags": "intermission",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "5b193c1b-3c9d-4ee6-bef8-0eef64b81f82",
+              "Color": "0.05098,0.8902,0.12092,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "__guid": "c2e2b2e8-62e8-4ef3-8336-002a3a68f88e",
       "Flags": 0,
       "Name": "Map Loader",
@@ -147,12 +286,32 @@
           "__guid": "053b9354-3f9b-4cbf-837b-932a5a04f3ae",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "facepunch.datacore",
+          "MapName": "maps/gw_game.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": true
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "d5b854a0-2bdb-4bc4-bfaa-42c1a2d39858",
+      "Flags": 0,
+      "Name": "oil_drum_explosive",
+      "Position": "-17.88966,-152.06,64.04259",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "6df4e8e6-41a8-4f43-ab53-9be2cec5ef9c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 60,
+          "IsStatic": false,
+          "Model": "models/sbox_props/oil_drum/oil_drum_explosive.vmdl",
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -183,6 +342,8 @@
   "ResourceVersion": 2,
   "Title": "minimal",
   "Description": null,
-  "__references": [],
+  "__references": [
+    "facepunch.oildrumexplosive#26722"
+  ],
   "__version": 2
 }

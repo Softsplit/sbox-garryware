@@ -148,11 +148,22 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private Transform FindSpawnLocation()
 	{
-		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
-		if ( spawnPoints.Length > 0 )
+		var tag = CurrentState == GameState.Intermission ? "intermission" : "round";
+		var spawnPoints = Scene.GetAllComponents<SpawnPoint>()
+			.Where(sp => sp.GameObject.Tags.Has(tag))
+			.ToArray();
+
+		// Fallback to any spawn point if none found with specific tag
+		if (spawnPoints.Length == 0)
 		{
-			return Random.Shared.FromArray( spawnPoints ).Transform.World;
+			spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 		}
+
+		if (spawnPoints.Length > 0)
+		{
+			return Random.Shared.FromArray(spawnPoints).Transform.World;
+		}
+
 		return global::Transform.Zero;
 	}
 
