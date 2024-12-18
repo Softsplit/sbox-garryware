@@ -8,7 +8,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	public static GameManager Current { get; private set; }
 
-	[Sync( Flags = SyncFlags.FromHost )] public GameState CurrentState { get; set; } = GameState.Intermission;
+	[Sync( Flags = SyncFlags.FromHost )] public GameState State { get; set; } = GameState.Intermission;
 	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeSinceStateStart { get; set; }
 	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
 
@@ -52,13 +52,13 @@ public sealed class GameManager : Component, Component.INetworkListener
 	{
 		if ( !Networking.IsHost ) return;
 
-		if ( CurrentState == GameState.Intermission && !HasMinimumPlayers() )
+		if ( State == GameState.Intermission && !HasMinimumPlayers() )
 		{
 			TimeSinceStateStart = 0;
 			return;
 		}
 
-		switch ( CurrentState )
+		switch ( State )
 		{
 			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION:
 				if ( HasMinimumPlayers() )
@@ -74,7 +74,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void CheckMinimumPlayers()
 	{
-		if ( !HasMinimumPlayers() && CurrentState == GameState.Round )
+		if ( !HasMinimumPlayers() && State == GameState.Round )
 		{
 			Log.Info( "Not enough players, returning to intermission" );
 			ChangeState( GameState.Intermission );
@@ -83,7 +83,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void ChangeState( GameState newState )
 	{
-		CurrentState = newState;
+		State = newState;
 		TimeSinceStateStart = 0;
 
 		switch ( newState )
@@ -137,7 +137,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private Transform FindSpawnLocation()
 	{
-		var tag = CurrentState == GameState.Intermission ? "intermission" : "round";
+		var tag = State == GameState.Intermission ? "intermission" : "round";
 		var spawnPoints = Scene.GetAllComponents<SpawnPoint>()
 			.Where( sp => sp.GameObject.Tags.Has( tag ) )
 			.ToArray();
@@ -150,7 +150,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 		if ( spawnPoints.Length > 0 )
 		{
-			return Random.Shared.FromArray( spawnPoints ).Transform.World;
+			return Game.Random.FromArray( spawnPoints ).Transform.World;
 		}
 
 		return global::Transform.Zero;
@@ -161,12 +161,11 @@ public sealed class GameManager : Component, Component.INetworkListener
 	{
 		if ( Current == null ) return;
 
-		var state = Current.CurrentState;
-		var timeLeft = state == GameState.Intermission ?
+		var timeLeft = Current.State == GameState.Intermission ?
 			INTERMISSION_DURATION - Current.TimeSinceStateStart :
 			ROUND_DURATION - Current.TimeSinceStateStart;
 
-		Log.Info( $"Current State: {state}, Time Left: {timeLeft:F1}s" );
+		Log.Info( $"Current State: {Current.State}, Time Left: {timeLeft:F1}s" );
 	}
 
 	[ConCmd( "gw_force_intermission" )]
