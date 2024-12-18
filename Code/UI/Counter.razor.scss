@@ -1,0 +1,47 @@
+.game-hud {
+    font-family: Poppins;
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 16px 32px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    
+    .state {
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        
+        &.intermission {
+            color: #ffd700; // Gold color for intermission
+        }
+        
+        &.round {
+            color: #00ff7f; // Spring green for active round
+        }
+    }
+    
+    .time {
+        font-size: 32px;
+        font-weight: bold;
+        color: white;
+    }
+
+    &:intro {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    
+    .waiting {
+        color: #ff9900;
+        font-style: italic;
+    }
+}

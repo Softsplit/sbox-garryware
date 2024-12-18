@@ -1,0 +1,32 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+
+<root>
+    <div class="game-hud">
+        <div class="state @CurrentState.ToString().ToLower()">
+            @CurrentState
+        </div>
+        <div class="time">
+            @if (GameManager.Current?.HasMinimumPlayers() ?? false)
+            {
+                @($"{Math.Max(0, TimeLeft).ToString("0")}s")
+            }
+            else 
+            {
+                <span class="waiting">Waiting for players...</span>
+            }
+        </div>
+    </div>
+</root>
+
+@code
+{
+    public float TimeLeft => GameManager.Current?.CurrentState == GameManager.GameState.Intermission 
+        ? GameManager.INTERMISSION_DURATION - GameManager.Current.TimeSinceStateStart
+        : GameManager.ROUND_DURATION - GameManager.Current.TimeSinceStateStart;
+
+    public GameManager.GameState CurrentState => GameManager.Current?.CurrentState ?? GameManager.GameState.Intermission;
+
+    protected override int BuildHash() => HashCode.Combine(TimeLeft, CurrentState);
+}

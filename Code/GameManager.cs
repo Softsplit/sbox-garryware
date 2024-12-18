@@ -71,7 +71,7 @@ public sealed class GameManager : Component, Component.INetworkListener, ISceneS
 		}
 	}
 
-	private bool HasMinimumPlayers() => ActivePlayers.Count >= MinPlayers;
+	public bool HasMinimumPlayers() => ActivePlayers.Count >= MinPlayers;
 
 	private void CheckMinimumPlayers()
 	{
