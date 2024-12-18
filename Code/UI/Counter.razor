@@ -10,7 +10,7 @@
         <div class="time">
             @if (GameManager.Current?.HasMinimumPlayers() ?? false)
             {
-                @($"{Math.Max(0, TimeLeft).ToString("0")}s")
+                @FormatTime(Math.Max(0, TimeLeft))
             }
             else if (CurrentState == GameManager.GameState.Intermission)
             {
@@ -18,7 +18,7 @@
             }
             else
             {
-                @($"{Math.Max(0, TimeLeft).ToString("0")}s")
+                @FormatTime(Math.Max(0, TimeLeft))
             }
         </div>
     </div>
@@ -31,6 +31,13 @@
         : GameManager.ROUND_DURATION - GameManager.Current.TimeSinceStateStart;
 
     public GameManager.GameState CurrentState => GameManager.Current?.CurrentState ?? GameManager.GameState.Intermission;
+
+    private string FormatTime(float seconds)
+    {
+        int minutes = (int)(seconds / 60);
+        int secs = (int)(seconds % 60);
+        return $"{minutes:00}:{secs:00}";
+    }
 
     protected override int BuildHash() => HashCode.Combine(TimeLeft, CurrentState, GameManager.Current?.HasMinimumPlayers());
 }
