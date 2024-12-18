@@ -26,9 +26,9 @@
 
 @code
 {
-    public float TimeLeft => GameManager.Current?.CurrentState == GameManager.GameState.Intermission 
-        ? GameManager.INTERMISSION_DURATION - GameManager.Current.TimeSinceStateStart
-        : GameManager.ROUND_DURATION - GameManager.Current.TimeSinceStateStart;
+    public float TimeLeft => GameManager.Current?.CurrentState == GameManager.GameState.Intermission
+    ? GameManager.INTERMISSION_DURATION - GameManager.Current.TimeSinceStateStart
+    : GameManager.ROUND_DURATION - GameManager.Current.TimeSinceStateStart;
 
     public GameManager.GameState CurrentState => GameManager.Current?.CurrentState ?? GameManager.GameState.Intermission;
 
@@ -39,5 +39,6 @@
         return $"{minutes:00}:{secs:00}";
     }
 
-    protected override int BuildHash() => HashCode.Combine(TimeLeft, CurrentState, GameManager.Current?.HasMinimumPlayers());
+    protected override int BuildHash() => HashCode.Combine(TimeLeft, CurrentState,
+    GameManager.Current?.HasMinimumPlayers());
 }

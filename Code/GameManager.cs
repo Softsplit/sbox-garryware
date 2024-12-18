@@ -58,19 +58,19 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void CheckGameState()
 	{
-		if (!Networking.IsHost) return;
+		if ( !Networking.IsHost ) return;
 
 		// Only reset timer during intermission if we don't have enough players
-		if (CurrentState == GameState.Intermission && !HasMinimumPlayers())
+		if ( CurrentState == GameState.Intermission && !HasMinimumPlayers() )
 		{
 			TimeSinceStateStart = 0;
 			return;
 		}
 
-		switch (CurrentState)
+		switch ( CurrentState )
 		{
 			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION:
-				if (HasMinimumPlayers())
+				if ( HasMinimumPlayers() )
 					StartRound();
 				break;
 			case GameState.Round when TimeSinceStateStart >= ROUND_DURATION:
@@ -150,18 +150,18 @@ public sealed class GameManager : Component, Component.INetworkListener
 	{
 		var tag = CurrentState == GameState.Intermission ? "intermission" : "round";
 		var spawnPoints = Scene.GetAllComponents<SpawnPoint>()
-			.Where(sp => sp.GameObject.Tags.Has(tag))
+			.Where( sp => sp.GameObject.Tags.Has( tag ) )
 			.ToArray();
 
 		// Fallback to any spawn point if none found with specific tag
-		if (spawnPoints.Length == 0)
+		if ( spawnPoints.Length == 0 )
 		{
 			spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 		}
 
-		if (spawnPoints.Length > 0)
+		if ( spawnPoints.Length > 0 )
 		{
-			return Random.Shared.FromArray(spawnPoints).Transform.World;
+			return Random.Shared.FromArray( spawnPoints ).Transform.World;
 		}
 
 		return global::Transform.Zero;
