@@ -58,11 +58,19 @@ public sealed class GameManager : Component, Component.INetworkListener, ISceneS
 
 	private void CheckGameState()
 	{
-		if ( !Networking.IsHost ) return;
+		if (!Networking.IsHost) return;
 
-		switch ( CurrentState )
+		// Only tick timer if we have minimum players
+		if (!HasMinimumPlayers())
 		{
-			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION && HasMinimumPlayers():
+			// Reset timer when we don't have enough players
+			TimeSinceStateStart = 0;
+			return;
+		}
+
+		switch (CurrentState)
+		{
+			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION:
 				StartRound();
 				break;
 			case GameState.Round when TimeSinceStateStart >= ROUND_DURATION:
