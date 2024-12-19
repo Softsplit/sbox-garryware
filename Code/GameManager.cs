@@ -131,28 +131,28 @@ public sealed class GameManager : Component, Component.INetworkListener
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
 			var startLocation = FindSpawnLocation().WithScale( 1 );
-			player.GameObject.WorldTransform = startLocation;
+			player.WorldTransform = startLocation;
+			player.Network.ClearInterpolation();
 		}
 	}
 
+	/// <summary>
+	/// Find the most appropriate place to respawn
+	/// </summary>
 	private Transform FindSpawnLocation()
 	{
-		var tag = State == GameState.Intermission ? "intermission" : "round";
-		var spawnPoints = Scene.GetAllComponents<SpawnPoint>()
-			.Where( sp => sp.GameObject.Tags.Has( tag ) )
-			.ToArray();
-
-		// Fallback to any spawn point if none found with specific tag
-		if ( spawnPoints.Length == 0 )
-		{
-			spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
-		}
-
+		//
+		// If we have any SpawnPoint components in the scene, then use those
+		//
+		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 		if ( spawnPoints.Length > 0 )
 		{
-			return Game.Random.FromArray( spawnPoints ).Transform.World;
+			return Random.Shared.FromArray( spawnPoints ).Transform.World;
 		}
 
+		//
+		// Failing that, spawn where we are
+		//
 		return global::Transform.Zero;
 	}
 

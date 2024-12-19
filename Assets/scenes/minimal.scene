@@ -103,6 +103,21 @@
           "Strength": 0.2,
           "Threshold": 0.2,
           "ThresholdWidth": 0.2
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "ff470606-a2bd-4fd7-b9b4-064e040fe8e4",
+          "__version": 1,
+          "DenoiseMode": "Temporal",
+          "FalloffRange": 0.75,
+          "Intensity": 0.15,
+          "Quality": "High",
+          "Radius": 128,
+          "ThinCompensation": 0
+        },
+        {
+          "__type": "Sandbox.Highlight",
+          "__guid": "f85b3460-0142-4530-901f-c92c5199f686"
         }
       ]
     },
@@ -179,35 +194,6 @@
           ]
         },
         {
-          "__guid": "dd0368e0-6828-4298-99df-5733ba639f2c",
-          "Flags": 0,
-          "Name": "Envmap Probe",
-          "Position": "0,2560,0",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.EnvmapProbe",
-              "__guid": "e06607ce-a30a-451f-ba10-b1ca49d446dc",
-              "Bounds": {
-                "Mins": "-1000,-1000,-1000",
-                "Maxs": "1000,1000,1000"
-              },
-              "DelayBetweenUpdates": 0.1,
-              "Feathering": 0.02,
-              "FrameInterval": 5,
-              "MaxDistance": 512,
-              "MultiBounce": false,
-              "Projection": "Box",
-              "RenderDynamically": true,
-              "Texture": "textures/cubemaps/default2.vtex",
-              "TintColor": "1,1,1,1",
-              "UpdateStrategy": "OnEnabled",
-              "ZFar": 4096,
-              "ZNear": 16
-            }
-          ]
-        },
-        {
           "__guid": "768faff9-3abd-43d0-99d0-cd4545a6b271",
           "Flags": 0,
           "Name": "Envmap Probe",
@@ -244,32 +230,127 @@
       "Enabled": true,
       "Children": [
         {
-          "__guid": "58647bd1-ebf6-4471-843c-e9404d06a5e9",
-          "Flags": 0,
-          "Name": "Game Spawn",
-          "Position": "0,2560,64",
-          "Tags": "round",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.SpawnPoint",
-              "__guid": "2cb42f2e-f10a-4764-b1a5-49b2fff10631",
-              "Color": "0.05098,0.8902,0.12092,1"
-            }
-          ]
-        },
-        {
           "__guid": "7371ef63-0c0a-4d5a-9119-60673ac7a090",
           "Flags": 0,
-          "Name": "Lobby Spawn",
-          "Position": "0,0,64",
-          "Tags": "intermission",
+          "Name": "Spawn",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "5b193c1b-3c9d-4ee6-bef8-0eef64b81f82",
-              "Color": "0.8902,0.52654,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "808775dc-e09f-436d-900a-b43286585831",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "-255,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "631d9f87-8c16-4231-a814-5917774b095f",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "740b2935-bd1c-4a2b-b24e-23e92584b56e",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "255,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "58c87057-b505-43ac-910e-29a2cf265276",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "1a2306ce-2027-4e4d-8110-c587739e6cc9",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "0,-255,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "0e7719ce-c204-4d67-8fd0-f19bb0782d14",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "41f9e948-6650-41da-b531-0de6c520c75d",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "-255,-255,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "2ef7d2bb-2e75-45c1-9288-9a9d85c0f25c",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "a362e6fd-b2c8-4f50-842d-b540ce7cc220",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "255,-255,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "1d8bdbf1-e5f8-4796-9bf5-0c3fe83e191a",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "e68edc8a-c183-481b-8b5e-d040839a2f3b",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "0,255,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "fc656f21-45be-4537-8491-624485a4bd04",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "32273f99-a2d8-4479-87af-d4f5eff50e14",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "-255,255,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "6c9cd101-69b4-4e48-a2f2-16c9afaed540",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "__guid": "2d873c7b-c671-46bf-a2a0-0634754d1104",
+          "Flags": 0,
+          "Name": "Spawn",
+          "Position": "255,255,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpawnPoint",
+              "__guid": "80a5eb58-4185-41da-83d0-e4bf8221eab5",
+              "Color": "0.8902,0.31765,0.05098,1"
             }
           ]
         }
@@ -292,27 +373,6 @@
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "d5b854a0-2bdb-4bc4-bfaa-42c1a2d39858",
-      "Flags": 0,
-      "Name": "oil_drum_explosive",
-      "Position": "-17.88966,-152.06,64.04259",
-      "Rotation": "0,0,0.7071068,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "6df4e8e6-41a8-4f43-ab53-9be2cec5ef9c",
-          "BodyGroups": 18446744073709551615,
-          "Health": 60,
-          "IsStatic": false,
-          "Model": "models/sbox_props/oil_drum/oil_drum_explosive.vmdl",
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -343,8 +403,6 @@
   "ResourceVersion": 2,
   "Title": "minimal",
   "Description": null,
-  "__references": [
-    "facepunch.oildrumexplosive#26722"
-  ],
+  "__references": [],
   "__version": 2
 }
