@@ -126,14 +126,14 @@ public sealed class GameManager : Component, Component.INetworkListener
 		IPlayerEvent.PostToGameObject( player.GameObject, x => x.OnSpawned() );
 	}
 
+	[Rpc.Broadcast]
 	private void RespawnAllPlayers()
 	{
-		foreach ( var player in Scene.GetAllComponents<Player>() )
-		{
-			var startLocation = FindSpawnLocation().WithScale( 1 );
-			player.WorldTransform = startLocation;
-			player.Network.ClearInterpolation();
-		}
+		var startLocation = FindSpawnLocation().WithScale( 1 );
+
+		var player = Player.FindLocalPlayer();
+		player.WorldTransform = startLocation;
+		player.Network.ClearInterpolation();
 	}
 
 	/// <summary>
