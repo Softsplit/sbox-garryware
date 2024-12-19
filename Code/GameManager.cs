@@ -1,10 +1,3 @@
-public enum GameState
-{
-	Intermission,
-	Playing,
-	Pause
-}
-
 public class Minigame
 {
 	public string Name { get; set; }
@@ -15,6 +8,13 @@ public class Minigame
 	public Func<bool> WinCondition { get; set; }
 }
 
+public enum GameState
+{
+	Intermission,
+	Playing,
+	Pause
+}
+
 public sealed class GameManager : Component, Component.INetworkListener
 {
 	public static GameManager Current { get; private set; }
@@ -22,9 +22,9 @@ public sealed class GameManager : Component, Component.INetworkListener
 	[Sync( Flags = SyncFlags.FromHost )] public GameState State { get; private set; } = GameState.Intermission;
 	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeInState { get; private set; }
 	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
+	[Sync( Flags = SyncFlags.FromHost )] public int CurrentMinigameIndex { get; set; } = -1;
 
-	[Sync( Flags = SyncFlags.FromHost )] private NetList<Minigame> Minigames { get; set; } = new();
-	[Sync( Flags = SyncFlags.FromHost )] private int CurrentMinigameIndex { get; set; } = -1;
+	private List<Minigame> Minigames { get; set; } = new();
 
 	public const float INTERMISSION_DURATION = 30f;
 	public const float MINIGAME_DURATION = 5f;
@@ -41,8 +41,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private ToastNotification Toast => ToastNotification.Current;
 
-	private int lastTickSound = -1;
-
 	protected override void OnAwake()
 	{
 		Current = this;
@@ -50,14 +48,16 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	protected override void OnEnabled()
 	{
+		RegisterMinigames();
+
 		if ( Networking.IsHost )
 		{
 			Networking.CreateLobby( new Sandbox.Network.LobbyConfig() );
-			RegisterMinigames();
 			ChangeState( GameState.Intermission );
 		}
 	}
 
+	
 	private void RegisterMinigames()
 	{
 		Minigames.Add( new Minigame
@@ -108,6 +108,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 		minigame.OnStart?.Invoke();
 	}
 
+	int lastTickSound = -1;
+
 	protected override void OnFixedUpdate()
 	{
 		if ( !Networking.IsHost ) return;
@@ -151,6 +153,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 			case GameState.Intermission:
 				if ( TimeInState >= INTERMISSION_DURATION )
 				{
+					Sound.Play( "start" );
 					ChangeState( GameState.Playing );
 				}
 				break;
