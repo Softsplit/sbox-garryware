@@ -60,6 +60,18 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void RegisterMinigames()
 	{
+		// Example: Jump minigame
+		Minigames.Add( new Minigame
+		{
+			Name = "Jump!",
+			Description = "Jump at least once to win!",
+			Duration = MINIGAME_DURATION,
+			OnStart = () => Toast?.AddToast( "Jump to win!" ),
+			WinCondition = () => Scene.GetAllComponents<Player>()
+				.Any( p => Input.Pressed( "jump" ) && !p.IsProxy )
+		} );
+
+		// Example: Don't Move
 		Minigames.Add( new Minigame
 		{
 			Name = "Freeze!",
