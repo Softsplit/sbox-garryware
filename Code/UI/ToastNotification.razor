@@ -38,7 +38,6 @@
 
     private List<Toast> ActiveToasts = new();
 
-    [Rpc.Broadcast]
     public void AddToast(string message, float duration = 3.0f)
     {
         ActiveToasts.Add(new Toast(message, duration));
