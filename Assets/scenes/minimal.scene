@@ -155,7 +155,6 @@
           "Flags": 0,
           "Name": "Toast",
           "Enabled": true,
-          "NetworkMode": 1,
           "Components": [
             {
               "__type": "ToastNotification",

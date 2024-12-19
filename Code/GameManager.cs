@@ -34,6 +34,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private ToastNotification Toast => ToastNotification.Current;
 
+	private int lastTickSound = -1; // Track last second we played sound
+
 	protected override void OnAwake()
 	{
 		Current = this;
@@ -156,11 +158,14 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 		// Check win condition
 		bool succeeded = minigame.WinCondition?.Invoke() ?? false;
+
+		// Play win/fail sound based on result
+		Sound.Play( succeeded ? "win" : "fail" );
+
 		Toast?.AddToast( succeeded ?
 			$"You succeeded at {minigame.Name}!" :
 			$"You failed {minigame.Name}!", 2.0f );
 
-		// Enter pause state instead of immediately starting next minigame
 		ChangeState( GameState.Pause );
 	}
 
@@ -179,6 +184,27 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	protected override void OnFixedUpdate()
 	{
+		if ( !Networking.IsHost ) return;
+
+		// Play ticktock sound every second during minigame
+		if ( State == GameState.Playing )
+		{
+			int currentSecond = (int)TimeSinceStateStart;
+			float timeLeft = MINIGAME_DURATION - TimeSinceStateStart;
+
+			// Only play sound if we haven't played it this second
+			// Changed to use >= 0 to include the final second
+			if ( timeLeft >= 0 && currentSecond != lastTickSound )
+			{
+				Sound.Play( "ticktock" );
+				lastTickSound = currentSecond;
+			}
+		}
+		else
+		{
+			lastTickSound = -1; // Reset when not in minigame
+		}
+
 		CheckGameState();
 	}
 
@@ -193,6 +219,13 @@ public sealed class GameManager : Component, Component.INetworkListener
 	{
 		State = newState;
 		TimeSinceStateStart = 0;
+
+		switch ( newState )
+		{
+			case GameState.Playing:
+				Sound.Play( "start" );
+				break;
+		}
 	}
 
 	public void SpawnPlayerForConnection( Connection channel )
@@ -280,5 +313,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 		Current.MinPlayers = count;
 		Log.Info( $"Minimum players set to {count}" );
+		Current?.Toast?.AddToast( $"Minimum players set to {count}" );
 	}
 }
