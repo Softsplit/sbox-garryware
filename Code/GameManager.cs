@@ -112,10 +112,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	protected override void OnFixedUpdate()
 	{
-		if ( !Networking.IsHost ) return;
-
-		HandleStateLogic();
-
 		if ( State == GameState.Playing )
 		{
 			int currentSecond = (int)TimeInState;
@@ -131,6 +127,10 @@ public sealed class GameManager : Component, Component.INetworkListener
 		{
 			lastTickSound = -1;
 		}
+
+		if ( !Networking.IsHost ) return;
+
+		HandleStateLogic();
 	}
 
 	private void HandleStateLogic()
@@ -216,7 +216,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 	private void RespawnAllPlayers()
 	{
 		var startLocation = FindSpawnLocation().WithScale( 1 );
-
 		var player = Player.FindLocalPlayer();
 		player.WorldTransform = startLocation;
 		player.Network.ClearInterpolation();
