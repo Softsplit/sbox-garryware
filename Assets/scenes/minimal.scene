@@ -149,6 +149,19 @@
               "__guid": "7aa62309-4e54-4495-a460-f5941a73f298"
             }
           ]
+        },
+        {
+          "__guid": "1e4248b9-15f0-4e70-b838-ff50af4722d0",
+          "Flags": 0,
+          "Name": "Toast",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "Components": [
+            {
+              "__type": "ToastNotification",
+              "__guid": "98f4364b-950a-4648-8cd3-c9a2fe4f99e8"
+            }
+          ]
         }
       ]
     },
