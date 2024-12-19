@@ -15,14 +15,18 @@ public sealed class GameManager : Component, Component.INetworkListener
 	public const float INTERMISSION_DURATION = 30f;
 	public const float ROUND_DURATION = 300f; // 5 minutes
 
-	protected override void OnEnabled()
+	private ToastNotification Toast => ToastNotification.Current;
+
+	protected override void OnAwake()
 	{
 		Current = this;
+	}
 
+	protected override void OnEnabled()
+	{
 		if ( Networking.IsHost )
 		{
 			Networking.CreateLobby( new Sandbox.Network.LobbyConfig() );
-
 			ChangeState( GameState.Intermission );
 		}
 	}
@@ -43,56 +47,56 @@ public sealed class GameManager : Component, Component.INetworkListener
 		SpawnPlayerForConnection( channel );
 	}
 
-	void INetworkListener.OnDisconnected( Connection channel )
-	{
-		CheckMinimumPlayers();
-	}
+	public bool HasMinimumPlayers() => Connection.All.Count >= MinPlayers;
 
 	private void CheckGameState()
 	{
 		if ( !Networking.IsHost ) return;
 
-		if ( State == GameState.Intermission && !HasMinimumPlayers() )
-		{
-			TimeSinceStateStart = 0;
-			return;
-		}
-
 		switch ( State )
 		{
-			case GameState.Intermission when TimeSinceStateStart >= INTERMISSION_DURATION:
-				if ( HasMinimumPlayers() )
+			case GameState.Intermission:
+				if ( !HasMinimumPlayers() )
+				{
+					TimeSinceStateStart = 0;
+				}
+				else if ( TimeSinceStateStart >= INTERMISSION_DURATION )
+				{
 					StartRound();
+				}
 				break;
-			case GameState.Round when TimeSinceStateStart >= ROUND_DURATION:
-				EndRound();
+
+			case GameState.Round:
+				if ( !HasMinimumPlayers() )
+				{
+					Log.Info( "Not enough players, ending round and returning to intermission" );
+					Toast?.AddToast( "Not enough players, returning to intermission" );
+					EndRound();
+				}
+				else if ( TimeSinceStateStart >= ROUND_DURATION )
+				{
+					EndRound();
+				}
 				break;
-		}
-	}
-
-	public bool HasMinimumPlayers() => Connection.All.Count >= MinPlayers;
-
-	private void CheckMinimumPlayers()
-	{
-		if ( !HasMinimumPlayers() && State == GameState.Round )
-		{
-			Log.Info( "Not enough players, returning to intermission" );
-			ChangeState( GameState.Intermission );
 		}
 	}
 
 	private void ChangeState( GameState newState )
 	{
+		var oldState = State;
 		State = newState;
 		TimeSinceStateStart = 0;
 
 		switch ( newState )
 		{
-			case GameState.Intermission:
-				Log.Info( $"Intermission started! Waiting {INTERMISSION_DURATION} seconds..." );
+			case GameState.Intermission when oldState != GameState.Intermission:
+				if ( !HasMinimumPlayers() )
+					Toast?.AddToast( "Waiting for more players..." );
+				else
+					Toast?.AddToast( "Intermission started!" );
 				break;
 			case GameState.Round:
-				Log.Info( $"Round started! Duration: {ROUND_DURATION} seconds" );
+				Toast?.AddToast( "Round started!", 4.0f );
 				break;
 		}
 	}
