@@ -19,8 +19,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 {
 	public static GameManager Current { get; private set; }
 
-	[Sync( Flags = SyncFlags.FromHost )] public GameState State { get; set; } = GameState.Intermission;
-	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeSinceStateStart { get; set; }
+	[Sync( Flags = SyncFlags.FromHost )] public GameState State { get; private set; } = GameState.Intermission;
+	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeInState { get; private set; }
 	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
 
 	[Sync( Flags = SyncFlags.FromHost )] private NetList<Minigame> Minigames { get; set; } = new();
@@ -31,10 +31,17 @@ public sealed class GameManager : Component, Component.INetworkListener
 	public const float PAUSE_DURATION = 5f;
 
 	public Minigame CurrentMinigame => CurrentMinigameIndex >= 0 ? Minigames[CurrentMinigameIndex] : null;
+	public float TimeLeft => State switch
+	{
+		GameState.Intermission => INTERMISSION_DURATION - TimeInState,
+		GameState.Playing => MINIGAME_DURATION - TimeInState,
+		GameState.Pause => PAUSE_DURATION - TimeInState,
+		_ => 0
+	};
 
 	private ToastNotification Toast => ToastNotification.Current;
 
-	private int lastTickSound = -1; // Track last second we played sound
+	private int lastTickSound = -1;
 
 	protected override void OnAwake()
 	{
@@ -46,25 +53,13 @@ public sealed class GameManager : Component, Component.INetworkListener
 		if ( Networking.IsHost )
 		{
 			Networking.CreateLobby( new Sandbox.Network.LobbyConfig() );
-			ChangeState( GameState.Intermission );
 			RegisterMinigames();
+			ChangeState( GameState.Intermission );
 		}
 	}
 
 	private void RegisterMinigames()
 	{
-		// Example: Jump minigame
-		Minigames.Add( new Minigame
-		{
-			Name = "Jump!",
-			Description = "Jump at least once to win!",
-			Duration = MINIGAME_DURATION,
-			OnStart = () => Toast?.AddToast( "Jump to win!" ),
-			WinCondition = () => Scene.GetAllComponents<Player>()
-				.Any( p => Input.Pressed( "jump" ) && !p.IsProxy )
-		} );
-
-		// Example: Don't Move
 		Minigames.Add( new Minigame
 		{
 			Name = "Freeze!",
@@ -75,7 +70,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 				.All( p => Input.AnalogMove.Length < 0.1f && !p.IsProxy )
 		} );
 
-		// Example: Look Up
 		Minigames.Add( new Minigame
 		{
 			Name = "Look Up!",
@@ -87,113 +81,44 @@ public sealed class GameManager : Component, Component.INetworkListener
 		} );
 	}
 
-	private void CheckGameState()
+	private void ChangeState( GameState newState )
 	{
-		if ( !Networking.IsHost ) return;
+		State = newState;
+		TimeInState = 0;
 
 		switch ( State )
 		{
 			case GameState.Intermission:
-				if ( !HasMinimumPlayers() )
-				{
-					TimeSinceStateStart = 0; // Keep resetting timer until we have enough players
-					return;
-				}
-
-				if ( TimeSinceStateStart >= INTERMISSION_DURATION )
-				{
-					StartNextMinigame();
-				}
+				CurrentMinigameIndex = -1;
 				break;
-
 			case GameState.Playing:
-				if ( !HasMinimumPlayers() )
-				{
-					Log.Info( "Not enough players, returning to intermission" );
-					Toast?.AddToast( "Not enough players, returning to intermission" );
-					ReturnToIntermission();
-					return;
-				}
-
-				// Check if current minigame is done
-				if ( TimeSinceStateStart >= MINIGAME_DURATION )
-				{
-					EvaluateAndStartPause();
-				}
-				break;
-
-			case GameState.Pause:
-				if ( !HasMinimumPlayers() )
-				{
-					ReturnToIntermission();
-					return;
-				}
-
-				if ( TimeSinceStateStart >= PAUSE_DURATION )
-				{
-					StartNextMinigame();
-				}
+				StartMinigame();
 				break;
 		}
 	}
 
-	private void StartNextMinigame()
+	private void StartMinigame()
 	{
 		if ( Minigames.Count == 0 ) return;
 
-		// Select random minigame
 		CurrentMinigameIndex = Random.Shared.Next( Minigames.Count );
 		var minigame = CurrentMinigame;
 
-		// Start the minigame
-		ChangeState( GameState.Playing );
 		RespawnAllPlayers();
 		minigame.OnStart?.Invoke();
-	}
-
-	private void EvaluateAndStartPause()
-	{
-		var minigame = CurrentMinigame;
-		if ( minigame == null ) return;
-
-		// Check win condition
-		bool succeeded = minigame.WinCondition?.Invoke() ?? false;
-
-		// Play win/fail sound based on result
-		Sound.Play( succeeded ? "win" : "fail" );
-
-		Toast?.AddToast( succeeded ?
-			$"You succeeded at {minigame.Name}!" :
-			$"You failed {minigame.Name}!", 2.0f );
-
-		ChangeState( GameState.Pause );
-	}
-
-	private void ReturnToIntermission()
-	{
-		CurrentMinigameIndex = -1;
-		ChangeState( GameState.Intermission );
-		RespawnAllPlayers();
-	}
-
-	protected override void OnDisabled()
-	{
-		if ( Current == this )
-			Current = null;
 	}
 
 	protected override void OnFixedUpdate()
 	{
 		if ( !Networking.IsHost ) return;
 
-		// Play ticktock sound every second during minigame
+		HandleStateLogic();
+
 		if ( State == GameState.Playing )
 		{
-			int currentSecond = (int)TimeSinceStateStart;
-			float timeLeft = MINIGAME_DURATION - TimeSinceStateStart;
+			int currentSecond = (int)TimeInState;
+			float timeLeft = MINIGAME_DURATION - TimeInState;
 
-			// Only play sound if we haven't played it this second
-			// Changed to use >= 0 to include the final second
 			if ( timeLeft >= 0 && currentSecond != lastTickSound )
 			{
 				Sound.Play( "ticktock" );
@@ -202,30 +127,69 @@ public sealed class GameManager : Component, Component.INetworkListener
 		}
 		else
 		{
-			lastTickSound = -1; // Reset when not in minigame
+			lastTickSound = -1;
 		}
-
-		CheckGameState();
 	}
 
-	void INetworkListener.OnActive( Connection channel )
+	private void HandleStateLogic()
 	{
-		SpawnPlayerForConnection( channel );
+		if ( !HasMinimumPlayers() )
+		{
+			if ( State != GameState.Intermission )
+			{
+				Log.Info( "Not enough players, returning to intermission" );
+				Toast?.AddToast( "Not enough players, returning to intermission" );
+				ChangeState( GameState.Intermission );
+			}
+
+			TimeInState = 0;
+			return;
+		}
+
+		switch ( State )
+		{
+			case GameState.Intermission:
+				if ( TimeInState >= INTERMISSION_DURATION )
+				{
+					ChangeState( GameState.Playing );
+				}
+				break;
+			case GameState.Playing:
+				if ( TimeInState >= MINIGAME_DURATION )
+				{
+					EvaluateMinigame();
+					ChangeState( GameState.Pause );
+				}
+				break;
+			case GameState.Pause:
+				if ( TimeInState >= PAUSE_DURATION )
+				{
+					Sound.Play( "start" );
+					ChangeState( GameState.Playing );
+				}
+				break;
+		}
+	}
+
+	private void EvaluateMinigame()
+	{
+		var minigame = CurrentMinigame;
+		if ( minigame == null ) return;
+
+		bool succeeded = minigame.WinCondition?.Invoke() ?? false;
+
+		Sound.Play( succeeded ? "win" : "fail" );
+
+		Toast?.AddToast( succeeded ?
+			$"You succeeded at {minigame.Name}!" :
+			$"You failed {minigame.Name}!", 2.0f );
 	}
 
 	public bool HasMinimumPlayers() => Connection.All.Count >= MinPlayers;
 
-	private void ChangeState( GameState newState )
+	void INetworkListener.OnActive( Connection channel )
 	{
-		State = newState;
-		TimeSinceStateStart = 0;
-
-		switch ( newState )
-		{
-			case GameState.Playing:
-				Sound.Play( "start" );
-				break;
-		}
+		SpawnPlayerForConnection( channel );
 	}
 
 	public void SpawnPlayerForConnection( Connection channel )
@@ -255,23 +219,14 @@ public sealed class GameManager : Component, Component.INetworkListener
 		player.Network.ClearInterpolation();
 	}
 
-	/// <summary>
-	/// Find the most appropriate place to respawn
-	/// </summary>
 	private Transform FindSpawnLocation()
 	{
-		//
-		// If we have any SpawnPoint components in the scene, then use those
-		//
 		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 		if ( spawnPoints.Length > 0 )
 		{
 			return Random.Shared.FromArray( spawnPoints ).Transform.World;
 		}
 
-		//
-		// Failing that, spawn where we are
-		//
 		return global::Transform.Zero;
 	}
 
@@ -280,11 +235,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 	{
 		if ( Current == null ) return;
 
-		var timeLeft = Current.State == GameState.Intermission ?
-			INTERMISSION_DURATION - Current.TimeSinceStateStart :
-			MINIGAME_DURATION - Current.TimeSinceStateStart;
-
-		Log.Info( $"Current State: {Current.State}, Time Left: {timeLeft:F1}s" );
+		Log.Info( $"Current State: {Current.State}, Time Left: {Current.TimeLeft:F1}s" );
 		if ( Current.CurrentMinigame != null )
 		{
 			Log.Info( $"Current Minigame: {Current.CurrentMinigame.Name}" );
@@ -295,14 +246,14 @@ public sealed class GameManager : Component, Component.INetworkListener
 	public static void CmdForceIntermission()
 	{
 		if ( !Networking.IsHost ) return;
-		Current?.ReturnToIntermission();
+		Current?.ChangeState( GameState.Intermission );
 	}
 
 	[ConCmd( "gw_force_next" )]
 	public static void CmdForceNextMinigame()
 	{
 		if ( !Networking.IsHost ) return;
-		Current?.StartNextMinigame();
+		Current?.ChangeState( GameState.Playing );
 	}
 
 	[ConCmd( "gw_set_minplayers" )]
@@ -313,6 +264,6 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 		Current.MinPlayers = count;
 		Log.Info( $"Minimum players set to {count}" );
-		Current?.Toast?.AddToast( $"Minimum players set to {count}" );
+		Current.Toast?.AddToast( $"Minimum players set to {count}" );
 	}
 }
