@@ -4,24 +4,25 @@
 
 <root>
     <div class="counter">
-        <div class="state @State.ToString().ToLower()">
-            @if (State == GameState.Playing && GameManager.Current?.CurrentMinigame != null)
+        <div class="state @GameManager.Current?.State.ToString().ToLower()">
+            @if (GameManager.Current?.State == GameState.Playing && GameManager.Current?.CurrentMinigame != null)
             {
                 @GameManager.Current.CurrentMinigame.Name
             }
             else
             {
-                @State
+                @GameManager.Current?.State
             }
         </div>
         <div class="time">
-            @if (State == GameState.Intermission && !(GameManager.Current?.HasMinimumPlayers() ?? false))
+            @if (GameManager.Current?.State == GameState.Intermission && !(GameManager.Current?.HasMinimumPlayers() ??
+            false))
             {
                 <span class="waiting">Waiting for players...</span>
             }
             else
             {
-                @FormatTime(Math.Max(0, TimeLeft))
+                @FormatTime(Math.Max(0, GameManager.Current.TimeLeft))
             }
         </div>
     </div>
@@ -29,16 +30,6 @@
 
 @code
 {
-    public GameState State => GameManager.Current?.State ?? GameState.Intermission;
-
-    public float TimeLeft => GameManager.Current?.State switch
-    {
-        GameState.Intermission => GameManager.INTERMISSION_DURATION - GameManager.Current.TimeSinceStateStart,
-        GameState.Playing => GameManager.MINIGAME_DURATION - GameManager.Current.TimeSinceStateStart,
-        GameState.Pause => GameManager.PAUSE_DURATION - GameManager.Current.TimeSinceStateStart,
-        _ => 0
-    };
-
     private string FormatTime(float seconds)
     {
         int minutes = (int)(seconds / 60);
@@ -46,5 +37,6 @@
         return $"{minutes:00}:{secs:00}";
     }
 
-    protected override int BuildHash() => HashCode.Combine(TimeLeft, State, GameManager.Current?.HasMinimumPlayers());
+    protected override int BuildHash() => HashCode.Combine(GameManager.Current?.TimeLeft, GameManager.Current?.State,
+    GameManager.Current?.HasMinimumPlayers());
 }
