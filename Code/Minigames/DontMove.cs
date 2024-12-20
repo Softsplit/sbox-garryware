@@ -1,4 +1,4 @@
-﻿public class DontMove : Minigame
+﻿public class DontMove : Component, Minigame
 {
 	public string Name => "Don't Move!";
 	public string Description => "Stop moving!";
@@ -10,12 +10,12 @@
 
 	}
 
-	public void OnStart()
+	public void Start()
 	{
 		GameManager.Current.DisplayToast( Description );
 	}
 
-	public void OnFixedUpdate()
+	public void FixedUpdate()
 	{
 		if ( GameManager.Current.TimeInState < 0.5f )
 			return;

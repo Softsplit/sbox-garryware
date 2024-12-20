@@ -28,6 +28,14 @@
           "__type": "GameManager",
           "__guid": "fa28f466-c220-4bfb-b24f-00d4471b4d93",
           "State": "Intermission"
+        },
+        {
+          "__type": "LookUp",
+          "__guid": "6551bcac-a5a0-4f2b-ada4-1e39430cfad0"
+        },
+        {
+          "__type": "DontMove",
+          "__guid": "2df6e0b2-aeea-4714-8c15-98b3afada7bf"
         }
       ]
     },

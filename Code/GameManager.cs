@@ -50,18 +50,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void RegisterMinigames()
 	{
-		foreach ( var type in TypeLibrary.GetTypes<Minigame>() )
-		{
-			if ( type.Name == "Minigame" )
-				continue;
-
-			var minigameInstance = type.Create<Minigame>();
-
-			if ( minigameInstance == null )
-				continue;
-
-			Minigames.Add( minigameInstance );
-		}
+		Minigames = Components.GetAll<Minigame>().ToList();
 	}
 
 	private void ChangeState( GameState newState )
@@ -88,7 +77,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 		var minigame = CurrentMinigame;
 
 		RespawnAllPlayers();
-		minigame.OnStart();
+		minigame.Start();
 	}
 
 	int lastTickSound = -1;
@@ -146,7 +135,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 					EvaluateMinigame();
 					ChangeState( GameState.Pause );
 				}
-				CurrentMinigame.OnFixedUpdate();
+				CurrentMinigame.FixedUpdate();
+				GetWinners();
 				break;
 			case GameState.Pause:
 				if ( TimeInState >= PAUSE_DURATION )
@@ -160,12 +150,10 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void EvaluateMinigame()
 	{
+		var Winners = GetWinners();
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
-			var minigame = CurrentMinigame;
-			if ( minigame == null ) return;
-
-			bool succeeded = minigame.WinCondition( player );
+			bool succeeded = Winners.Contains(player);
 
 			PlaySound( succeeded ? "win" : "fail", player );
 
@@ -174,6 +162,30 @@ public sealed class GameManager : Component, Component.INetworkListener
 				$"You failed!", 2.0f,
 				player );
 		}
+	}
+
+	private List<Player> GetWinners()
+	{
+		var minigame = CurrentMinigame;
+		if ( minigame == null ) return null;
+
+		var results = new Dictionary<Player, bool>();
+
+		List<Player> players = new();
+		foreach ( var player in Scene.GetAllComponents<Player>() )
+		{
+			bool succeeded = minigame.WinCondition( player );
+			results[player] = succeeded;
+
+			if ( !succeeded )
+				continue;
+
+			players.Add( player );
+		}
+
+		ResultDisplay.UpdateResults( results );
+
+		return players;
 	}
 
 	public bool HasMinimumPlayers() => Connection.All.Count >= MinPlayers;

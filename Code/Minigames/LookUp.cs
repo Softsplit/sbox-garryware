@@ -1,4 +1,4 @@
-﻿public class LookUp : Minigame
+﻿public class LookUp : Component, Minigame
 {
 	public string Name => "Look Up!";
 	public string Description => "Look up at the sky!";
@@ -8,12 +8,12 @@
 
 	}
 
-	public void OnStart()
+	public void Start()
 	{
 		GameManager.Current.DisplayToast( Description );
 	}
 
-	public void OnFixedUpdate()
+	public void FixedUpdate()
 	{
 
 	}
