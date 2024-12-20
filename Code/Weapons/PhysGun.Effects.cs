@@ -9,22 +9,22 @@
 	protected virtual void KillEffects()
 	{
 		// If Owner is not valid and not a proxy, proceed.
-		if ( !Owner.IsValid() || !IsValid || IsProxy )
+		if (!Owner.IsValid() || !IsValid || IsProxy)
 			return;
 
-		if ( beam.IsValid() )
+		if (beam.IsValid())
 		{
 			beam?.GameObject.Destroy();
 			beam = null;
 		}
 
-		if ( endNoHit.IsValid() )
+		if (endNoHit.IsValid())
 		{
 			endNoHit?.GameObject?.Destroy();
 			endNoHit = null;
 		}
 
-		DisableHighlights( lastGrabbedObject );
+		DisableHighlights(lastGrabbedObject);
 		lastGrabbedObject = null;
 	}
 

@@ -7,6 +7,20 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	[Sync] public NetList<BaseWeapon> Weapons { get; set; } = new();
 	[Sync] public BaseWeapon ActiveWeapon { get; set; }
 
+	[Rpc.Broadcast]
+	public void SetDefaultWeapons()
+	{
+		if ( IsProxy ) return;
+
+		foreach ( var weapon in Weapons )
+			weapon.DestroyGameObject();
+
+		Weapons = new();
+
+		Pickup( "prefabs/weapons/fists/w_fists.prefab" );
+		SetActiveSlot( 0 );
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( IsProxy )
@@ -107,6 +121,7 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	{
 		if ( IsProxy ) return;
 
+		SetDefaultWeapons();
 		SetActiveSlot( 0 );
 	}
 
