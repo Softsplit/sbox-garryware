@@ -115,7 +115,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 			lastTickSound = -1;
 		}
 	}
-	
+
 	private void HandleStateLogic()
 	{
 		if ( !HasMinimumPlayers() )
@@ -170,8 +170,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 			PlaySound( succeeded ? "win" : "fail", player );
 
 			DisplayToast( succeeded ?
-				$"You succeeded at {minigame.Name}!" :
-				$"You failed {minigame.Name}!", 2.0f,
+				$"You succeeded!" :
+				$"You failed!", 2.0f,
 				player );
 		}
 	}
