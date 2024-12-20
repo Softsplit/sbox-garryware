@@ -7,7 +7,7 @@
 	[Property] private BBox BalloonBounds { get; set; }
 	[Property] private int BalloonTarget { get; set; } = 3;
 
-	private List<string> Balloons = new List<string>
+	private List<string> Balloons => new List<string>
 	{
 		"models/citizen_props/balloonears01.vmdl_c",
 		"models/citizen_props/balloonheart01.vmdl_c",
@@ -15,7 +15,7 @@
 		"models/citizen_props/balloontall01.vmdl_c"
 	};
 
-	private List<Color> BalloonColours = new List<Color>
+	private List<Color> BalloonColours => new List<Color>
 	{
 		Color.Red,
 		Color.Green,
@@ -28,14 +28,14 @@
 
 	protected override void DrawGizmos()
 	{
-		Gizmo.Draw.LineBBox(BalloonBounds);
+		Gizmo.Draw.LineBBox( BalloonBounds );
 	}
 
 	public void OnEnd()
 	{
-		foreach(var propListener in BalloonPropListeners)
+		foreach( var propListener in BalloonPropListeners )
 		{
-			propListener.PropHelper?.Damage(1000,Guid.Empty);
+			propListener.PropHelper?.Damage( 1000, Guid.Empty );
 		}
 	}
 	List<PropDestroyedListener> BalloonPropListeners;
@@ -45,7 +45,7 @@
 
 		BalloonPropListeners = new();
 
-		for (int i = 0; i < BalloonTarget * Connection.All.Count; i++ )
+		for ( int i = 0; i < BalloonTarget * Connection.All.Count; i++ )
 		{
 			PropDestroyedListener listener = new( GameManager.SpawnModel( Balloons[Game.Random.Next( 0, Balloons.Count )], BalloonBounds.RandomPointInside, Rotation.Random ) );
 
@@ -70,12 +70,13 @@
 	Dictionary<Guid, int> PlayerBalloonsPopped()
 	{
 		Dictionary<Guid, int> playerBalloonsPopped = new();
-		foreach(var propDestroyedListener in BalloonPropListeners)
+		foreach( var propDestroyedListener in BalloonPropListeners )
 		{
 			if ( !propDestroyedListener.Destroyed )
 				continue;
 
 			playerBalloonsPopped.TryAdd( propDestroyedListener.Attacker, 0 );
+
 			playerBalloonsPopped[propDestroyedListener.Attacker]++;
 		}
 
@@ -85,7 +86,7 @@
 	{
 		var playerBalloonsPopped = PlayerBalloonsPopped();
 
-		if(!playerBalloonsPopped.ContainsKey(player.Network.OwnerId))
+		if( !playerBalloonsPopped.ContainsKey(player.Network.OwnerId) )
 			return false;
 
 		return playerBalloonsPopped[player.Network.OwnerId] >= BalloonTarget;
@@ -108,7 +109,7 @@ public class PropDestroyedListener
 
 	public float DestroyedTime { get; set; }
 
-	void OnDamaged(bool destroyed, float amount, Guid attacker)
+	void OnDamaged( bool destroyed, float amount, Guid attacker )
 	{
 		DestroyedTime = Time.Now;
 		if ( !destroyed )

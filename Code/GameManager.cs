@@ -73,7 +73,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 	private void ChangeState( GameState newState )
 	{
-		foreach(var player in Scene.GetAllComponents<Player>())
+		foreach( var player in Scene.GetAllComponents<Player>() )
 		{
 			player.Inventory.SetDefaultWeapons();
 		}
@@ -177,7 +177,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		var Winners = GetWinners();
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
-			bool succeeded = Winners.Contains(player);
+			bool succeeded = Winners.Contains( player );
 
 			PlaySound( succeeded ? "win" : "fail", player );
 

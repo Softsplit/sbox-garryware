@@ -18,7 +18,7 @@ public sealed partial class GameManager
 		Sandbox.Services.Stats.Increment( "spawn.model", 1, modelname );
 	}
 
-	public static PropHelper SpawnModel( string modelname, Vector3 endPos, Rotation modelRotation)
+	public static PropHelper SpawnModel( string modelname, Vector3 endPos, Rotation modelRotation )
 	{
 		if ( Networking.IsClient )
 			return null;

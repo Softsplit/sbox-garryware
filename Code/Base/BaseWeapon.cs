@@ -68,6 +68,8 @@ public partial class BaseWeapon : Component
 
 	protected override void OnDisabled()
 	{
+		Owner?.Controller?.Renderer?.Set( "holdtype", 0 );
+
 		if ( IsProxy ) return;
 
 		ViewModel.GameObject.DestroyImmediate();

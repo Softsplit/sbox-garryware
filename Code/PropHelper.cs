@@ -35,7 +35,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		ModelPhysics ??= GetComponent<ModelPhysics>();
 		Rigidbody ??= GetComponent<Rigidbody>();
 
-		if(Rigidbody!=null)
+		if( Rigidbody != null )
 			Rigidbody.Gravity = Gravity;
 
 		if(Prop!=null)
@@ -321,7 +321,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		}
 	}
 
-	[Rpc.Broadcast(NetFlags.Unreliable)]
+	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public void BroadcastExplosion( string path, Vector3 position )
 	{
 		if ( string.IsNullOrEmpty( path ) )
