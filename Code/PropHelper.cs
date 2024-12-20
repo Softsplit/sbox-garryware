@@ -35,15 +35,14 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		ModelPhysics ??= GetComponent<ModelPhysics>();
 		Rigidbody ??= GetComponent<Rigidbody>();
 
-		if( Rigidbody != null )
+		if ( Rigidbody != null )
 			Rigidbody.Gravity = Gravity;
 
-		if(Prop!=null)
+		if ( Prop != null )
 		{
 			Prop.Tint = Tint;
 			Prop.OnPropBreak += OnBreak;
 		}
-			
 
 		Health = Prop?.Health ?? 0f;
 		Velocity = 0f;

@@ -55,7 +55,6 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 	private void ChangeState( GameState newState )
 	{
-
 		State = newState;
 		TimeInState = 0;
 
@@ -86,11 +85,11 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		}
 	}
 
-	public void DistributeWeapon(string weapon)
+	public void DistributeWeapon( string weapon )
 	{
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
-			player.Inventory.Pickup(weapon);
+			player.Inventory.Pickup( weapon );
 		}
 	}
 
@@ -179,7 +178,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		var Winners = GetWinners();
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
-			bool succeeded = Winners.Contains(player);
+			bool succeeded = Winners.Contains( player );
 
 			PlaySound( succeeded ? "win" : "fail", player );
 

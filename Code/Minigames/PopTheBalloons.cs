@@ -7,7 +7,7 @@
 	[Property] private BBox BalloonBounds { get; set; }
 	[Property] private int BalloonTarget { get; set; } = 3;
 
-	private List<string> Balloons => new List<string>
+	private List<string> Balloons => new()
 	{
 		"models/citizen_props/balloonears01.vmdl_c",
 		"models/citizen_props/balloonheart01.vmdl_c",
@@ -15,7 +15,7 @@
 		"models/citizen_props/balloontall01.vmdl_c"
 	};
 
-	private List<Color> BalloonColours => new List<Color>
+	private List<Color> BalloonColours => new()
 	{
 		Color.Red,
 		Color.Green,
@@ -31,18 +31,18 @@
 		Gizmo.Draw.LineBBox( BalloonBounds );
 	}
 
+	List<PropDestroyedListener> BalloonPropListeners;
+
 	public void OnEnd()
 	{
-		foreach( var propListener in BalloonPropListeners )
+		foreach ( var propListener in BalloonPropListeners )
 		{
 			propListener.PropHelper?.Damage( 1000, Guid.Empty );
 		}
 	}
-	List<PropDestroyedListener> BalloonPropListeners;
-	public void SetWeapon()
-	{
-		GameManager.Current.DistributeWeapon( "prefabs/weapons/pistol/w_pistol.prefab" );
-	}
+
+	public void SetWeapon() => GameManager.Current.DistributeWeapon( "prefabs/weapons/shotgun/w_shotgun.prefab" );
+
 	public void Start()
 	{
 		GameManager.Current.DisplayToast( Description );
@@ -69,7 +69,8 @@
 	Dictionary<Guid, int> PlayerBalloonsPopped()
 	{
 		Dictionary<Guid, int> playerBalloonsPopped = new();
-		foreach( var propDestroyedListener in BalloonPropListeners )
+
+		foreach ( var propDestroyedListener in BalloonPropListeners )
 		{
 			if ( !propDestroyedListener.Destroyed )
 				continue;
@@ -81,11 +82,12 @@
 
 		return playerBalloonsPopped;
 	}
+
 	public bool WinCondition( Player player )
 	{
 		var playerBalloonsPopped = PlayerBalloonsPopped();
 
-		if( !playerBalloonsPopped.ContainsKey(player.Network.OwnerId) )
+		if ( !playerBalloonsPopped.ContainsKey( player.Network.OwnerId ) )
 			return false;
 
 		return playerBalloonsPopped[player.Network.OwnerId] >= BalloonTarget;
