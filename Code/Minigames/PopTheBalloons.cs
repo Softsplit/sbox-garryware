@@ -39,6 +39,10 @@
 		}
 	}
 	List<PropDestroyedListener> BalloonPropListeners;
+	public void SetWeapon()
+	{
+		GameManager.Current.DistributeWeapon( "prefabs/weapons/pistol/w_pistol.prefab" );
+	}
 	public void Start()
 	{
 		GameManager.Current.DisplayToast( Description );
@@ -54,11 +58,6 @@
 			listener.PropHelper.Tint = BalloonColours[Game.Random.Next( 0, BalloonColours.Count )];
 
 			BalloonPropListeners.Add( listener );
-		}
-
-		foreach ( var player in Scene.GetAllComponents<Player>() )
-		{
-			player.Inventory.Pickup( "prefabs/weapons/pistol/w_pistol.prefab" );
 		}
 	}
 

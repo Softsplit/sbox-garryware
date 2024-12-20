@@ -20,24 +20,6 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	public const float MINIGAME_DURATION = 5f;
 	public const float PAUSE_DURATION = 5f;
 
-	List<int> _minigameBag = new();
-
-	int RandomMinigame
-	{
-		get
-		{
-			if ( _minigameBag.Count <= 0 )
-				_minigameBag = Enumerable.Range( 0, Minigames.Count ).ToList();
-
-			_minigameBag = Shuffle( _minigameBag ).ToList();
-
-			int minigame = _minigameBag[0];
-			_minigameBag.RemoveAt( 0 );
-
-			return minigame;
-		}
-	}
-
 	public Minigame CurrentMinigame => CurrentMinigameIndex >= 0 ? Minigames[CurrentMinigameIndex] : null;
 
 	public float TimeLeft => State switch
@@ -73,10 +55,6 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 	private void ChangeState( GameState newState )
 	{
-		foreach( var player in Scene.GetAllComponents<Player>() )
-		{
-			player.Inventory.SetDefaultWeapons();
-		}
 
 		State = newState;
 		TimeInState = 0;
@@ -84,11 +62,31 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		switch ( State )
 		{
 			case GameState.Intermission:
+				ResetWeapons();
+				DistributeWeapon( "prefabs/weapons/fists/w_fists.prefab" );
 				CurrentMinigameIndex = -1;
 				break;
 			case GameState.Playing:
+				ResetWeapons();
 				StartMinigame();
+				CurrentMinigame?.SetWeapon();
 				break;
+		}
+	}
+
+	public void ResetWeapons()
+	{
+		foreach ( var player in Scene.GetAllComponents<Player>() )
+		{
+			player.Inventory.ResetWeapons();
+		}
+	}
+
+	public void DistributeWeapon(string weapon)
+	{
+		foreach ( var player in Scene.GetAllComponents<Player>() )
+		{
+			player.Inventory.Pickup(weapon);
 		}
 	}
 
@@ -96,7 +94,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	{
 		if ( Minigames.Count == 0 ) return;
 
-		CurrentMinigameIndex = RandomMinigame;
+		CurrentMinigameIndex = Random.Shared.Next( Minigames.Count );
 		var minigame = CurrentMinigame;
 
 		RespawnAllPlayers();
@@ -177,7 +175,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		var Winners = GetWinners();
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
-			bool succeeded = Winners.Contains( player );
+			bool succeeded = Winners.Contains(player);
 
 			PlaySound( succeeded ? "win" : "fail", player );
 
@@ -309,20 +307,5 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		Current.MinPlayers = count;
 		Log.Info( $"Minimum players set to {count}" );
 		Current.Toast?.AddToast( $"Minimum players set to {count}" );
-	}
-
-	public IList<T> Shuffle<T>( IList<T> list )
-	{
-		int n = list.Count;
-		while ( n > 1 )
-		{
-			n--;
-			int k = Game.Random.Next( n + 1 );
-			T value = list[k];
-			list[k] = list[n];
-			list[n] = value;
-		}
-
-		return list;
 	}
 }

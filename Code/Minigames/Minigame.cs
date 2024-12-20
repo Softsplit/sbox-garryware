@@ -6,5 +6,9 @@
 	public void Start();
 	public void FixedUpdate();
 	public void OnEnd();
+	public void SetWeapon()
+	{
+		GameManager.Current.DistributeWeapon( "prefabs/weapons/fists/w_fists.prefab" );
+	}
 	public bool WinCondition( Player player );
 }

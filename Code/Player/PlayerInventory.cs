@@ -8,7 +8,7 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	[Sync] public BaseWeapon ActiveWeapon { get; set; }
 
 	[Rpc.Broadcast]
-	public void SetDefaultWeapons()
+	public void ResetWeapons()
 	{
 		if ( IsProxy ) return;
 
@@ -16,9 +16,6 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 			weapon.DestroyGameObject();
 
 		Weapons = new();
-
-		Pickup( "prefabs/weapons/fists/w_fists.prefab" );
-		SetActiveSlot( 0 );
 	}
 
 	protected override void OnUpdate()
@@ -120,8 +117,7 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	void IPlayerEvent.OnSpawned()
 	{
 		if ( IsProxy ) return;
-
-		SetDefaultWeapons();
+		Pickup( "prefabs/weapons/fists/w_fists.prefab" );
 		SetActiveSlot( 0 );
 	}
 
