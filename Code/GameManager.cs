@@ -29,6 +29,8 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 			if ( _minigameBag.Count <= 0 )
 				_minigameBag = Enumerable.Range( 0, Minigames.Count ).ToList();
 
+			_minigameBag = Shuffle( _minigameBag ).ToList();
+
 			int minigame = _minigameBag[0];
 			_minigameBag.RemoveAt( 0 );
 
@@ -307,5 +309,20 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		Current.MinPlayers = count;
 		Log.Info( $"Minimum players set to {count}" );
 		Current.Toast?.AddToast( $"Minimum players set to {count}" );
+	}
+
+	public IList<T> Shuffle<T>( IList<T> list )
+	{
+		int n = list.Count;
+		while ( n > 1 )
+		{
+			n--;
+			int k = Game.Random.Next( n + 1 );
+			T value = list[k];
+			list[k] = list[n];
+			list[n] = value;
+		}
+
+		return list;
 	}
 }
