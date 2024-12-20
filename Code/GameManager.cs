@@ -11,8 +11,9 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	[Property, Sync( Flags = SyncFlags.FromHost )] public GameState State { get; private set; } = GameState.Intermission;
 	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeInState { get; private set; }
-	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
-	[Sync( Flags = SyncFlags.FromHost )] public int CurrentMinigameIndex { get; set; } = -1;
+
+	[Sync( Flags = SyncFlags.FromHost )] private int MinPlayers { get; set; } = 2;
+	[Sync( Flags = SyncFlags.FromHost )] private int CurrentMinigameIndex { get; set; } = -1;
 
 	private List<Minigame> Minigames { get; set; } = new();
 
@@ -160,20 +161,21 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void EvaluateMinigame()
 	{
+		var results = new Dictionary<Player, bool>();
+
 		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
 			var minigame = CurrentMinigame;
 			if ( minigame == null ) return;
 
 			bool succeeded = minigame.WinCondition( player );
+			results[player] = succeeded;
 
 			PlaySound( succeeded ? "win" : "fail", player );
-
-			DisplayToast( succeeded ?
-				$"You succeeded!" :
-				$"You failed!", 2.0f,
-				player );
+			DisplayToast( succeeded ? "You succeeded!" : "You failed!", 2.0f, player );
 		}
+
+		ResultsDisplay.UpdateResults( results );
 	}
 
 	public bool HasMinimumPlayers() => Connection.All.Count >= MinPlayers;
