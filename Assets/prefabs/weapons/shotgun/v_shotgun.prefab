@@ -9,6 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "4b9726b4-41da-438d-a169-ba84b1f7ca09",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl",
         "Morphs": {},
@@ -26,13 +27,22 @@
           "AfterUILayer": false
         },
         "RenderType": "Off",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
       {
         "__type": "ViewModel",
         "__guid": "7a43d9c7-418c-4aad-904a-d0b9b4813c24",
-        "EnableSwingAndBob": true
+        "BobCycleTime": 7,
+        "BobDirection": "0,0,0",
+        "EnableSwingAndBob": true,
+        "InertiaDamping": 20,
+        "MaxOffsetLength": 10,
+        "ReturnSpeed": 5,
+        "SwingInfluence": 0.05
       }
     ],
     "Children": [],

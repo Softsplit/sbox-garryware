@@ -14,6 +14,9 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 	[Property, Sync] public float Health { get; set; } = 1f;
 	[Property, Sync] public Vector3 Velocity { get; set; } = 0f;
 	[Property, Sync] public bool Invincible { get; set; } = false;
+	[Property, Sync] public bool CollisionDamage { get; set; } = false;
+	[Property, Sync] public bool Gravity { get; set; } = true;
+	[Property, Sync] public Color Tint { get; set; } = Color.White;
 
 	[Sync] public Prop Prop { get; set; }
 	[Sync] public ModelPhysics ModelPhysics { get; set; }
@@ -33,20 +36,29 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		ModelPhysics ??= GetComponent<ModelPhysics>();
 		Rigidbody ??= GetComponent<Rigidbody>();
 
+		if(Rigidbody!=null)
+			Rigidbody.Gravity = Gravity;
+
+		if(Prop!=null)
+			Prop.Tint = Tint;
+
 		Health = Prop?.Health ?? 0f;
 		Velocity = 0f;
 
 		lastPosition = Prop?.WorldPosition ?? WorldPosition;
 	}
 
+	public event Action<bool,float,Guid> OnDamaged;
+
 	[Rpc.Broadcast]
-	public void Damage( float amount )
+	public void Damage( float amount, Guid attacker )
 	{
 		if ( !Prop.IsValid() ) return;
-		if ( IsProxy ) return;
 		if ( Health <= 0f ) return;
 
 		Health -= amount;
+
+		OnDamaged?.Invoke( Health <= 0f && !Invincible, amount, attacker );
 
 		if ( Health <= 0f && !Invincible )
 			Prop.Kill();
@@ -96,7 +108,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		}
 	}
 
-	public async void AddDamagingForce( Vector3 force, float damage )
+	public async void AddDamagingForce( Vector3 force, float damage, Guid attacker )
 	{
 		if ( IsProxy ) return;
 
@@ -114,7 +126,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 
 		await GameTask.DelaySeconds( 1f / Scene.FixedUpdateFrequency + 0.05f );
 
-		Damage( damage );
+		Damage( damage, attacker );
 	}
 
 	[Rpc.Broadcast]
@@ -124,9 +136,9 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 	}
 
 	[Rpc.Broadcast]
-	public void BroadcastAddDamagingForce( Vector3 force, float damage )
+	public void BroadcastAddDamagingForce( Vector3 force, float damage, Guid attacker )
 	{
-		AddDamagingForce( force, damage );
+		AddDamagingForce( force, damage, attacker );
 	}
 
 	protected override void OnFixedUpdate()
@@ -215,6 +227,8 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 	{
 		if ( IsProxy ) return;
 
+		if ( !CollisionDamage ) return;
+
 		var propData = GetModelPropData();
 		if ( propData == null ) return;
 
@@ -232,7 +246,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 			if ( Health > 0 )
 			{
 				var damage = speed / minImpactSpeed * impactDmg;
-				Damage( damage );
+				Damage( damage, Guid.Empty );
 			}
 
 			var other = collision.Other;
@@ -244,7 +258,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 
 				if ( other.GameObject.Components.TryGet<PropHelper>( out var propHelper ) )
 				{
-					propHelper.Damage( damage );
+					propHelper.Damage( damage, Guid.Empty );
 				}
 				else if ( other.GameObject.Root.Components.TryGet<Player>( out var player ) )
 				{
@@ -294,7 +308,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 			{
 				if ( !propHelper.IsValid() ) continue;
 
-				propHelper.BroadcastAddDamagingForce( force, dmg );
+				propHelper.BroadcastAddDamagingForce( force, dmg, Guid.Empty );
 			}
 
 			if ( obj.Root.Components.TryGet<Player>( out var player ) )

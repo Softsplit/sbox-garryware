@@ -297,7 +297,7 @@ public partial class BaseWeapon : Component
 
 			if ( tr.GameObject.Components.TryGet<PropHelper>( out var prop ) )
 			{
-				prop.BroadcastAddDamagingForce( forward * 5000 * force, damage );
+				prop.BroadcastAddDamagingForce( forward * 5000 * force, damage, Network.OwnerId );
 			}
 			else if ( tr.GameObject.Root.Components.TryGet<Player>( out var player ) )
 			{

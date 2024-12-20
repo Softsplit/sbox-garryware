@@ -9,6 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "2fcd7f65-021f-4649-8115-0de0a2184180",
         "BodyGroups": 147,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "models/weapons/sbox_pistol_usp/v_usp.vmdl",
         "Morphs": {},
@@ -26,13 +27,22 @@
           "AfterUILayer": false
         },
         "RenderType": "Off",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
       {
         "__type": "ViewModel",
         "__guid": "fccc3908-17ff-41ca-9c46-1aee27bf34da",
-        "EnableSwingAndBob": true
+        "BobCycleTime": 7,
+        "BobDirection": "0,0,0",
+        "EnableSwingAndBob": true,
+        "InertiaDamping": 20,
+        "MaxOffsetLength": 10,
+        "ReturnSpeed": 5,
+        "SwingInfluence": 0.05
       }
     ],
     "Children": [
@@ -52,6 +62,7 @@
               "go": "bd3313cd-1991-48d5-93b1-06ee69537202",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
             "Morphs": {},
@@ -69,6 +80,9 @@
               "AfterUILayer": false
             },
             "RenderType": "Off",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           }

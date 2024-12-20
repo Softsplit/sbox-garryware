@@ -9,6 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "36bee89f-f4d8-49ac-9fcd-64bf29b29139",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "weapons/rust_pistol/v_rust_pistol.vmdl",
         "Morphs": {},
@@ -26,12 +27,22 @@
           "AfterUILayer": false
         },
         "RenderType": "Off",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
       {
         "__type": "ViewModel",
-        "__guid": "366ed270-3f31-4896-9475-d90d8978c632"
+        "__guid": "366ed270-3f31-4896-9475-d90d8978c632",
+        "BobCycleTime": 7,
+        "BobDirection": "0,0,0",
+        "EnableSwingAndBob": true,
+        "InertiaDamping": 20,
+        "MaxOffsetLength": 10,
+        "ReturnSpeed": 5,
+        "SwingInfluence": 0.05
       }
     ],
     "Children": [],

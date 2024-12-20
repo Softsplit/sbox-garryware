@@ -13,6 +13,17 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 	[RequireComponent]
 	public PlayerController Controller { get; set; }
 
+	PlayerInventory _inventory;
+	public PlayerInventory Inventory
+	{
+		get
+		{
+			if(_inventory == null)
+				_inventory = GetComponent<PlayerInventory>();
+			return _inventory;
+		}
+	}
+
 	[Property]
 	public GameObject Body { get; set; }
 

@@ -9,6 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "408584ac-2d54-4745-8e0a-0faede7f5ed6",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "weapons/rust_smg/v_rust_smg.vmdl",
         "Morphs": {},
@@ -26,6 +27,9 @@
           "AfterUILayer": false
         },
         "RenderType": "Off",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },

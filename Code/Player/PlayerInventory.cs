@@ -7,14 +7,18 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	[Sync] public NetList<BaseWeapon> Weapons { get; set; } = new();
 	[Sync] public BaseWeapon ActiveWeapon { get; set; }
 
-	public void GiveDefaultWeapons()
+	[Rpc.Broadcast]
+	public void SetDefaultWeapons()
 	{
-		Pickup( "prefabs/weapons/physgun/w_physgun.prefab" );
-		Pickup( "prefabs/weapons/gravgun/w_gravgun.prefab" );
-		Pickup( "prefabs/weapons/pistol/w_pistol.prefab" );
-		Pickup( "prefabs/weapons/mp5/w_mp5.prefab" );
-		Pickup( "prefabs/weapons/flashlight/w_flashlight.prefab" );
+		if ( IsProxy ) return;
+
+		foreach ( var weapon in Weapons )
+			weapon.DestroyGameObject();
+
+		Weapons = new();
+
 		Pickup( "prefabs/weapons/fists/w_fists.prefab" );
+		SetActiveSlot( 0 );
 	}
 
 	protected override void OnUpdate()
@@ -38,8 +42,12 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 		if ( Input.MouseWheel != 0 ) SwitchActiveSlot( (int)-Input.MouseWheel.y );
 	}
 
-	private void Pickup( string prefabName )
+	[Rpc.Broadcast]
+	public void Pickup( string prefabName )
 	{
+		if ( IsProxy )
+			return;
+
 		var prefab = GameObject.Clone( prefabName, global::Transform.Zero, Owner.Body, false );
 		prefab.NetworkSpawn( false, Network.Owner );
 
@@ -47,6 +55,8 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 		Assert.NotNull( weapon );
 
 		Weapons.Add( weapon );
+
+		SetActiveSlot( Weapons.Count - 1 );
 
 		IPlayerEvent.PostToGameObject( Owner.GameObject, e => e.OnWeaponAdded( weapon ) );
 		ILocalPlayerEvent.Post( e => e.OnWeaponAdded( weapon ) );
@@ -111,7 +121,7 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	{
 		if ( IsProxy ) return;
 
-		GiveDefaultWeapons();
+		SetDefaultWeapons();
 		SetActiveSlot( 0 );
 	}
 

@@ -5,7 +5,7 @@ public enum GameState
 	Pause
 }
 
-public sealed class GameManager : Component, Component.INetworkListener
+public sealed partial class GameManager : Component, Component.INetworkListener
 {
 	public static GameManager Current { get; private set; }
 
@@ -25,7 +25,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 	public float TimeLeft => State switch
 	{
 		GameState.Intermission => INTERMISSION_DURATION - TimeInState,
-		GameState.Playing => MINIGAME_DURATION - TimeInState,
+		GameState.Playing => (CurrentMinigame?.Duration ?? MINIGAME_DURATION) - TimeInState,
 		GameState.Pause => PAUSE_DURATION - TimeInState,
 		_ => 0
 	};
@@ -55,6 +55,11 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void ChangeState( GameState newState )
 	{
+		foreach(var player in Scene.GetAllComponents<Player>())
+		{
+			player.Inventory.SetDefaultWeapons();
+		}
+
 		State = newState;
 		TimeInState = 0;
 
@@ -133,6 +138,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 				if ( TimeInState >= CurrentMinigame.Duration )
 				{
 					EvaluateMinigame();
+					CurrentMinigame.OnEnd();
 					ChangeState( GameState.Pause );
 				}
 				CurrentMinigame.FixedUpdate();

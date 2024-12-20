@@ -9,6 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "99a326f9-c9de-4186-a861-d1d8156c841e",
         "BodyGroups": 147,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "Model": "models/weapons/sbox_smg_mp5/v_mp5.vmdl",
         "Morphs": {},
@@ -26,13 +27,22 @@
           "AfterUILayer": false
         },
         "RenderType": "Off",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
       {
         "__type": "ViewModel",
         "__guid": "1a378c00-e605-44bf-8713-51d7724f8d63",
-        "EnableSwingAndBob": true
+        "BobCycleTime": 7,
+        "BobDirection": "0,0,0",
+        "EnableSwingAndBob": true,
+        "InertiaDamping": 20,
+        "MaxOffsetLength": 10,
+        "ReturnSpeed": 5,
+        "SwingInfluence": 0.05
       }
     ],
     "Children": [
@@ -52,6 +62,7 @@
               "go": "d6d104e0-3ea1-4fd0-9779-c152c3d342da",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
             "Morphs": {},
@@ -69,6 +80,9 @@
               "AfterUILayer": false
             },
             "RenderType": "Off",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           }
