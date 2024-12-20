@@ -81,7 +81,7 @@ partial class Flashlight : BaseWeapon
 
 			if ( tr.GameObject.Components.TryGet<PropHelper>( out var prop ) )
 			{
-				prop.BroadcastAddDamagingForce( forward * 80 * 100, 25 , Owner.Id);
+				prop.BroadcastAddDamagingForce( forward * 80 * 100, 25, Owner.Id );
 			}
 			else if ( tr.GameObject.Root.Components.TryGet<Player>( out var player ) )
 			{
