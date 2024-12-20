@@ -10,7 +10,7 @@ partial class MP5 : BaseWeapon
 
 		BroadcastAttackPrimary();
 
-		WorldModel?.Set( "b_attack", true );
+		ViewModel?.Renderer?.Set( "b_attack", true );
 
 		//
 		// Tell the clients to play the shoot effects
@@ -38,7 +38,7 @@ partial class MP5 : BaseWeapon
 
 		BroadcastOnControl( attackHold );
 
-		WorldModel?.Set( "attack_hold", attackHold );
+		ViewModel?.Renderer?.Set( "attack_hold", attackHold );
 	}
 
 	[Rpc.Broadcast]

@@ -68,15 +68,15 @@ partial class Fists : BaseWeapon
 
 	private void OnMeleeMiss( bool leftHand )
 	{
-		WorldModel?.Set( "b_attack_has_hit", false );
-		WorldModel?.Set( "b_attack", true );
-		WorldModel?.Set( "holdtype_attack", leftHand ? 2 : 1 );
+		ViewModel?.Renderer?.Set( "b_attack_has_hit", false );
+		ViewModel?.Renderer?.Set( "b_attack", true );
+		ViewModel?.Renderer?.Set( "holdtype_attack", leftHand ? 2 : 1 );
 	}
 
 	private void OnMeleeHit( bool leftHand )
 	{
-		WorldModel?.Set( "b_attack_has_hit", true );
-		WorldModel?.Set( "b_attack", true );
-		WorldModel?.Set( "holdtype_attack", leftHand ? 2 : 1 );
+		ViewModel?.Renderer?.Set( "b_attack_has_hit", true );
+		ViewModel?.Renderer?.Set( "b_attack", true );
+		ViewModel?.Renderer?.Set( "holdtype_attack", leftHand ? 2 : 1 );
 	}
 }

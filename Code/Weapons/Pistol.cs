@@ -15,7 +15,7 @@ partial class Pistol : BaseWeapon, Component.ICollisionListener
 
 		BroadcastAttackPrimary();
 
-		WorldModel?.Set( "b_attack", true );
+		ViewModel?.Renderer?.Set( "b_attack", true );
 
 		ShootEffects();
 		ShootBullet( 0.05f, 1.5f, 9.0f, 3.0f );

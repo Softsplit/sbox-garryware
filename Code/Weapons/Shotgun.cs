@@ -64,7 +64,7 @@ partial class Shotgun : BaseWeapon
 	{
 		Particles.CreateParticleSystem( "particles/pistol_muzzleflash.vpcf", Attachment( "muzzle" ) );
 
-		WorldModel?.Set( "fire_double", true );
+		ViewModel?.Renderer?.Set( "fire_double", true );
 	}
 
 	public override void OnReloadFinish()
@@ -79,6 +79,6 @@ partial class Shotgun : BaseWeapon
 
 	protected virtual void FinishReload()
 	{
-		WorldModel?.Set( "reload_finished", true );
+		ViewModel?.Renderer?.Set( "reload_finished", true );
 	}
 }

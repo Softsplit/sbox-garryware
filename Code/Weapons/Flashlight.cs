@@ -2,7 +2,7 @@
 partial class Flashlight : BaseWeapon
 {
 	protected SpotLight WorldLight => GetComponentInChildren<SpotLight>( true );
-	protected SpotLight ViewLight => WorldModel?.GetComponentInChildren<SpotLight>( true );
+	protected SpotLight ViewLight => ViewModel?.GetComponentInChildren<SpotLight>( true );
 
 	[Sync, Change( nameof( ToggleLight ) )] private bool LightEnabled { get; set; } = true;
 
@@ -94,11 +94,11 @@ partial class Flashlight : BaseWeapon
 
 	private void OnMeleeMiss()
 	{
-		WorldModel?.Set( "attack", true );
+		ViewModel?.Renderer?.Set( "attack", true );
 	}
 
 	private void OnMeleeHit()
 	{
-		WorldModel?.Set( "attack_hit", true );
+		ViewModel?.Renderer?.Set( "attack_hit", true );
 	}
 }

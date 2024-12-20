@@ -7,6 +7,7 @@ using Sandbox.Citizen;
 [Icon( "sports_martial_arts" )]
 public partial class BaseWeapon : Component
 {
+	[Property] public GameObject ViewModelPrefab { get; set; }
 	[Property] public string ParentBone { get; set; } = "hold_r";
 	[Property] public Transform BoneOffset { get; set; } = new Transform( 0 );
 	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.HoldItem;
@@ -21,14 +22,14 @@ public partial class BaseWeapon : Component
 	[Sync] public RealTimeSince TimeSincePrimaryAttack { get; set; }
 	[Sync] public RealTimeSince TimeSinceSecondaryAttack { get; set; }
 
-	//public ViewModel ViewModel => Scene?.Camera?.GetComponentInChildren<ViewModel>( true );
+	public ViewModel ViewModel => Scene?.Camera?.GetComponentInChildren<ViewModel>( true );
 	public SkinnedModelRenderer WorldModel => GameObject?.GetComponentInChildren<SkinnedModelRenderer>( true );
-	//public SkinnedModelRenderer LocalWorldModel => !Owner.IsValid() || !Owner.Controller.IsValid() || Owner.Controller.ThirdPerson || IsProxy ? WorldModel : ViewModel?.Renderer;
+	public SkinnedModelRenderer LocalWorldModel => !Owner.IsValid() || !Owner.Controller.IsValid() || Owner.Controller.ThirdPerson || IsProxy ? WorldModel : ViewModel?.Renderer;
 	public Player Owner => GameObject?.Root?.GetComponent<Player>();
 
 	public Transform Attachment( string name )
 	{
-		return WorldModel?.GetAttachment( name ) ?? WorldTransform;
+		return LocalWorldModel?.GetAttachment( name ) ?? WorldTransform;
 	}
 
 	protected override void OnAwake()
@@ -48,6 +49,15 @@ public partial class BaseWeapon : Component
 		BroadcastEnabled();
 
 		if ( IsProxy ) return;
+
+		var go = ViewModelPrefab?.Clone( new CloneConfig()
+		{
+			StartEnabled = true,
+			Parent = Scene.Camera.GameObject,
+			Transform = Scene.Camera.WorldTransform
+		} );
+
+		go.NetworkMode = NetworkMode.Never;
 	}
 
 	[Rpc.Broadcast]
@@ -59,6 +69,8 @@ public partial class BaseWeapon : Component
 	protected override void OnDisabled()
 	{
 		if ( IsProxy ) return;
+
+		ViewModel.GameObject.DestroyImmediate();
 	}
 
 	protected override void OnUpdate()
@@ -129,7 +141,7 @@ public partial class BaseWeapon : Component
 
 	public virtual void StartReloadEffects()
 	{
-		WorldModel?.Set( "b_reload", true );
+		ViewModel?.Renderer?.Set( "b_reload", true );
 	}
 
 	// TODO: Probably should unify these particle methods + make it work for world models
@@ -138,13 +150,13 @@ public partial class BaseWeapon : Component
 	{
 		AttachParticleSystem( "particles/pistol_muzzleflash.vpcf", "muzzle" );
 
-		WorldModel?.Set( "fire", true );
+		ViewModel?.Renderer?.Set( "fire", true );
 	}
 
 	[Rpc.Broadcast]
 	public void AttachParticleSystem( string path, string attachment, float time = 1, GameObject parent = null )
 	{
-		Transform transform = WorldModel?.GetAttachment( attachment ) ?? WorldTransform;
+		Transform transform = LocalWorldModel?.GetAttachment( attachment ) ?? WorldTransform;
 
 		Particles.MakeParticleSystem( path, transform, time, parent );
 	}
