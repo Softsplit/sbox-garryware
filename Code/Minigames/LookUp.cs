@@ -5,12 +5,12 @@
 
 	public void OnEnd()
 	{
-		
+
 	}
 
 	public void OnStart()
 	{
-		GameManager.Current.DisplayToast( "Look up at the sky!" );
+		GameManager.Current.DisplayToast( Description );
 	}
 
 	public void OnFixedUpdate()
@@ -18,7 +18,7 @@
 
 	}
 
-	public bool WinCondition(Player player)
+	public bool WinCondition( Player player )
 	{
 		return player.EyeTransform.Rotation.Pitch() < -45;
 	}

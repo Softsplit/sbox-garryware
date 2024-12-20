@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 public enum GameState
 {
 	Intermission,
@@ -11,7 +9,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 {
 	public static GameManager Current { get; private set; }
 
-	[Sync( Flags = SyncFlags.FromHost ), Property] public GameState State { get; private set; } = GameState.Intermission;
+	[Property, Sync( Flags = SyncFlags.FromHost )] public GameState State { get; private set; } = GameState.Intermission;
 	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeInState { get; private set; }
 	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
 	[Sync( Flags = SyncFlags.FromHost )] public int CurrentMinigameIndex { get; set; } = -1;
@@ -42,6 +40,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 	protected override void OnEnabled()
 	{
 		RegisterMinigames();
+
 		if ( Networking.IsHost )
 		{
 			Networking.CreateLobby( new Sandbox.Network.LobbyConfig() );
@@ -49,10 +48,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 		}
 	}
 
-	
 	private void RegisterMinigames()
 	{
-		Minigames = new();
 		foreach ( var type in TypeLibrary.GetTypes<Minigame>() )
 		{
 			if ( type.Name == "Minigame" )
@@ -98,6 +95,10 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	protected override void OnFixedUpdate()
 	{
+		if ( !Networking.IsHost ) return;
+
+		HandleStateLogic();
+
 		if ( State == GameState.Playing )
 		{
 			int currentSecond = (int)TimeInState;
@@ -105,7 +106,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 			if ( timeLeft >= 0 && currentSecond != lastTickSound )
 			{
-				Sound.Play( "ticktock" );
+				PlaySound( "ticktock" );
 				lastTickSound = currentSecond;
 			}
 		}
@@ -113,11 +114,8 @@ public sealed class GameManager : Component, Component.INetworkListener
 		{
 			lastTickSound = -1;
 		}
-
-		if ( !Networking.IsHost ) return;
-
-		HandleStateLogic();
 	}
+	
 	private void HandleStateLogic()
 	{
 		if ( !HasMinimumPlayers() )
@@ -138,7 +136,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 			case GameState.Intermission:
 				if ( TimeInState >= INTERMISSION_DURATION )
 				{
-					Sound.Play( "start" );
+					PlaySound( "start" );
 					ChangeState( GameState.Playing );
 				}
 				break;
@@ -153,7 +151,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 			case GameState.Pause:
 				if ( TimeInState >= PAUSE_DURATION )
 				{
-					Sound.Play( "start" );
+					PlaySound( "start" );
 					ChangeState( GameState.Playing );
 				}
 				break;
@@ -162,19 +160,19 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 	private void EvaluateMinigame()
 	{
-		foreach(var player in Scene.GetAllComponents<Player>() )
+		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
 			var minigame = CurrentMinigame;
 			if ( minigame == null ) return;
 
-			bool succeeded = minigame.WinCondition(player);
+			bool succeeded = minigame.WinCondition( player );
 
 			PlaySound( succeeded ? "win" : "fail", player );
 
 			DisplayToast( succeeded ?
 				$"You succeeded at {minigame.Name}!" :
 				$"You failed {minigame.Name}!", 2.0f,
-				player);
+				player );
 		}
 	}
 
@@ -223,7 +221,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 	}
 
 	[Rpc.Broadcast]
-	public void DisplayToast(string text, float duration = 3.0f, Player to = null)
+	public void DisplayToast( string text, float duration = 3.0f, Player to = null )
 	{
 		if ( to != null && Connection.Local != to.Network.Owner )
 			return;
@@ -232,7 +230,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 	}
 
 	[Rpc.Broadcast]
-	public void PlaySound(string sound, Player to = null)
+	public void PlaySound( string sound, Player to = null )
 	{
 		if ( to != null && Connection.Local != to.Network.Owner )
 			return;

@@ -6,5 +6,5 @@
 	public void OnStart();
 	public void OnFixedUpdate();
 	public void OnEnd();
-	public bool WinCondition(Player player);
+	public bool WinCondition( Player player );
 }
