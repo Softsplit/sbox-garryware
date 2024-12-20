@@ -13,6 +13,7 @@
 	public void Start()
 	{
 		GameManager.Current.DisplayToast( Description );
+		MovedPlayers = new();
 	}
 
 	public void FixedUpdate()
