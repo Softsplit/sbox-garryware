@@ -28,14 +28,32 @@
           "__type": "GameManager",
           "__guid": "fa28f466-c220-4bfb-b24f-00d4471b4d93",
           "State": "Intermission"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "48a1a4b6-2a69-4950-95be-1876a4957fa9",
+          "Flags": 0,
+          "Name": "Don\u0027t Move!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "DontMove",
+              "__guid": "5fc20481-b442-447d-bb9c-8be4e4d2e4ce"
+            }
+          ]
         },
         {
-          "__type": "LookUp",
-          "__guid": "6551bcac-a5a0-4f2b-ada4-1e39430cfad0"
-        },
-        {
-          "__type": "DontMove",
-          "__guid": "2df6e0b2-aeea-4714-8c15-98b3afada7bf"
+          "__guid": "c1db0567-e6b0-4849-a87b-0130028e032e",
+          "Flags": 0,
+          "Name": "Look Up!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "LookUp",
+              "__guid": "f4a14a72-ead4-4855-b060-dbe4710e14d6"
+            }
+          ]
         }
       ]
     },
@@ -168,6 +186,18 @@
             {
               "__type": "ToastNotification",
               "__guid": "98f4364b-950a-4648-8cd3-c9a2fe4f99e8"
+            }
+          ]
+        },
+        {
+          "__guid": "7db6ad4f-174f-4674-9d52-5cbf80a0ef31",
+          "Flags": 0,
+          "Name": "ResultsDisplay",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ResultDisplay",
+              "__guid": "f98c31be-9fd5-4dc3-8220-826b3b6f2d00"
             }
           ]
         }
