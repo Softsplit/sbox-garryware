@@ -71,6 +71,10 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 				StartMinigame();
 				CurrentMinigame?.SetWeapon();
 				break;
+			case GameState.Pause:
+				ResetWeapons();
+				DistributeWeapon( "prefabs/weapons/fists/w_fists.prefab" );
+				break;
 		}
 	}
 
