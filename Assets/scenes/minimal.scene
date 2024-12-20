@@ -192,7 +192,7 @@
         {
           "__guid": "7db6ad4f-174f-4674-9d52-5cbf80a0ef31",
           "Flags": 0,
-          "Name": "ResultsDisplay",
+          "Name": "Results",
           "Enabled": true,
           "Components": [
             {
