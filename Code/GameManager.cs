@@ -96,7 +96,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		if ( State == GameState.Playing )
 		{
 			int currentSecond = (int)TimeInState;
-			float timeLeft = MINIGAME_DURATION - TimeInState;
+			float timeLeft = CurrentMinigame.Duration - TimeInState;
 
 			if ( timeLeft >= 0 && currentSecond != lastTickSound )
 			{

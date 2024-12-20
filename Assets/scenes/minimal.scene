@@ -35,6 +35,7 @@
           "__guid": "48a1a4b6-2a69-4950-95be-1876a4957fa9",
           "Flags": 0,
           "Name": "Don\u0027t Move!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "DontMove",
@@ -46,6 +47,7 @@
           "__guid": "c1db0567-e6b0-4849-a87b-0130028e032e",
           "Flags": 0,
           "Name": "Look Up!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "LookUp",
@@ -63,8 +65,8 @@
               "__type": "PopTheBalloons",
               "__guid": "1068a053-e1a8-4554-af48-30aa486dbe51",
               "BalloonBounds": {
-                "Mins": "-500,500,235.5",
-                "Maxs": "500,-500,131.4"
+                "Mins": "-500,500,255.0001",
+                "Maxs": "500,-500,64"
               },
               "BalloonTarget": 3
             }
@@ -207,7 +209,7 @@
         {
           "__guid": "7db6ad4f-174f-4674-9d52-5cbf80a0ef31",
           "Flags": 0,
-          "Name": "ResultsDisplay",
+          "Name": "Results",
           "Enabled": true,
           "Components": [
             {
