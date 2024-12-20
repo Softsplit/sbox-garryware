@@ -146,9 +146,9 @@ public sealed class GameManager : Component, Component.INetworkListener
 				if ( TimeInState >= CurrentMinigame.Duration )
 				{
 					EvaluateMinigame();
-					CurrentMinigame.OnFixedUpdate();
 					ChangeState( GameState.Pause );
 				}
+				CurrentMinigame.OnFixedUpdate();
 				break;
 			case GameState.Pause:
 				if ( TimeInState >= PAUSE_DURATION )
@@ -169,7 +169,7 @@ public sealed class GameManager : Component, Component.INetworkListener
 
 			bool succeeded = minigame.WinCondition(player);
 
-			Sound.Play( succeeded ? "win" : "fail" );
+			PlaySound( succeeded ? "win" : "fail", player );
 
 			DisplayToast( succeeded ?
 				$"You succeeded at {minigame.Name}!" :
@@ -229,6 +229,15 @@ public sealed class GameManager : Component, Component.INetworkListener
 			return;
 
 		Toast?.AddToast( text, duration );
+	}
+
+	[Rpc.Broadcast]
+	public void PlaySound(string sound, Player to = null)
+	{
+		if ( to != null && Connection.Local != to.Network.Owner )
+			return;
+
+		Sound.Play( sound );
 	}
 
 	[ConCmd( "gw_state" )]
