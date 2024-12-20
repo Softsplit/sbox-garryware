@@ -25,7 +25,7 @@
 
 		foreach(var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 		{
-			if ( player.Controller.Body.Velocity.Length < 0.1f )
+			if ( player.Controller.Body.Velocity.Length < 1f )
 				continue;
 
 			MovedPlayers.Add( player );
