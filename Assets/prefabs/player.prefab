@@ -134,6 +134,10 @@
         "OverrideMassCenter": true,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
+      },
+      {
+        "__type": "PlayerInventory",
+        "__guid": "7c22a360-416f-4878-a4ba-154dfa33997d"
       }
     ],
     "Children": [

@@ -9,9 +9,10 @@ public interface IPlayerEvent : ISceneEvent<IPlayerEvent>
 	void OnLand( float distance, Vector3 velocity ) { }
 
 	void OnTakeDamage( float damage ) { }
-
 	void OnDied() { }
 	void OnSuicide() { }
+
+	void OnWeaponAdded( BaseWeapon weapon ) { }
 }
 
 /// <summary>
@@ -23,6 +24,8 @@ public interface ILocalPlayerEvent : ISceneEvent<ILocalPlayerEvent>
 	void OnLand( float distance, Vector3 velocity ) { }
 
 	void OnTakeDamage( float damage ) { }
+
+	void OnWeaponAdded( BaseWeapon weapon ) { }
 
 	void OnCameraMove( ref Angles angles ) { }
 	void OnCameraSetup( CameraComponent camera ) { }

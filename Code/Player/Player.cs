@@ -23,6 +23,8 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 	public Transform EyeTransform => Controller.EyeTransform;
 
+	public Ray AimRay => new( EyeTransform.Position, EyeTransform.Rotation.Forward );
+
 	/// <summary>
 	/// Creates a ragdoll but it isn't enabled
 	/// </summary>

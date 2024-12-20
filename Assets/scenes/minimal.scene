@@ -424,6 +424,66 @@
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "da41b46b-d354-4acd-9c43-c5f957a2a8fe",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "0,0,36.17902",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "PropHelper",
+          "__guid": "70c82264-709c-4af3-a7f0-9098fede1076",
+          "Health": 1,
+          "Invincible": false,
+          "Velocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a66c031d-a6b4-4fa0-9273-c744f410e941",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/tnt.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "194be7a4-982f-4ca8-8434-b6e0d1233299",
+          "IsTrigger": false,
+          "Model": "models/tnt.vmdl",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "45eee1ce-f696-4c3c-91d1-681b69279eb0",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": false,
+            "Y": false,
+            "Z": false,
+            "Pitch": false,
+            "Yaw": false,
+            "Roll": false
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MotionEnabled": true,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -454,6 +514,8 @@
   "ResourceVersion": 2,
   "Title": "minimal",
   "Description": null,
-  "__references": [],
+  "__references": [
+    "tbt.methtnt#1194"
+  ],
   "__version": 2
 }
