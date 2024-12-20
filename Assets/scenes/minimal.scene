@@ -26,7 +26,8 @@
       "Components": [
         {
           "__type": "GameManager",
-          "__guid": "fa28f466-c220-4bfb-b24f-00d4471b4d93"
+          "__guid": "fa28f466-c220-4bfb-b24f-00d4471b4d93",
+          "State": "Intermission"
         }
       ]
     },
