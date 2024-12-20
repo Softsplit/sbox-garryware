@@ -22,7 +22,7 @@
         "BodyHeight": 72,
         "BodyMass": 500,
         "BodyRadius": 16,
-        "CameraOffset": "130,-32,0",
+        "CameraOffset": "130,32,0",
         "ColliderObject": {
           "_type": "gameobject",
           "go": "015c140d-d868-4467-bb2c-6aab33702206"
