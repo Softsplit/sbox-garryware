@@ -20,6 +20,22 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	public const float MINIGAME_DURATION = 5f;
 	public const float PAUSE_DURATION = 5f;
 
+	List<int> _minigameBag = new();
+
+	int RandomMinigame
+	{
+		get
+		{
+			if ( _minigameBag.Count <= 0 )
+				_minigameBag = Enumerable.Range( 0, Minigames.Count ).ToList();
+
+			int minigame = _minigameBag[0];
+			_minigameBag.RemoveAt( 0 );
+
+			return minigame;
+		}
+	}
+
 	public Minigame CurrentMinigame => CurrentMinigameIndex >= 0 ? Minigames[CurrentMinigameIndex] : null;
 
 	public float TimeLeft => State switch
@@ -78,7 +94,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	{
 		if ( Minigames.Count == 0 ) return;
 
-		CurrentMinigameIndex = Random.Shared.Next( Minigames.Count );
+		CurrentMinigameIndex = RandomMinigame;
 		var minigame = CurrentMinigame;
 
 		RespawnAllPlayers();

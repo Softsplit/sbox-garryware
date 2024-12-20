@@ -45,7 +45,7 @@
 
 		BalloonPropListeners = new();
 
-		for (int i = 0; i < BalloonTarget * 2 * Connection.All.Count; i++ )
+		for (int i = 0; i < BalloonTarget * Connection.All.Count; i++ )
 		{
 			PropDestroyedListener listener = new( GameManager.SpawnModel( Balloons[Game.Random.Next( 0, Balloons.Count )], BalloonBounds.RandomPointInside, Rotation.Random ) );
 
@@ -87,8 +87,6 @@
 
 		if(!playerBalloonsPopped.ContainsKey(player.Network.OwnerId))
 			return false;
-
-		Log.Info( playerBalloonsPopped[player.Network.OwnerId] );
 
 		return playerBalloonsPopped[player.Network.OwnerId] >= BalloonTarget;
 	}

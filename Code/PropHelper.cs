@@ -31,7 +31,6 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 	protected override void OnStart()
 	{
 		Prop ??= GetComponent<Prop>();
-		Prop.OnPropBreak += OnBreak;
 
 		ModelPhysics ??= GetComponent<ModelPhysics>();
 		Rigidbody ??= GetComponent<Rigidbody>();
@@ -40,7 +39,11 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 			Rigidbody.Gravity = Gravity;
 
 		if(Prop!=null)
+		{
 			Prop.Tint = Tint;
+			Prop.OnPropBreak += OnBreak;
+		}
+			
 
 		Health = Prop?.Health ?? 0f;
 		Velocity = 0f;
@@ -48,7 +51,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		lastPosition = Prop?.WorldPosition ?? WorldPosition;
 	}
 
-	public event Action<bool,float,Guid> OnDamaged;
+	public event Action<bool, float, Guid> OnDamaged;
 
 	[Rpc.Broadcast]
 	public void Damage( float amount, Guid attacker )
