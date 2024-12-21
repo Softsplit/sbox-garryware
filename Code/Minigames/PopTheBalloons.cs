@@ -50,6 +50,7 @@ public class PopTheBalloons : Component, Minigame
 	public void Start()
 	{
 		BalloonPropListeners = new();
+		internalSucceeded = new();
 
 		for ( int i = 0; i < BalloonTarget * Connection.All.Count; i++ )
 		{

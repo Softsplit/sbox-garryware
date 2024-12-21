@@ -82,6 +82,126 @@
       ]
     },
     {
+      "__guid": "13c7b36c-22bb-4f0a-87c0-6d659ff39331",
+      "Flags": 0,
+      "Name": "Boxpoints",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "9275c3f0-8d71-4edd-9cec-c68d25ecdd2f",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-384,384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "630f409b-41b6-4907-bae3-a98b479ce4f8",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-128,384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "a2ad4b82-affc-45b7-8b02-e14bcce708d4",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "128,384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "90f5d251-1284-41db-aef1-e867ada7973a",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "384,384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "bd1a2766-77e7-47f0-9581-64246f3371b7",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-384,128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "316e1505-4921-4906-9c2b-0afa6c3c4538",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-128,128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "7dc0df7a-bbe5-4a7d-9218-8fcca594aae1",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "128,128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "2034794f-9c74-4746-9352-67b551c84dfc",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "384,128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "be8497c6-66e4-4a05-aaf4-77dcc74915ab",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-384,-128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "62f5e220-82d6-4571-8185-1b7808b249f9",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-128,-128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "c1f4fde3-521e-49b5-ae6c-436e3425a847",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "128,-128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "b32612f4-97c4-4f43-9c16-d670f4fb906a",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "384,-128,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "300c3682-8cba-4796-b619-d28bde2030d3",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-384,-384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "9b09034e-302d-4771-8a06-b317fbc96dfc",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "-128,-384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "d9f2cda1-a311-49f5-ac2c-df25cd363e39",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "128,-384,64",
+          "Enabled": true
+        },
+        {
+          "__guid": "25372e01-8e3a-4257-82a2-fbd1053f4801",
+          "Flags": 0,
+          "Name": "Object",
+          "Position": "384,-384,64",
+          "Enabled": true
+        }
+      ]
+    },
+    {
       "__guid": "0c339912-bf0b-44bd-8d33-8e332d73e8cb",
       "Flags": 0,
       "Name": "Camera",
