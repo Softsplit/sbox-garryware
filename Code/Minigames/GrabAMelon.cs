@@ -34,7 +34,7 @@
 
 		for ( int i = 0; i < targetMelons; i++ )
 		{
-			var melon = GameManager.SpawnModel( "models/watermelon/watermelon.vmdl_c", MelonBounds.RandomPointInside, Rotation.Random );
+			var melon = GameManager.SpawnModel( Cloud.Model( "facepunch/watermelon" ).ResourcePath, MelonBounds.RandomPointInside, Rotation.Random );
 
 			melons.Add( melon );
 		}
