@@ -25,7 +25,7 @@
 
 	public void FixedUpdate()
 	{
-		if ( GameManager.Current.TimeInState < 3f )
+		if ( GameManager.Current.TimeInState < 1f )
 			return;
 
 		BurntPlayers ??= new();
