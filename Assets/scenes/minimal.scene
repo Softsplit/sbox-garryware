@@ -56,6 +56,19 @@
           ]
         },
         {
+          "__guid": "dc644ee6-b39e-44fe-97de-85e0669fe4aa",
+          "Flags": 0,
+          "Name": "Floor is Lava!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "FloorIsLava",
+              "__guid": "187a3e3e-9b7a-40c9-86d8-ecc8bc7fa4f5",
+              "FloorLevel": 10
+            }
+          ]
+        },
+        {
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
           "Name": "Pop the Balloons!",
@@ -437,6 +450,8 @@
           "EnableCollision": true,
           "MapName": "maps/gw_game.vmap",
           "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
           "UseMapFromLaunch": true
         }
       ],

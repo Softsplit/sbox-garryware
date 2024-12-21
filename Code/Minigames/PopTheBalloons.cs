@@ -1,4 +1,6 @@
-﻿public class PopTheBalloons : Component, Minigame
+﻿using Sandbox.Utility;
+
+public class PopTheBalloons : Component, Minigame
 {
 	public string Name => "Pop The Balloons!";
 	public string Description => $"Pop {BalloonTarget} Balloons!";
@@ -28,6 +30,8 @@
 
 	protected override void DrawGizmos()
 	{
+		if ( !Gizmo.IsSelected )
+			return;
 		Gizmo.Draw.LineBBox( BalloonBounds );
 	}
 
@@ -45,7 +49,7 @@
 
 	public void Start()
 	{
-		GameManager.Current.DisplayToast( Description );
+		GameManager.DisplayToast( Description );
 
 		BalloonPropListeners = new();
 

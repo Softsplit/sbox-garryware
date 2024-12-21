@@ -180,12 +180,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		{
 			bool succeeded = Winners.Contains( player );
 
-			PlaySound( succeeded ? "win" : "fail", player );
-
-			DisplayToast( succeeded ?
-				$"You succeeded!" :
-				$"You failed!", 2.0f,
-				player );
+			CurrentMinigame?.WinEvent( succeeded, player );
 		}
 	}
 
@@ -258,16 +253,16 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	}
 
 	[Rpc.Broadcast]
-	public void DisplayToast( string text, float duration = 3.0f, Player to = null )
+	public static void DisplayToast( string text, float duration = 3.0f, Player to = null )
 	{
 		if ( to != null && Connection.Local != to.Network.Owner )
 			return;
 
-		Toast?.AddToast( text, duration );
+		Current.Toast?.AddToast( text, duration );
 	}
 
 	[Rpc.Broadcast]
-	public void PlaySound( string sound, Player to = null )
+	public static void PlaySound( string sound, Player to = null )
 	{
 		if ( to != null && Connection.Local != to.Network.Owner )
 			return;

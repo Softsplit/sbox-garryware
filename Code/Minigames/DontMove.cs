@@ -12,13 +12,13 @@
 
 	public void Start()
 	{
-		GameManager.Current.DisplayToast( Description );
+		GameManager.DisplayToast( Description );
 		MovedPlayers = new();
 	}
 
 	public void FixedUpdate()
 	{
-		if ( GameManager.Current.TimeInState < 0.5f )
+		if ( GameManager.Current.TimeInState < 2f )
 			return;
 
 		MovedPlayers ??= new();
@@ -28,8 +28,23 @@
 			if ( player.Controller.Body.Velocity.Length < 1f )
 				continue;
 
-			MovedPlayers.Add( player );
+			if ( !MovedPlayers.Contains( player ) )
+			{
+				GameManager.PlaySound( "fail", player );
+				MovedPlayers.Add( player );
+			}
 		}
+	}
+
+	public void WinEvent( bool succeeded, Player player )
+	{
+		if ( succeeded )
+			GameManager.PlaySound( "win" );
+
+		GameManager.DisplayToast( succeeded ?
+			$"You succeeded!" :
+			$"You failed!", 2.0f,
+			player );
 	}
 
 	public bool WinCondition( Player player )
