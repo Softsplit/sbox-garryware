@@ -203,7 +203,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 			players.Add( player );
 		}
 
-		ResultDisplay.UpdateResults( results );
+		ResultsDisplay.UpdateResults( results );
 
 		return players;
 	}

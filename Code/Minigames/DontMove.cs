@@ -3,7 +3,7 @@
 	public string Name => "Don't Move!";
 	public string Description => "Stop moving!";
 
-	private List<Player> MovedPlayers { get; set; } = new();
+	private List<Player> MovedPlayers { get; set; } = [];
 
 	public void OnEnd()
 	{
@@ -12,8 +12,7 @@
 
 	public void Start()
 	{
-		GameManager.DisplayToast( Description );
-		MovedPlayers = new();
+		MovedPlayers = [];
 	}
 
 	public void FixedUpdate()
@@ -21,7 +20,7 @@
 		if ( GameManager.Current.TimeInState < 0.5f )
 			return;
 
-		MovedPlayers ??= new();
+		MovedPlayers ??= [];
 
 		foreach ( var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 		{

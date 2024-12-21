@@ -10,7 +10,7 @@
 
 	public void Start()
 	{
-		GameManager.DisplayToast( Description );
+
 	}
 
 	public void FixedUpdate()

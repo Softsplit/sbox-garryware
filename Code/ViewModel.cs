@@ -30,7 +30,6 @@ public class ViewModel : Component
 
 	protected override void OnPreRender()
 	{
-		
 		if ( !Player.FindLocalPlayer().IsValid() )
 			return;
 
@@ -39,7 +38,7 @@ public class ViewModel : Component
 
 		if ( !activated )
 		{
-			lastPitch = MathX.Clamp(inRot.Pitch(), -89, 89 );
+			lastPitch = MathX.Clamp( inRot.Pitch(), -89, 89 );
 			lastYaw = inRot.Yaw();
 
 			YawInertia = 0;
@@ -69,15 +68,14 @@ public class ViewModel : Component
 		bool pitchInRange = newPitch < 89f && newPitch > -89f;
 
 		var pitchDelta = pitchInRange ? Angles.NormalizeAngle( newPitch - lastPitch ) : 0;
-
 		var yawDelta = pitchInRange ? Angles.NormalizeAngle( lastYaw - newYaw ) : 0;
 
 		PitchInertia += pitchDelta;
 		YawInertia += yawDelta;
 
-		if ( EnableSwingAndBob)
+		if ( EnableSwingAndBob )
 		{
-			SwingAndBob(newPitch, pitchDelta, yawDelta);
+			SwingAndBob( newPitch, pitchDelta, yawDelta );
 		}
 		else
 		{
@@ -91,12 +89,11 @@ public class ViewModel : Component
 			lastYaw = newYaw;
 		}
 
-
 		YawInertia = YawInertia.LerpTo( 0, Time.Delta * InertiaDamping );
 		PitchInertia = PitchInertia.LerpTo( 0, Time.Delta * InertiaDamping );
 	}
 
-	private void SwingAndBob(float newPitch, float pitchDelta, float yawDelta)
+	private void SwingAndBob( float newPitch, float pitchDelta, float yawDelta )
 	{
 		var player = Player.FindLocalPlayer();
 		var playerVelocity = player.Controller.Velocity;

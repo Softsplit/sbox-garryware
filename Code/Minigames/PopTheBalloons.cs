@@ -3,7 +3,7 @@
 public class PopTheBalloons : Component, Minigame
 {
 	public string Name => "Pop The Balloons!";
-	public string Description => $"Pop {BalloonTarget} Balloons!";
+	public string Description => $"Pop {BalloonTarget} balloons!";
 	public float Duration => 10;
 
 	[Property] private BBox BalloonBounds { get; set; }
@@ -49,8 +49,6 @@ public class PopTheBalloons : Component, Minigame
 
 	public void Start()
 	{
-		GameManager.DisplayToast( Description );
-
 		BalloonPropListeners = new();
 
 		for ( int i = 0; i < BalloonTarget * Connection.All.Count; i++ )

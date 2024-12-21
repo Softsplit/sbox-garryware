@@ -216,12 +216,24 @@
         {
           "__guid": "7db6ad4f-174f-4674-9d52-5cbf80a0ef31",
           "Flags": 0,
-          "Name": "Results",
+          "Name": "Results Display",
           "Enabled": true,
           "Components": [
             {
-              "__type": "ResultDisplay",
-              "__guid": "f98c31be-9fd5-4dc3-8220-826b3b6f2d00"
+              "__type": "ResultsDisplay",
+              "__guid": "230ddefb-ca0b-41b8-b4c9-d9793cd833bf"
+            }
+          ]
+        },
+        {
+          "__guid": "594a1401-eae7-414b-87ba-502cf97b83ae",
+          "Flags": 0,
+          "Name": "Minigame Display",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "MinigameDisplay",
+              "__guid": "90d2063b-7907-4e45-a227-51270b6a4d4a"
             }
           ]
         }
