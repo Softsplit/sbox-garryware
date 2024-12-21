@@ -37,7 +37,7 @@
         "__type": "ViewModel",
         "__guid": "fccc3908-17ff-41ca-9c46-1aee27bf34da",
         "BobCycleTime": 7,
-        "BobDirection": "0,0,0",
+        "BobDirection": "0,1,0.5",
         "EnableSwingAndBob": true,
         "InertiaDamping": 20,
         "MaxOffsetLength": 10,
