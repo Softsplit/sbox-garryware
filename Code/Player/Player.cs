@@ -24,6 +24,17 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		}
 	}
 
+	ModelHitboxes _hitboxes;
+	public ModelHitboxes Hitboxes 
+	{ 
+		get 
+		{
+			if(_hitboxes == null)
+				_hitboxes = GetComponent<ModelHitboxes>();
+			return _hitboxes; 
+		} 
+	}
+
 	[Property]
 	public GameObject Body { get; set; }
 
@@ -36,10 +47,6 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 	public Ray AimRay => new( EyeTransform.Position, EyeTransform.Rotation.Forward );
 
-	float walkSpeed;
-	float runSpeed;
-	float duckedSpeed;
-	float JumpSpeed;
 	bool thirdPerson;
 	bool movementSettingsSaved = false;
 
@@ -50,14 +57,14 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		if ( IsDead )
 		{
 			Controller.ThirdPerson = true;
-
-			Controller.WalkSpeed = 0;
-			Controller.RunSpeed = 0;
-			Controller.DuckedSpeed = 0;
-			Controller.JumpSpeed = 0;
 			Controller.DuckedHeight = Controller.BodyHeight;
 		}
+
 		Body.Enabled = !IsDead;
+
+		Controller.ColliderObject.Enabled = !IsDead;
+		Controller.Body.Enabled = !IsDead;
+		Hitboxes.Enabled = !IsDead;
 	}
 
 	[Broadcast]
@@ -140,11 +147,8 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		if ( IsDead ) return;
 
 		Gib();
-		walkSpeed = Controller.WalkSpeed;
-		runSpeed = Controller.RunSpeed;
-		duckedSpeed = Controller.DuckedSpeed;
-		JumpSpeed = Controller.JumpSpeed;
 		thirdPerson = Controller.ThirdPerson;
+
 		movementSettingsSaved = true;
 		Health = 0;
 	}
@@ -156,11 +160,6 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 		if(movementSettingsSaved)
 		{
-			Controller.WalkSpeed = walkSpeed;
-			Controller.RunSpeed = runSpeed;
-			Controller.DuckedSpeed = duckedSpeed;
-			Controller.JumpSpeed = JumpSpeed;
-
 			Controller.ThirdPerson = thirdPerson;
 		}
 
