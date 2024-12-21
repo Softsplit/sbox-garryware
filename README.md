@@ -1,5 +1,5 @@
 # GarryWare
-Fast-paced minigame party where players complete wacky micro-challenges, inspired by the original GarryWare.
+A fast-paced minigame party where players complete wacky micro-challenges.
 
 ## Credits
 * Asphaltian - Base, UI, Minigames
