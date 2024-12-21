@@ -43,7 +43,7 @@
 		}
 	}
 
-	public void FailedEvent( bool succeeded, Player player )
+	public void WinEvent( bool succeeded, Player player )
 	{
 		if(succeeded)
 			GameManager.PlaySound( "win" );
