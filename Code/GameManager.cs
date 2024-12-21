@@ -61,11 +61,13 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		switch ( State )
 		{
 			case GameState.Intermission:
+				ReviveAllPlayers();
 				ResetWeapons();
 				DistributeWeapon( "prefabs/weapons/fists/w_fists.prefab" );
 				CurrentMinigameIndex = -1;
 				break;
 			case GameState.Playing:
+				ReviveAllPlayers();
 				ResetWeapons();
 				StartMinigame();
 				CurrentMinigame?.SetWeapon();
@@ -170,6 +172,14 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 					ChangeState( GameState.Playing );
 				}
 				break;
+		}
+	}
+
+	public void ReviveAllPlayers()
+	{
+		foreach ( var player in Scene.GetAllComponents<Player>() )
+		{
+			player.Revive();
 		}
 	}
 

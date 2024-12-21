@@ -71,8 +71,11 @@ public class PopTheBalloons : Component, Minigame
 
 	public void WinEvent( bool succeeded, Player player )
 	{
-		if(!succeeded)
+		if( !succeeded )
 			GameManager.PlaySound( "fail", player );
+
+		if ( !succeeded )
+			player.Kill();
 
 		GameManager.DisplayToast( succeeded ?
 			$"You succeeded!" :

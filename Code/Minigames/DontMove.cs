@@ -31,6 +31,7 @@
 			{
 				GameManager.PlaySound( "fail", player );
 				MovedPlayers.Add( player );
+				player.Kill();
 			}
 		}
 	}
@@ -39,6 +40,9 @@
 	{
 		if ( succeeded )
 			GameManager.PlaySound( "win" );
+
+		if ( !succeeded )
+			player.Kill();
 
 		GameManager.DisplayToast( succeeded ?
 			$"You succeeded!" :

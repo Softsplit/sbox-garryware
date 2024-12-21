@@ -10,6 +10,9 @@
 	{
 		GameManager.PlaySound( succeeded ? "win" : "fail", player );
 
+		if ( !succeeded )
+			player.Kill();
+
 		GameManager.DisplayToast( succeeded ?
 			$"You succeeded!" :
 			$"You failed!", 2.0f,

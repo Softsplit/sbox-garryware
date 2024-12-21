@@ -45,6 +45,8 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 		if ( IsProxy )
 			return;
 
+		Owner.Body.Enabled = true;
+
 		var prefab = GameObject.Clone( prefabName, global::Transform.Zero, Owner.Body, false );
 		prefab.NetworkSpawn( false, Network.Owner );
 

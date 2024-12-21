@@ -36,6 +36,78 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 	public Ray AimRay => new( EyeTransform.Position, EyeTransform.Rotation.Forward );
 
+	float walkSpeed;
+	float runSpeed;
+	float duckedSpeed;
+	float JumpSpeed;
+	bool thirdPerson;
+	bool movementSettingsSaved = false;
+
+	bool wasDead;
+	protected override void OnFixedUpdate()
+	{
+
+		if ( IsDead )
+		{
+			Controller.ThirdPerson = true;
+
+			Controller.WalkSpeed = 0;
+			Controller.RunSpeed = 0;
+			Controller.DuckedSpeed = 0;
+			Controller.JumpSpeed = 0;
+			Controller.DuckedHeight = Controller.BodyHeight;
+		}
+		Body.Enabled = !IsDead;
+	}
+
+	[Broadcast]
+	private async void Gib()
+	{
+		GameObject go = new GameObject();
+
+		go.WorldTransform = Body.WorldTransform;
+
+		var prop = go.Components.Create<Prop>();
+
+		prop.Model = Model.Load( "models/citizen_gibs/citizen_gib.vmdl" );
+
+		var modelRenderer = go.GetComponent<SkinnedModelRenderer>();
+
+		modelRenderer.CreateBoneObjects = true;
+
+		var myRenderer = Body.Components.Get<SkinnedModelRenderer>();
+
+		for(int i = 0; i < myRenderer.GetBoneTransforms(true).Count(); i++ )
+		{
+			if ( !modelRenderer.GetBoneObject( i ).IsValid() || !myRenderer.GetBoneObject( i ).IsValid() )
+				continue;
+
+			modelRenderer.GetBoneObject(i).WorldTransform = myRenderer.GetBoneObject(i).WorldTransform;
+		}
+
+		SandboxBaseExtensions.CreateParticle( "particles/impact.flesh.bloodpuff-big.vpcf", null, WorldPosition + Vector3.Up * Controller.BodyHeight / 2, Rotation.Identity, false );
+
+		var sound = ResourceLibrary.Get<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound" );
+
+		sound.Volume = 100;
+
+		Sound.Play( sound, WorldPosition );
+
+		var gibs = prop.CreateGibs();
+
+		foreach(var gib in gibs)
+		{
+			var rb = gib.GameObject.GetComponent<Rigidbody>();
+
+			if ( !rb.IsValid() )
+				continue;
+
+			rb.ApplyImpulse( (gib.WorldPosition - WorldPosition).Normal * 5000 * rb.Mass);
+		}
+
+		prop.GameObject.Destroy();
+	}
+
 	/// <summary>
 	/// Creates a ragdoll but it isn't enabled
 	/// </summary>
@@ -60,6 +132,41 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		go.NetworkSpawn( Rpc.Caller );
 	}
 
+	[Rpc.Broadcast]
+	public void Kill()
+	{
+		if ( IsProxy ) return;
+
+		if ( IsDead ) return;
+
+		Gib();
+		walkSpeed = Controller.WalkSpeed;
+		runSpeed = Controller.RunSpeed;
+		duckedSpeed = Controller.DuckedSpeed;
+		JumpSpeed = Controller.JumpSpeed;
+		thirdPerson = Controller.ThirdPerson;
+		movementSettingsSaved = true;
+		Health = 0;
+	}
+
+	[Rpc.Broadcast]
+	public void Revive()
+	{
+		if ( IsProxy ) return;
+
+		if(movementSettingsSaved)
+		{
+			Controller.WalkSpeed = walkSpeed;
+			Controller.RunSpeed = runSpeed;
+			Controller.DuckedSpeed = duckedSpeed;
+			Controller.JumpSpeed = JumpSpeed;
+
+			Controller.ThirdPerson = thirdPerson;
+		}
+
+		Health = 100;
+	}
+
 	public void TakeDamage( float amount )
 	{
 		if ( IsProxy ) return;
@@ -72,7 +179,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		if ( Health <= 0 )
 		{
 			Health = 0;
-			Death();
+			//Death();
 		}
 	}
 

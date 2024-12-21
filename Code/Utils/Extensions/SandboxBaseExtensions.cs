@@ -101,7 +101,7 @@ public static partial class SandboxBaseExtensions
 		CreateParticle( name, parent, position, rotation );
 	}
 
-	public static LegacyParticleSystem CreateParticle(string name, GameObject parent, Vector3 position, Rotation rotation)
+	public static LegacyParticleSystem CreateParticle( string name, GameObject parent, Vector3 position, Rotation rotation, bool spawn = true)
 	{
 		var go = new GameObject
 		{
@@ -118,9 +118,12 @@ public static partial class SandboxBaseExtensions
 				new ParticleControlPoint { GameObjectValue = go, Value = ParticleControlPoint.ControlPointValueInput.GameObject }
 			};
 
-		go.NetworkSpawn( null );
-		go.Network.SetOrphanedMode( NetworkOrphaned.Host );
-		go.DestroyAsync( 5f );
+		if(spawn)
+		{
+			go.NetworkSpawn( null );
+			go.Network.SetOrphanedMode( NetworkOrphaned.Host );
+			go.DestroyAsync( 5f );
+		}
 
 		return legacyParticleSystem;
 	}
