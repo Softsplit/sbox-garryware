@@ -293,17 +293,23 @@ public partial class BaseWeapon : Component
 		//
 		foreach ( var tr in TraceBullet( pos, pos + forward * 5000, bulletSize ) )
 		{
-			tr.Surface.DoBulletImpact( tr );
+
+			Player player = null;
+			bool isPlayer = tr.GameObject.IsValid() && tr.GameObject.Root.Components.TryGet<Player>( out player );
+
+			if ( !isPlayer )
+				tr.Surface.DoBulletImpact( tr );
+			else
+			{
+				SandboxBaseExtensions.BroadcastDoBulletImpact( "sounds/impacts/melee/impact-melee-dirt.sound", tr.HitPosition );
+				SandboxBaseExtensions.BroadcastCreateParticle( "particles/impact.generic.smokering.vpcf", tr.GameObject, tr.EndPosition, Rotation.LookAt( -tr.Normal ) );
+			}
 
 			if ( !tr.GameObject.IsValid() ) continue;
 
 			if ( tr.GameObject.Components.TryGet<PropHelper>( out var prop ) )
 			{
 				prop.BroadcastAddDamagingForce( forward * 5000 * force, damage, Network.OwnerId );
-			}
-			else if ( tr.GameObject.Root.Components.TryGet<Player>( out var player ) )
-			{
-				player.TakeDamage( damage );
 			}
 		}
 	}

@@ -262,9 +262,9 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	}
 
 	[Rpc.Broadcast]
-	public static void PlaySound( string sound, Player to = null )
+	public static void PlaySound( string sound, Player to = null, string guidTo = null )
 	{
-		if ( to != null && Connection.Local != to.Network.Owner )
+		if ( (to != null && Connection.Local != to.Network.Owner) || (guidTo != null && Connection.Local.Id.ToString() != guidTo) )
 			return;
 
 		Sound.Play( sound );

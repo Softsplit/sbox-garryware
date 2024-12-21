@@ -138,6 +138,16 @@
       {
         "__type": "PlayerInventory",
         "__guid": "7c22a360-416f-4878-a4ba-154dfa33997d"
+      },
+      {
+        "__type": "Sandbox.ModelHitboxes",
+        "__guid": "ed032ac2-ec8a-4160-bd81-4ca214bfe54c",
+        "Renderer": {
+          "_type": "component",
+          "component_id": "088ccdf7-7a51-47f6-be5c-88081217e16e",
+          "go": "d0a8e1e1-bce2-477a-908c-3cfc0ac57de8",
+          "component_type": "SkinnedModelRenderer"
+        }
       }
     ],
     "Children": [

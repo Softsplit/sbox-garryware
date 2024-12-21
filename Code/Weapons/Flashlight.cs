@@ -73,7 +73,11 @@ partial class Flashlight : BaseWeapon
 
 		foreach ( var tr in TraceMelee( ray.Position, ray.Position + forward * 80, 20.0f ) )
 		{
-			tr.Surface.DoBulletImpact( tr );
+			Player player = null;
+			bool isPlayer = tr.GameObject.IsValid() && tr.GameObject.Root.Components.TryGet<Player>( out player );
+
+			if( !isPlayer )
+				tr.Surface.DoBulletImpact( tr );
 
 			hit = true;
 
@@ -83,9 +87,9 @@ partial class Flashlight : BaseWeapon
 			{
 				prop.BroadcastAddDamagingForce( forward * 80 * 100, 25 , Owner.Id );
 			}
-			else if ( tr.GameObject.Root.Components.TryGet<Player>( out var player ) )
+			else if ( isPlayer )
 			{
-				player.TakeDamage( 25 );
+				player?.ApplyImpulse( forward * 80 );
 			}
 		}
 

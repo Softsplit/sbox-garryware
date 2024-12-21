@@ -68,6 +68,18 @@ public class PopTheBalloons : Component, Minigame
 
 	}
 
+	public void WinEvent( bool succeeded, Player player )
+	{
+		if(!succeeded)
+			GameManager.PlaySound( "fail", player );
+
+		GameManager.DisplayToast( succeeded ?
+			$"You succeeded!" :
+			$"You failed!", 2.0f,
+			player );
+	}
+
+	List<Guid> internalSucceeded = new();
 	Dictionary<Guid, int> PlayerBalloonsPopped()
 	{
 		Dictionary<Guid, int> playerBalloonsPopped = new();
@@ -80,6 +92,12 @@ public class PopTheBalloons : Component, Minigame
 			playerBalloonsPopped.TryAdd( propDestroyedListener.Attacker, 0 );
 
 			playerBalloonsPopped[propDestroyedListener.Attacker]++;
+
+			if( playerBalloonsPopped[propDestroyedListener.Attacker] >= BalloonTarget && !internalSucceeded.Contains(propDestroyedListener.Attacker))
+			{
+				internalSucceeded.Add( propDestroyedListener.Attacker );
+				GameManager.PlaySound( "win", null, propDestroyedListener.Attacker.ToString() );
+			}
 		}
 
 		return playerBalloonsPopped;

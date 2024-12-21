@@ -111,4 +111,12 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		var player = Components.Get<Player>();
 		IPlayerEvent.PostToGameObject( GameObject, x => x.OnLand( distance, impactVelocity ) );
 	}
+
+	[Rpc.Broadcast]
+	public void ApplyImpulse( Vector3 force )
+	{
+		if ( IsProxy ) return;
+
+		Controller.Body.ApplyImpulse( force );
+	}
 }

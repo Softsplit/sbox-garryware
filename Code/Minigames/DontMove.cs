@@ -24,7 +24,7 @@
 
 		foreach ( var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 		{
-			if ( player.Controller.Body.Velocity.Length < 1f )
+			if ( player.Controller.WishVelocity.Length < 1f )
 				continue;
 
 			if ( !MovedPlayers.Contains( player ) )

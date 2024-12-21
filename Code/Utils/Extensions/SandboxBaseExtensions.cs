@@ -87,24 +87,7 @@ public static partial class SandboxBaseExtensions
 
 		if ( !string.IsNullOrWhiteSpace( particleName ) )
 		{
-			var go = new GameObject
-			{
-				Name = particleName,
-				Parent = tr.GameObject,
-				WorldPosition = tr.EndPosition,
-				WorldRotation = Rotation.LookAt( tr.Normal )
-			};
-
-			var legacyParticleSystem = go.AddComponent<LegacyParticleSystem>();
-			legacyParticleSystem.Particles = ParticleSystem.Load( particleName );
-			legacyParticleSystem.ControlPoints = new()
-			{
-				new ParticleControlPoint { GameObjectValue = go, Value = ParticleControlPoint.ControlPointValueInput.GameObject }
-			};
-
-			go.NetworkSpawn( null );
-			go.Network.SetOrphanedMode( NetworkOrphaned.Host );
-			go.DestroyAsync( 5f );
+			var legacyParticleSystem = CreateParticle( particleName, tr.GameObject, tr.EndPosition, Rotation.LookAt( tr.Normal ) );
 
 			return legacyParticleSystem;
 		}
@@ -113,7 +96,37 @@ public static partial class SandboxBaseExtensions
 	}
 
 	[Rpc.Broadcast]
-	private static void BroadcastDoBulletImpact( string eventName, Vector3 position )
+	public static void BroadcastCreateParticle( string name, GameObject parent, Vector3 position, Rotation rotation )
+	{
+		CreateParticle( name, parent, position, rotation );
+	}
+
+	public static LegacyParticleSystem CreateParticle(string name, GameObject parent, Vector3 position, Rotation rotation)
+	{
+		var go = new GameObject
+		{
+			Name = name,
+			Parent = parent,
+			WorldPosition = position,
+			WorldRotation = rotation
+		};
+
+		var legacyParticleSystem = go.AddComponent<LegacyParticleSystem>();
+		legacyParticleSystem.Particles = ParticleSystem.Load( name );
+		legacyParticleSystem.ControlPoints = new()
+			{
+				new ParticleControlPoint { GameObjectValue = go, Value = ParticleControlPoint.ControlPointValueInput.GameObject }
+			};
+
+		go.NetworkSpawn( null );
+		go.Network.SetOrphanedMode( NetworkOrphaned.Host );
+		go.DestroyAsync( 5f );
+
+		return legacyParticleSystem;
+	}
+
+	[Rpc.Broadcast]
+	public static void BroadcastDoBulletImpact( string eventName, Vector3 position )
 	{
 		Sound.Play( eventName, position );
 	}
