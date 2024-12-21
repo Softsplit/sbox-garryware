@@ -63,7 +63,6 @@
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
           "Name": "Pop the Balloons!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PopTheBalloons",
@@ -73,6 +72,18 @@
                 "Maxs": "500,-500,64"
               },
               "BalloonTarget": 3
+            }
+          ]
+        },
+        {
+          "__guid": "7547b98f-4152-4a67-b725-d40c5fa9515e",
+          "Flags": 0,
+          "Name": "Hot Melon!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "HotMelon",
+              "__guid": "b5c946f2-6d43-4ce1-9c11-d2171e7fc797"
             }
           ]
         }

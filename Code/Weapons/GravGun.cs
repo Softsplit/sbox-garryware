@@ -1,3 +1,5 @@
+using Sandbox;
+
 public partial class GravGun : BaseWeapon, IPlayerEvent
 {
 	[Property] public float MaxPullDistance => 2000.0f;
@@ -126,6 +128,10 @@ public partial class GravGun : BaseWeapon, IPlayerEvent
 			else if ( Input.Pressed( "attack2" ) )
 			{
 				GrabEnd();
+			}
+			else if ( GrabbedObject.Network.Owner != Network.Owner )
+			{
+				GrabEnd(false);
 			}
 			else
 			{
@@ -286,6 +292,8 @@ public partial class GravGun : BaseWeapon, IPlayerEvent
 
 		GrabEnd();
 
+		gameObject.Network.TakeOwnership();
+
 		GrabbedObject = gameObject;
 
 		bool isRagdoll = GrabbedObject.Components.Get<ModelPhysics>().IsValid();
@@ -314,7 +322,7 @@ public partial class GravGun : BaseWeapon, IPlayerEvent
 	}
 
 	[Rpc.Broadcast]
-	private void GrabEnd()
+	private void GrabEnd(bool dropOwnership = false)
 	{
 		timeSinceDrop = 0;
 		heldRot = Rotation.Identity;
@@ -322,6 +330,9 @@ public partial class GravGun : BaseWeapon, IPlayerEvent
 		if ( GrabbedObject.IsValid() )
 		{
 			GrabbedObject.Tags.Remove( "grabbed" );
+
+			if(dropOwnership)
+				GrabbedObject.Network.DropOwnership();
 		}
 
 		GrabbedObject = null;

@@ -59,7 +59,8 @@ public sealed partial class GameManager
 		}
 
 		go.NetworkSpawn();
-		go.Network.SetOrphanedMode( NetworkOrphaned.Host );
+		go.Network.SetOwnerTransfer( OwnerTransfer.Takeover );
+		go.Network.DropOwnership();
 
 		return propHelper;
 	}
