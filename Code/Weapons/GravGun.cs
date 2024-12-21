@@ -322,7 +322,7 @@ public partial class GravGun : BaseWeapon, IPlayerEvent
 	}
 
 	[Rpc.Broadcast]
-	private void GrabEnd(bool dropOwnership = false)
+	private void GrabEnd(bool dropOwnership = true)
 	{
 		timeSinceDrop = 0;
 		heldRot = Rotation.Identity;

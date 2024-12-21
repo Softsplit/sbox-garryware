@@ -35,6 +35,7 @@
           "__guid": "48a1a4b6-2a69-4950-95be-1876a4957fa9",
           "Flags": 0,
           "Name": "Don\u0027t Move!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "DontMove",
@@ -45,12 +46,14 @@
         {
           "__guid": "c1db0567-e6b0-4849-a87b-0130028e032e",
           "Flags": 0,
-          "Name": "Look Up!"
+          "Name": "Look Up!",
+          "Enabled": true
         },
         {
           "__guid": "dc644ee6-b39e-44fe-97de-85e0669fe4aa",
           "Flags": 0,
           "Name": "Floor is Lava!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "FloorIsLava",
@@ -63,12 +66,13 @@
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
           "Name": "Pop the Balloons!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "PopTheBalloons",
-              "__guid": "1068a053-e1a8-4554-af48-30aa486dbe51",
+              "__guid": "dc606f33-0b99-4f02-887b-7b7378f6d2b6",
               "BalloonBounds": {
-                "Mins": "-500,500,255.0001",
+                "Mins": "-500,500,255",
                 "Maxs": "500,-500,64"
               },
               "BalloonTarget": 3
@@ -78,12 +82,16 @@
         {
           "__guid": "7547b98f-4152-4a67-b725-d40c5fa9515e",
           "Flags": 0,
-          "Name": "Hot Melon!",
+          "Name": "Grab A Melon!",
           "Enabled": true,
           "Components": [
             {
-              "__type": "HotMelon",
-              "__guid": "b5c946f2-6d43-4ce1-9c11-d2171e7fc797"
+              "__type": "GrabAMelon",
+              "__guid": "1cffa642-491f-4cc9-9a28-41c1bd0f8dc5",
+              "MelonBounds": {
+                "Mins": "-500,500,255",
+                "Maxs": "500,-500,64"
+              }
             }
           ]
         }
