@@ -18,7 +18,7 @@
 
 	public void FixedUpdate()
 	{
-		if ( GameManager.Current.TimeInState < 2f )
+		if ( GameManager.Current.TimeInState < 0.5f )
 			return;
 
 		MovedPlayers ??= new();

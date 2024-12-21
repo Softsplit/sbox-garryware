@@ -25,14 +25,14 @@
 
 	public void FixedUpdate()
 	{
-		if ( GameManager.Current.TimeInState < 0.5f )
+		if ( GameManager.Current.TimeInState < 3f )
 			return;
 
 		BurntPlayers ??= new();
 
 		foreach ( var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 		{
-			if ( player.WorldPosition.z < FloorLevel )
+			if ( player.WorldPosition.z > FloorLevel )
 				continue;
 
 			if ( !BurntPlayers.Contains(player) )
