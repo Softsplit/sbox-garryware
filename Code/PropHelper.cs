@@ -39,10 +39,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 			Rigidbody.Gravity = Gravity;
 
 		if ( Prop != null )
-		{
-			Prop.Tint = Tint;
 			Prop.OnPropBreak += OnBreak;
-		}
 
 		Health = Prop?.Health ?? 0f;
 		Velocity = 0f;
@@ -150,6 +147,13 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 			Velocity = (Prop.WorldPosition - lastPosition) / Time.Delta;
 
 			lastPosition = Prop.WorldPosition;
+
+			Prop.Tint = Tint;
+		}
+
+		if(Rigidbody.IsValid())
+		{
+			Rigidbody.Gravity = Gravity;
 		}
 
 		UpdateNetworkedBodies();
