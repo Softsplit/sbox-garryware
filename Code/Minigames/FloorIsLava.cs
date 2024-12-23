@@ -10,6 +10,8 @@
 
 	}
 
+	public bool Requirements() => false;
+
 	protected override void DrawGizmos()
 	{
 		if ( !Gizmo.IsSelected )

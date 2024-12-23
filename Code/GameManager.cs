@@ -99,7 +99,17 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	{
 		if ( Minigames.Count == 0 ) return;
 
-		CurrentMinigameIndex = Random.Shared.Next( Minigames.Count );
+		List<int> availableMinigames = new();
+
+		for (int i = 0; i < Minigames.Count; i++ )
+		{
+			if ( !Minigames[i].Requirements() )
+				continue;
+
+			availableMinigames.Add( i );
+		}
+
+		CurrentMinigameIndex = availableMinigames[Random.Shared.Next( availableMinigames.Count )];
 		var minigame = CurrentMinigame;
 
 		RespawnAllPlayers();

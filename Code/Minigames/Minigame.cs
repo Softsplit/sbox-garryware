@@ -19,5 +19,6 @@
 			player );
 	}
 	public void SetWeapon() => GameManager.Current.DistributeWeapon( "prefabs/weapons/fists/w_fists.prefab" );
+	public bool Requirements() => true;
 	public bool WinCondition( Player player );
 }
