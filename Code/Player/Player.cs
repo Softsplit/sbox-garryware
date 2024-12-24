@@ -47,6 +47,8 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 	public Ray AimRay => new( EyeTransform.Position, EyeTransform.Rotation.Forward );
 
+	public event Action<bool, float, Guid> OnDamaged;
+
 	bool thirdPerson;
 	bool movementSettingsSaved = false;
 
@@ -67,8 +69,8 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		Hitboxes.Enabled = !IsDead;
 	}
 
-	[Broadcast]
-	private async void Gib()
+	[Rpc.Broadcast]
+	private void Gib()
 	{
 		GameObject go = new GameObject();
 
@@ -166,16 +168,18 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		Health = 100;
 	}
 
-	public void TakeDamage( float amount )
+	[Rpc.Broadcast]
+	public void TakeDamage( float amount, Guid attacker )
 	{
-		if ( IsProxy ) return;
 		if ( Health <= 0 ) return;
 
-		Health -= amount;
+		if ( !IsProxy ) Health -= amount;
+
+		OnDamaged?.Invoke( Health <= 0f, amount, attacker );
 
 		IPlayerEvent.PostToGameObject( GameObject, x => x.OnTakeDamage( amount ) );
 
-		if ( Health <= 0 )
+		if ( !IsProxy && Health <= 0 )
 		{
 			Health = 0;
 			//Death();
@@ -194,7 +198,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 	void IDamageable.OnDamage( in DamageInfo damage )
 	{
-		TakeDamage( damage.Damage );
+		TakeDamage( damage.Damage, Guid.Empty );
 	}
 
 	void PlayerController.IEvents.OnEyeAngles( ref Angles ang )

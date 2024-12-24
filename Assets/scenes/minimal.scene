@@ -35,7 +35,6 @@
           "__guid": "48a1a4b6-2a69-4950-95be-1876a4957fa9",
           "Flags": 0,
           "Name": "Don\u0027t Move!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "DontMove",
@@ -58,7 +57,6 @@
           "__guid": "dc644ee6-b39e-44fe-97de-85e0669fe4aa",
           "Flags": 0,
           "Name": "Floor is Lava!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "FloorIsLava",
@@ -95,6 +93,18 @@
                 "Mins": "-500,500,255",
                 "Maxs": "500,-500,64"
               }
+            }
+          ]
+        },
+        {
+          "__guid": "add67e68-154f-4bbe-9e76-a7ca2514630e",
+          "Flags": 0,
+          "Name": "Punch This Guy!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "PunchThisGuy",
+              "__guid": "11913968-7903-432f-8b17-3584fd683592"
             }
           ]
         }

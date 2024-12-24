@@ -268,7 +268,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 				}
 				else if ( other.GameObject.Root.Components.TryGet<Player>( out var player ) )
 				{
-					player.TakeDamage( damage );
+					player.TakeDamage( damage, Guid.Empty );
 				}
 			}
 		}
@@ -319,7 +319,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 
 			if ( obj.Root.Components.TryGet<Player>( out var player ) )
 			{
-				player.TakeDamage( dmg );
+				player.TakeDamage( dmg, Guid.Empty );
 			}
 		}
 	}

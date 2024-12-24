@@ -35,7 +35,7 @@ public class PopTheBalloons : Component, Minigame
 		Gizmo.Draw.LineBBox( BalloonBounds );
 	}
 
-	List<PropDestroyedListener> BalloonPropListeners;
+	List<MinigameUtilities.PropDamageListener> BalloonPropListeners;
 
 	public void OnEnd()
 	{
@@ -54,7 +54,7 @@ public class PopTheBalloons : Component, Minigame
 
 		for ( int i = 0; i < BalloonTarget * Connection.All.Count; i++ )
 		{
-			PropDestroyedListener listener = new( GameManager.SpawnModel( Balloons[Game.Random.Next( 0, Balloons.Count )], BalloonBounds.RandomPointInside, Rotation.Random ) );
+			MinigameUtilities.PropDamageListener listener = new( GameManager.SpawnModel( Balloons[Game.Random.Next( 0, Balloons.Count )], BalloonBounds.RandomPointInside, Rotation.Random ) );
 
 			listener.PropHelper.Gravity = false;
 
@@ -93,14 +93,14 @@ public class PopTheBalloons : Component, Minigame
 			if ( !propDestroyedListener.Destroyed )
 				continue;
 
-			playerBalloonsPopped.TryAdd( propDestroyedListener.Attacker, 0 );
+			playerBalloonsPopped.TryAdd( propDestroyedListener.LastAttacker, 0 );
 
-			playerBalloonsPopped[propDestroyedListener.Attacker]++;
+			playerBalloonsPopped[propDestroyedListener.LastAttacker]++;
 
-			if( playerBalloonsPopped[propDestroyedListener.Attacker] >= BalloonTarget && !internalSucceeded.Contains(propDestroyedListener.Attacker))
+			if( playerBalloonsPopped[propDestroyedListener.LastAttacker] >= BalloonTarget && !internalSucceeded.Contains(propDestroyedListener.LastAttacker ) )
 			{
-				internalSucceeded.Add( propDestroyedListener.Attacker );
-				GameManager.PlaySound( "win", null, propDestroyedListener.Attacker.ToString() );
+				internalSucceeded.Add( propDestroyedListener.LastAttacker );
+				GameManager.PlaySound( "win", null, propDestroyedListener.LastAttacker.ToString() );
 			}
 		}
 
@@ -115,35 +115,5 @@ public class PopTheBalloons : Component, Minigame
 			return false;
 
 		return playerBalloonsPopped[player.Network.OwnerId] >= BalloonTarget;
-	}
-}
-
-public class PropDestroyedListener
-{
-	public PropHelper PropHelper { get; set; }
-
-	public PropDestroyedListener( PropHelper propHelper )
-	{
-		PropHelper = propHelper;
-		PropHelper.OnDamaged += OnDamaged;
-	}
-
-	public bool Destroyed { get; set; }
-
-	public Guid Attacker { get; set; }
-
-	public float DestroyedTime { get; set; }
-
-	void OnDamaged( bool destroyed, float amount, Guid attacker )
-	{
-		DestroyedTime = Time.Now;
-		if ( !destroyed )
-			return;
-
-		Destroyed = true;
-
-		Attacker = attacker;
-
-		PropHelper = null;
 	}
 }

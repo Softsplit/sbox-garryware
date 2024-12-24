@@ -30,6 +30,6 @@ public class PlayerFallDamage : Component, IPlayerEvent
 
 		// play smashed legs on the ground sound
 
-		Player.TakeDamage( damageAmount );
+		Player.TakeDamage( damageAmount, Guid.Empty );
 	}
 }

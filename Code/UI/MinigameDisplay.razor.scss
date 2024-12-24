@@ -9,9 +9,7 @@
     align-items: center;
     gap: 8px;
     padding: 32px;
-    background: linear-gradient(to right,
-            rgba(0, 0, 0, 0.75),
-            rgba(20, 20, 20, 0.75));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(20, 20, 20, 0.75));
     backdrop-filter: blur(15px);
     transition: all 0.3s ease-out;
     pointer-events: none;
@@ -30,6 +28,7 @@
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 2px;
+        flex-wrap: wrap;
     }
 
     .description {

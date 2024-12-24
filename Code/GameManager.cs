@@ -22,6 +22,8 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 	public Minigame CurrentMinigame => CurrentMinigameIndex >= 0 ? Minigames[CurrentMinigameIndex] : null;
 
+	public int PlayerCount => Scene.Components.GetAll<Player>().Count();
+
 	public float TimeLeft => State switch
 	{
 		GameState.Intermission => INTERMISSION_DURATION - TimeInState,

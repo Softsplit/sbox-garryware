@@ -303,6 +303,8 @@ public partial class BaseWeapon : Component
 			{
 				SandboxBaseExtensions.BroadcastDoBulletImpact( "sounds/impacts/melee/impact-melee-dirt.sound", tr.HitPosition );
 				SandboxBaseExtensions.BroadcastCreateParticle( "particles/impact.generic.smokering.vpcf", tr.GameObject, tr.EndPosition, Rotation.LookAt( -tr.Normal ) );
+
+				player.TakeDamage( 0, Network.OwnerId );
 			}
 
 			if ( !tr.GameObject.IsValid() ) continue;

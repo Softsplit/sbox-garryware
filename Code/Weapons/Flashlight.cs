@@ -76,8 +76,14 @@ partial class Flashlight : BaseWeapon
 			Player player = null;
 			bool isPlayer = tr.GameObject.IsValid() && tr.GameObject.Root.Components.TryGet<Player>( out player );
 
-			if( !isPlayer )
+			if ( !isPlayer )
 				tr.Surface.DoBulletImpact( tr );
+			else
+			{
+				SandboxBaseExtensions.BroadcastDoBulletImpact( "sounds/impacts/melee/impact-melee-dirt.sound", tr.HitPosition );
+				player?.ApplyImpulse( forward * 100000 );
+				player.TakeDamage( 0, Network.OwnerId );
+			}
 
 			hit = true;
 
@@ -85,11 +91,7 @@ partial class Flashlight : BaseWeapon
 
 			if ( tr.GameObject.Components.TryGet<PropHelper>( out var prop ) )
 			{
-				prop.BroadcastAddDamagingForce( forward * 80 * 100, 25 , Owner.Id );
-			}
-			else if ( isPlayer )
-			{
-				player?.ApplyImpulse( forward * 80 );
+				prop.BroadcastAddDamagingForce( forward * 80 * 100, 25, Owner.Id );
 			}
 		}
 
