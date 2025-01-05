@@ -54,6 +54,19 @@
           ]
         },
         {
+          "__guid": "d6d376ea-420d-4c7c-b9e4-796775d325bd",
+          "Flags": 0,
+          "Name": "Stay On The Floor!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "StayOnTheFloor",
+              "__guid": "0f5163d1-e0a7-4815-9589-207d8bdd937d",
+              "FloorLevel": 10
+            }
+          ]
+        },
+        {
           "__guid": "dc644ee6-b39e-44fe-97de-85e0669fe4aa",
           "Flags": 0,
           "Name": "Floor is Lava!",
@@ -62,6 +75,22 @@
               "__type": "FloorIsLava",
               "__guid": "187a3e3e-9b7a-40c9-86d8-ecc8bc7fa4f5",
               "FloorLevel": 10
+            }
+          ]
+        },
+        {
+          "__guid": "b98bfa6f-4c34-4db2-8182-18627f51ff1d",
+          "Flags": 0,
+          "Name": "Don\u0027t Pop A Balloon",
+          "Components": [
+            {
+              "__type": "DontPopABalloons",
+              "__guid": "49507eb6-51ea-41de-b369-beb316ed6ba9",
+              "BalloonBounds": {
+                "Mins": "-500,500,255",
+                "Maxs": "500,-500,64"
+              },
+              "BalloonCount": 50
             }
           ]
         },
@@ -100,11 +129,34 @@
           "__guid": "add67e68-154f-4bbe-9e76-a7ca2514630e",
           "Flags": 0,
           "Name": "Punch This Guy!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PunchThisGuy",
               "__guid": "11913968-7903-432f-8b17-3584fd683592"
+            }
+          ]
+        },
+        {
+          "__guid": "15aa8740-3694-45e6-9776-7581e49c35e4",
+          "Flags": 0,
+          "Name": "Get Together!",
+          "Components": [
+            {
+              "__type": "GetTogether",
+              "__guid": "c6ad64ab-2108-4d71-997c-e4aae49ba2ab",
+              "Distance": 2
+            }
+          ]
+        },
+        {
+          "__guid": "3dd1802e-8df2-4430-86e9-8055697da398",
+          "Flags": 0,
+          "Name": "Spread Apart!",
+          "Components": [
+            {
+              "__type": "SpreadApart",
+              "__guid": "d3011bc0-a666-4663-938e-f2027154a200",
+              "Distance": 2
             }
           ]
         }

@@ -53,6 +53,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 	public void Damage( float amount, Guid attacker )
 	{
 		if ( !Prop.IsValid() ) return;
+
 		if ( Health <= 0f ) return;
 
 		Health -= amount;
