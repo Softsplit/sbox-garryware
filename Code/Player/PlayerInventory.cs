@@ -61,6 +61,12 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 		ILocalPlayerEvent.Post( e => e.OnWeaponAdded( weapon ) );
 	}
 
+	[ConCmd]
+	public static void gw_giveweapon( string name )
+	{
+		Player.FindLocalPlayer().Inventory.Pickup( $"prefabs/weapons/{name}/w_{name}.prefab" );
+	}
+
 	public void SetActiveSlot( int i )
 	{
 		var weapon = GetSlot( i );

@@ -72,7 +72,7 @@ public partial class BaseWeapon : Component
 
 		if ( IsProxy ) return;
 
-		ViewModel.GameObject.DestroyImmediate();
+		ViewModel?.GameObject?.DestroyImmediate();
 	}
 
 	protected override void OnUpdate()
