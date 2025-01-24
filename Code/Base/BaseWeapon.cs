@@ -7,6 +7,7 @@ using Sandbox.Citizen;
 [Icon( "sports_martial_arts" )]
 public partial class BaseWeapon : Component
 {
+	[Property] public bool Dangerous { get; set; }
 	[Property] public GameObject ViewModelPrefab { get; set; }
 	[Property] public string ParentBone { get; set; } = "hold_r";
 	[Property] public Transform BoneOffset { get; set; } = new Transform( 0 );
@@ -304,7 +305,10 @@ public partial class BaseWeapon : Component
 				SandboxBaseExtensions.BroadcastDoBulletImpact( "sounds/impacts/melee/impact-melee-dirt.sound", tr.HitPosition );
 				SandboxBaseExtensions.BroadcastCreateParticle( "particles/impact.generic.smokering.vpcf", tr.GameObject, tr.EndPosition, Rotation.LookAt( -tr.Normal ) );
 
-				player.TakeDamage( 0, Network.OwnerId );
+				if ( Dangerous )
+					tr.Surface.DoBulletImpact( tr );
+
+				player.TakeDamage( Dangerous ? damage : 0, Network.OwnerId );
 			}
 
 			if ( !tr.GameObject.IsValid() ) continue;

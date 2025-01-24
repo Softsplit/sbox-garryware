@@ -56,7 +56,9 @@ partial class Fists : BaseWeapon
 			{
 				SandboxBaseExtensions.BroadcastDoBulletImpact( "sounds/impacts/melee/impact-melee-dirt.sound", tr.HitPosition );
 				player?.ApplyImpulse( forward * 100000 );
-				player.TakeDamage( 0, Network.OwnerId );
+				if(Dangerous)
+					tr.Surface.DoBulletImpact( tr );
+				player.TakeDamage( Dangerous ? 35 : 0, Network.OwnerId );
 			}
 
 			hit = true;

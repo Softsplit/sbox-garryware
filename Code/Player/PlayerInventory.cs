@@ -62,9 +62,9 @@ public sealed class PlayerInventory : Component, IPlayerEvent
 	}
 
 	[ConCmd]
-	public static void gw_giveweapon( string name )
+	public static void gw_giveweapon( string name, string group = null )
 	{
-		Player.FindLocalPlayer().Inventory.Pickup( $"prefabs/weapons/{name}/w_{name}.prefab" );
+		Player.FindLocalPlayer().Inventory.Pickup( $"prefabs/weapons/{ group?? name }/w_{name}.prefab" );
 	}
 
 	public void SetActiveSlot( int i )

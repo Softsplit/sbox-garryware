@@ -38,8 +38,21 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 	[Property]
 	public GameObject Body { get; set; }
 
+	float health = 100;
 	[Property, Range( 0, 100 )]
-	[Sync] public float Health { get; set; } = 100;
+	[Sync] public float Health 
+	{ 
+		get { return health; } 
+		set 
+		{
+			bool alreadyDead = health <= 0;
+
+			health = value;
+
+			if(health <= 0 && !alreadyDead)
+				Gib();
+		}
+	}
 
 	public bool IsDead => Health <= 0;
 
@@ -85,6 +98,9 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		modelRenderer.CreateBoneObjects = true;
 
 		var myRenderer = Body.Components.Get<SkinnedModelRenderer>();
+
+		if ( !myRenderer.IsValid() )
+			return;
 
 		for(int i = 0; i < myRenderer.GetBoneTransforms(true).Count(); i++ )
 		{
@@ -148,7 +164,6 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 		if ( IsDead ) return;
 
-		Gib();
 		thirdPerson = Controller.ThirdPerson;
 
 		movementSettingsSaved = true;

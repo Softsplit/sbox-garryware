@@ -10,10 +10,19 @@
         {
           "__type": "Sandbox.SceneInformation",
           "__guid": "49a6e898-c19d-46f8-8c8e-ac2d1ecd875a",
+          "Author": null,
           "Changes": "",
           "Description": "",
+          "Group": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "SceneTags": "",
-          "Title": "minimal"
+          "Title": "minimal",
+          "Version": null
         }
       ]
     },
@@ -27,6 +36,12 @@
         {
           "__type": "GameManager",
           "__guid": "fa28f466-c220-4bfb-b24f-00d4471b4d93",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "State": "Intermission"
         }
       ],
@@ -38,7 +53,13 @@
           "Components": [
             {
               "__type": "DontMove",
-              "__guid": "5fc20481-b442-447d-bb9c-8be4e4d2e4ce"
+              "__guid": "5fc20481-b442-447d-bb9c-8be4e4d2e4ce",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -49,7 +70,13 @@
           "Components": [
             {
               "__type": "LookUp",
-              "__guid": "98318a68-6f76-4fe0-9111-d05ef3586553"
+              "__guid": "98318a68-6f76-4fe0-9111-d05ef3586553",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -57,12 +84,17 @@
           "__guid": "d6d376ea-420d-4c7c-b9e4-796775d325bd",
           "Flags": 0,
           "Name": "Stay On The Floor!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "StayOnTheFloor",
               "__guid": "0f5163d1-e0a7-4815-9589-207d8bdd937d",
-              "FloorLevel": 10
+              "FloorLevel": 10,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -74,7 +106,13 @@
             {
               "__type": "FloorIsLava",
               "__guid": "187a3e3e-9b7a-40c9-86d8-ecc8bc7fa4f5",
-              "FloorLevel": 10
+              "FloorLevel": 10,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -90,7 +128,13 @@
                 "Mins": "-500,500,255",
                 "Maxs": "500,-500,64"
               },
-              "BalloonCount": 50
+              "BalloonCount": 50,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -106,7 +150,13 @@
                 "Mins": "-500,500,255",
                 "Maxs": "500,-500,64"
               },
-              "BalloonTarget": 3
+              "BalloonTarget": 3,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -121,7 +171,13 @@
               "MelonBounds": {
                 "Mins": "-500,500,255",
                 "Maxs": "500,-500,64"
-              }
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -132,7 +188,13 @@
           "Components": [
             {
               "__type": "PunchThisGuy",
-              "__guid": "11913968-7903-432f-8b17-3584fd683592"
+              "__guid": "11913968-7903-432f-8b17-3584fd683592",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -144,7 +206,13 @@
             {
               "__type": "GetTogether",
               "__guid": "c6ad64ab-2108-4d71-997c-e4aae49ba2ab",
-              "Distance": 2
+              "Distance": 2,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -156,7 +224,31 @@
             {
               "__type": "SpreadApart",
               "__guid": "d3011bc0-a666-4663-938e-f2027154a200",
-              "Distance": 2
+              "Distance": 2,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "580067e5-9ffa-4557-8d41-052660e8c396",
+          "Flags": 0,
+          "Name": "Last Man Standing!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "LastManStanding",
+              "__guid": "1075557c-0351-4955-8df0-4792e5e1d56f",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         }
@@ -295,6 +387,12 @@
           "ClearFlags": "All",
           "FieldOfView": 90,
           "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Orthographic": false,
           "OrthographicHeight": 1204,
           "Priority": 1,
@@ -316,6 +414,12 @@
           "MaximumExposure": 3,
           "MinimumExposure": 0,
           "Mode": "Legacy",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Rate": 1
         },
         {
@@ -352,6 +456,12 @@
             }
           ],
           "Mode": "Additive",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Strength": 0.2,
           "Threshold": 0.2,
           "ThresholdWidth": 0.2
@@ -363,13 +473,25 @@
           "DenoiseMode": "Temporal",
           "FalloffRange": 0.75,
           "Intensity": 0.15,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Quality": "High",
           "Radius": 128,
           "ThinCompensation": 0
         },
         {
           "__type": "Sandbox.Highlight",
-          "__guid": "f85b3460-0142-4530-901f-c92c5199f686"
+          "__guid": "f85b3460-0142-4530-901f-c92c5199f686",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ]
     },
@@ -383,6 +505,12 @@
           "__type": "Sandbox.ScreenPanel",
           "__guid": "dd311741-4a9e-4fd4-a6b4-8ead6b22396e",
           "AutoScreenScale": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Opacity": 1,
           "Scale": 1,
           "ScaleStrategy": "FollowDesktopScaling",
@@ -398,7 +526,13 @@
           "Components": [
             {
               "__type": "Counter",
-              "__guid": "7aa62309-4e54-4495-a460-f5941a73f298"
+              "__guid": "7aa62309-4e54-4495-a460-f5941a73f298",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -410,7 +544,13 @@
           "Components": [
             {
               "__type": "ToastNotification",
-              "__guid": "98f4364b-950a-4648-8cd3-c9a2fe4f99e8"
+              "__guid": "98f4364b-950a-4648-8cd3-c9a2fe4f99e8",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -422,7 +562,13 @@
           "Components": [
             {
               "__type": "ResultsDisplay",
-              "__guid": "230ddefb-ca0b-41b8-b4c9-d9793cd833bf"
+              "__guid": "230ddefb-ca0b-41b8-b4c9-d9793cd833bf",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -434,7 +580,13 @@
           "Components": [
             {
               "__type": "MinigameDisplay",
-              "__guid": "90d2063b-7907-4e45-a227-51270b6a4d4a"
+              "__guid": "90d2063b-7907-4e45-a227-51270b6a4d4a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         }
@@ -456,6 +608,12 @@
             {
               "__type": "Sandbox.SkyBox2D",
               "__guid": "0512ba5a-0354-4a18-8b27-dcf6fb20221c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "SkyIndirectLighting": true,
               "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
               "Tint": "1,1,1,1"
@@ -476,6 +634,12 @@
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.91373,0.98039,1,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Shadows": true,
               "SkyColor": "0,0,0,0"
             }
@@ -499,6 +663,12 @@
               "FrameInterval": 5,
               "MaxDistance": 512,
               "MultiBounce": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Projection": "Box",
               "RenderDynamically": true,
               "Texture": "textures/cubemaps/default2.vtex",
@@ -526,7 +696,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "5b193c1b-3c9d-4ee6-bef8-0eef64b81f82",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -540,7 +716,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "631d9f87-8c16-4231-a814-5917774b095f",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -554,7 +736,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "58c87057-b505-43ac-910e-29a2cf265276",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -568,7 +756,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "0e7719ce-c204-4d67-8fd0-f19bb0782d14",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -582,7 +776,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "2ef7d2bb-2e75-45c1-9288-9a9d85c0f25c",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -596,7 +796,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "1d8bdbf1-e5f8-4796-9bf5-0c3fe83e191a",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -610,7 +816,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "fc656f21-45be-4537-8491-624485a4bd04",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -624,7 +836,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "6c9cd101-69b4-4e48-a2f2-16c9afaed540",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         },
@@ -638,7 +856,13 @@
             {
               "__type": "Sandbox.SpawnPoint",
               "__guid": "80a5eb58-4185-41da-83d0-e4bf8221eab5",
-              "Color": "0.8902,0.31765,0.05098,1"
+              "Color": "0.8902,0.31765,0.05098,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         }
@@ -657,6 +881,12 @@
           "EnableCollision": true,
           "MapName": "maps/gw_game.vmap",
           "NoOrigin": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "OnMapLoaded": null,
           "OnMapUnloaded": null,
           "UseMapFromLaunch": true
