@@ -142,6 +142,7 @@
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
           "Name": "Pop the Balloons!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "PopTheBalloons",
@@ -238,11 +239,27 @@
           "__guid": "580067e5-9ffa-4557-8d41-052660e8c396",
           "Flags": 0,
           "Name": "Last Man Standing!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "LastManStanding",
               "__guid": "1075557c-0351-4955-8df0-4792e5e1d56f",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "5d4627c5-46ad-4bd9-bce3-a121bedff34d",
+          "Flags": 0,
+          "Name": "Everyone Calm Down!",
+          "Components": [
+            {
+              "__type": "AllStanding",
+              "__guid": "d95dbdb5-1aa0-484c-b829-ead939df3045",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,

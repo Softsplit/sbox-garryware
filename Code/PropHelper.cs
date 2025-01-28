@@ -52,7 +52,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 	[Rpc.Broadcast]
 	public void Damage( float amount, Guid attacker )
 	{
-		if ( !Prop.IsValid() ) return;
+		if ( Prop == null || !Prop.IsValid() ) return;
 
 		if ( Health <= 0f ) return;
 
@@ -61,7 +61,7 @@ public sealed class PropHelper : Component, Component.ICollisionListener
 		OnDamaged?.Invoke( Health <= 0f && !Invincible, amount, attacker );
 
 		if ( Health <= 0f && !Invincible )
-			Prop.Kill();
+			Prop?.Kill();
 	}
 
 	public void OnBreak()

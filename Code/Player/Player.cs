@@ -81,8 +81,6 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		Controller.Body.Enabled = !IsDead;
 		Hitboxes.Enabled = !IsDead;
 	}
-
-	[Rpc.Broadcast]
 	private void Gib()
 	{
 		GameObject go = new GameObject();
@@ -131,6 +129,8 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		}
 
 		prop.GameObject.Destroy();
+
+		go.Destroy();
 	}
 
 	/// <summary>

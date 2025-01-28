@@ -41,7 +41,7 @@ public class PopTheBalloons : Component, Minigame
 	{
 		foreach ( var propListener in BalloonPropListeners )
 		{
-			propListener.PropHelper?.Damage( 1000, Guid.Empty );
+			propListener?.PropHelper?.Damage( 1000, Guid.Empty );
 		}
 	}
 

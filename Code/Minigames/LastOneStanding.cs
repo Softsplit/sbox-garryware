@@ -25,7 +25,31 @@ public class LastManStanding : Component, Minigame
 	List<Player> internalSucceeded;
 	public void FixedUpdate()
 	{
-		
+		foreach ( var player in Scene.GetAllComponents<Player>() )
+		{
+			if ( !WinCondition( player ) )
+				continue;
+
+			if ( !internalSucceeded.Contains( player ) )
+			{
+				internalSucceeded.Add( player );
+				GameManager.PlaySound( "win", player );
+			}
+		}
+	}
+
+	public void WinEvent( bool succeeded, Player player )
+	{
+		if ( !succeeded )
+		{
+			player.Kill();
+			GameManager.PlaySound( "fail", player );
+		}
+
+		GameManager.DisplayToast( succeeded ?
+			$"You succeeded!" :
+			$"You failed!", 2.0f,
+			player );
 	}
 
 	public bool WinCondition( Player player )
