@@ -1,5 +1,6 @@
 public sealed partial class GameManager
 {
+
 	[ConCmd( "spawn" )]
 	public static void Spawn( string modelname )
 	{

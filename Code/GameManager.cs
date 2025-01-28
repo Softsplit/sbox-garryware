@@ -9,6 +9,8 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 {
 	public static GameManager Current { get; private set; }
 
+	[Property] public List<GameObject> SpawnGroups { get; set; }
+
 	[Property, Sync( Flags = SyncFlags.FromHost )] public GameState State { get; private set; } = GameState.Intermission;
 	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeInState { get; private set; }
 	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
@@ -114,7 +116,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		CurrentMinigameIndex = availableMinigames[Random.Shared.Next( availableMinigames.Count )];
 		var minigame = CurrentMinigame;
 
-		RespawnAllPlayers();
+		RespawnAllPlayers( CurrentMinigame.SpawnGroup );
 		minigame.Start();
 	}
 
@@ -255,20 +257,31 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	}
 
 	[Rpc.Broadcast]
-	private void RespawnAllPlayers()
+	private void RespawnAllPlayers( string spawnGroup )
 	{
-		var startLocation = FindSpawnLocation().WithScale( 1 );
+		var startLocation = FindSpawnLocation( spawnGroup ).WithScale( 1 );
 		var player = Player.FindLocalPlayer();
 		player.WorldTransform = startLocation;
 		player.Network.ClearInterpolation();
 	}
 
-	private Transform FindSpawnLocation()
+	private Transform FindSpawnLocation( string spawnGroup = "Main" )
 	{
-		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
-		if ( spawnPoints.Length > 0 )
+		var spawnPoints = SpawnGroups[0].Children;
+
+		foreach ( var group in SpawnGroups)
 		{
-			return Random.Shared.FromArray( spawnPoints ).Transform.World;
+			if (group.Name != spawnGroup)
+				continue;
+
+			spawnPoints = group.Children;
+
+			break;
+		}
+
+		if ( spawnPoints.Count > 0 )
+		{
+			return Random.Shared.FromList( spawnPoints ).Transform.World;
 		}
 
 		return global::Transform.Zero;
