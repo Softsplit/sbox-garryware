@@ -183,10 +183,14 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		Health = 100;
 	}
 
+	public Guid lastAttacker;
+
 	[Rpc.Broadcast]
 	public void TakeDamage( float amount, Guid attacker )
 	{
 		if ( Health <= 0 ) return;
+
+		lastAttacker = attacker;
 
 		if ( !IsProxy ) Health -= amount;
 
@@ -197,7 +201,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		if ( !IsProxy && Health <= 0 )
 		{
 			Health = 0;
-			//Death();
+			//Kill( attacker );
 		}
 	}
 
