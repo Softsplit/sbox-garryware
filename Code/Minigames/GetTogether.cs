@@ -3,6 +3,7 @@
 	public string Name => "Spread Apart!";
 	public string Description => $"Stay {Distance} Meters away from anyone.";
 	[Property, Title("Distance (Meters)")] public float Distance { get; set; } = 2;
+	public bool WaitTillEnd => true;
 
 	public void FixedUpdate()
 	{

@@ -130,17 +130,20 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 		if ( State == GameState.Playing )
 		{
-			bool playerCouldStillWin = false;
-
-			foreach ( var player in Scene.GetAllComponents<Player>() )
+			if( !CurrentMinigame.WaitTillEnd )
 			{
-				if ( !player.IsDead && !CurrentMinigame.WinCondition( player ) )
-					playerCouldStillWin = true;
+				bool playerCouldStillWin = false;
 
+				foreach ( var player in Scene.GetAllComponents<Player>() )
+				{
+					if ( !player.IsDead && !CurrentMinigame.WinCondition( player ) )
+						playerCouldStillWin = true;
+
+				}
+
+				if ( !playerCouldStillWin )
+					TimeInState = CurrentMinigame.Duration;
 			}
-
-			if ( !playerCouldStillWin )
-				TimeInState = CurrentMinigame.Duration;
 
 			int currentSecond = (int)TimeInState;
 			float timeLeft = CurrentMinigame.Duration - TimeInState;

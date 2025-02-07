@@ -3,7 +3,7 @@
 	public string Name => "Race!";
 	public string Description => "ONLY 1 WINNER!!";
 	public string SpawnGroup => "Race";
-
+	public bool WaitTillEnd => false;
 	public float Duration => 800;
 
 	[Property] private BBox FinishLineBounds { get; set; }
