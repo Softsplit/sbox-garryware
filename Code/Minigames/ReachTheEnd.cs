@@ -1,10 +1,10 @@
-﻿public class Race : Component, Minigame
+﻿public class ReachTheEnd : Component, Minigame
 {
-	public string Name => "Race!";
-	public string Description => "ONLY 1 WINNER!!";
+	public string Name => "Get to the END!!";
+	public string Description => "Reach the fucking  End CUNT!!";
 	public string SpawnGroup => "Race";
 
-	public float Duration => 800;
+	public float Duration => 8;
 
 	[Property] private BBox FinishLineBounds { get; set; }
 
@@ -37,20 +37,13 @@
 
 		foreach ( var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 		{
-			if ( InternalSuceeded.Count > 0 )
-			{
-				if( !InternalSuceeded.Contains(player) && !player.IsDead)
-					player.Kill();
-			}
-
-
-			bool win = FinishLineBounds.Contains( player.WorldPosition + Vector3.Up * 10 );
+			bool win = WinCondition( player );
 			if ( win && !InternalSuceeded.Contains( player ) )
 			{
 				GameManager.PlaySound( "win", player );
 				InternalSuceeded.Add( player );
 			}
-			else if ( !win && InternalSuceeded.Contains( player ) )
+			if ( !win && InternalSuceeded.Contains( player ) )
 			{
 				GameManager.PlaySound( "fail", player );
 				InternalSuceeded.Remove( player );
@@ -75,7 +68,6 @@
 
 	public bool WinCondition( Player player )
 	{
-		return InternalSuceeded.Contains( player );
+		return FinishLineBounds.Contains( player.WorldPosition + Vector3.Up * 10 );
 	}
 }
-
