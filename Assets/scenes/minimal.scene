@@ -1012,6 +1012,7 @@
           "BackgroundColor": "0.33333,0.46275,0.52157,1",
           "ClearFlags": "All",
           "FieldOfView": 90,
+          "FovAxis": "Horizontal",
           "IsMainCamera": true,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -1207,6 +1208,24 @@
             {
               "__type": "MinigameDisplay",
               "__guid": "90d2063b-7907-4e45-a227-51270b6a4d4a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "c63fc3ed-765d-437a-b8be-5ff90bee68e2",
+          "Flags": 0,
+          "Name": "Points Display",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "PointsDisplay",
+              "__guid": "80715892-5b20-4964-bb64-917a08d364a6",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,

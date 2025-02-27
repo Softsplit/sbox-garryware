@@ -5,6 +5,8 @@ using static Sandbox.Component;
 /// </summary>
 public sealed partial class Player : Component, IDamageable, PlayerController.IEvents
 {
+	[Sync( SyncFlags.FromHost )]
+	public int Points { get; set; }
 	public static Player FindLocalPlayer()
 	{
 		return Game.ActiveScene.GetAllComponents<Player>().Where( x => !x.IsProxy ).FirstOrDefault();
