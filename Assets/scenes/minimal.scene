@@ -1149,19 +1149,7 @@
           "__guid": "13c316db-fe76-4a6f-ae70-fbd26d12da5f",
           "Flags": 0,
           "Name": "Counter",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Counter",
-              "__guid": "7aa62309-4e54-4495-a460-f5941a73f298",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null
-            }
-          ]
+          "Enabled": true
         },
         {
           "__guid": "1e4248b9-15f0-4e70-b838-ff50af4722d0",
@@ -1225,7 +1213,7 @@
           "Components": [
             {
               "__type": "PointsDisplay",
-              "__guid": "80715892-5b20-4964-bb64-917a08d364a6",
+              "__guid": "2d9e89dd-ca8f-4ce2-b4c2-055d4f65337d",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,

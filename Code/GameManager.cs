@@ -233,7 +233,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		var results = new Dictionary<Player, bool>();
 
 		List<Player> players = new();
-		var playerComponents = Scene.GetAllComponents<Player>().OrderBy( x => x.Points );
+		var playerComponents = Scene.GetAllComponents<Player>().OrderBy( x => -x.Points );
 		foreach ( var player in playerComponents )
 		{
 			bool succeeded = minigame.WinCondition( player );

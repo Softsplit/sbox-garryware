@@ -1,8 +1,7 @@
 @using Sandbox;
 @using Sandbox.UI;
-@inherits PanelComponent
-
-<root>
+<root style="flex-direction: column;">
+	<div style="height: 10px"></div>
     <div class="counter">
         <div class="state @GameManager.Current?.State.ToString().ToLower()">
             @if (GameManager.Current?.State == GameState.Playing && GameManager.Current?.CurrentMinigame != null)

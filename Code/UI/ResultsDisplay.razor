@@ -3,31 +3,29 @@
 @inherits PanelComponent
 
 <root>
-	@if (GameManager.Current?.State == GameState.Pause || GameManager.Current?.State == GameState.Playing)
-	{
-		<div class="results-display">
-			<div class="winners">
-				<div class="header">Winners</div>
-				<div class="players">
-					@foreach (var player in Scene.GetAllComponents<Player>()
-										.Where(p => LastResult.ContainsKey(p) && LastResult[p]))
-					{
-						<div class="player">@($"{player.Points} - {player.Network.Owner.DisplayName}")</div>
-					}
-				</div>
-			</div>
-			<div class="losers">
-				<div class="header">Losers</div>
-				<div class="players">
-					@foreach (var player in Scene.GetAllComponents<Player>()
-										.Where(p => LastResult.ContainsKey(p) && !LastResult[p]))
-					{
-						<div class="player">@($"{player.Points} - {player.Network.Owner.DisplayName}")</div>
-					}
-				</div>
+	<div class="results-display">
+		<div class="winners">
+			<div class="header">Winners</div>
+			<div class="players">
+				@foreach (var player in Scene.GetAllComponents<Player>()
+									.Where(p => LastResult.ContainsKey(p) && LastResult[p]))
+				{
+					<div class="player">@($"{player.Points} - {player.Network.Owner.DisplayName}")</div>
+				}
 			</div>
 		</div>
-	}
+		<Counter></Counter>
+		<div class="losers">
+			<div class="header">Losers</div>
+			<div class="players">
+				@foreach (var player in Scene.GetAllComponents<Player>()
+									.Where(p => LastResult.ContainsKey(p) && !LastResult[p]))
+				{
+					<div class="player">@($"{player.Points} - {player.Network.Owner.DisplayName}")</div>
+				}
+			</div>
+		</div>
+	</div>
 </root>
 
 @code
