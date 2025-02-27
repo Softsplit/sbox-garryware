@@ -10,23 +10,28 @@
       {
         "__type": "Sandbox.PlayerController",
         "__guid": "4bd6ec1f-d466-4a26-b097-ee585db1ed87",
+        "AccelerationTime": 0,
         "AimStrengthBody": 1,
         "AimStrengthEyes": 1,
         "AimStrengthHead": 1,
+        "AltMoveButton": "run",
         "Body": {
           "_type": "component",
           "component_id": "d25d1137-25c3-46d9-93b2-13819cca2801",
           "go": "2c6d6454-6f08-4d43-858b-5eec6d4c4791",
           "component_type": "Rigidbody"
         },
+        "BodyCollisionTags": null,
         "BodyHeight": 72,
         "BodyMass": 500,
         "BodyRadius": 16,
+        "BrakePower": 1,
         "CameraOffset": "130,32,0",
         "ColliderObject": {
           "_type": "gameobject",
           "go": "015c140d-d868-4467-bb2c-6aab33702206"
         },
+        "DeaccelerationTime": 0,
         "DuckedHeight": 36,
         "DuckedSpeed": 70,
         "EnableFootstepSounds": true,
@@ -39,6 +44,14 @@
         "FootstepVolume": 1,
         "HideBodyInFirstPerson": true,
         "JumpSpeed": 300,
+        "LookSensitivity": 1,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PitchClamp": 90,
         "ReachLength": 130,
         "Renderer": {
           "_type": "component",
@@ -49,6 +62,7 @@
         "RotateWithGround": true,
         "RotationAngleLimit": 45,
         "RotationSpeed": 1,
+        "RunByDefault": false,
         "RunSpeed": 320,
         "ShowColliderComponents": false,
         "ShowRigidbodyComponent": false,
@@ -57,20 +71,44 @@
         "UseAnimatorControls": true,
         "UseButton": "use",
         "UseCameraControls": true,
+        "UseFovFromPreferences": true,
         "UseInputControls": true,
+        "UseLookControls": true,
         "WalkSpeed": 190
       },
       {
         "__type": "Sandbox.Movement.MoveModeWalk",
         "__guid": "5bfc8927-ba8d-4f0c-ad7a-5b56b134df6a",
         "GroundAngle": 45,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Priority": 0,
         "StepDownHeight": 18,
         "StepUpHeight": 18
       },
       {
+        "__type": "SitMoveMode",
+        "__guid": "6ff0021b-fda1-4b6a-a171-2eb97cd67194",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      },
+      {
         "__type": "Sandbox.Movement.MoveModeSwim",
         "__guid": "ba1f95e3-6b24-4ec4-b135-fa27f1a9164c",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Priority": 10,
         "SwimLevel": 0.7
       },
@@ -78,7 +116,14 @@
         "__type": "Sandbox.Movement.MoveModeLadder",
         "__guid": "7a095d11-017a-437a-a1a7-ad9ea6b80cc6",
         "ClimbableTags": "ladder",
-        "Priority": 5
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Priority": 5,
+        "Speed": 1
       },
       {
         "__type": "Player",
@@ -87,14 +132,26 @@
           "_type": "gameobject",
           "go": "d0a8e1e1-bce2-477a-908c-3cfc0ac57de8"
         },
-        "Health": 100
+        "Health": 100,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "PlayerFallDamage",
         "__guid": "e2cad285-157a-42b4-b039-8b6918efbc0b",
         "DamageMultiplier": 1,
         "DeathFallDistance": 800,
-        "MinimumFallDistance": 200
+        "MinimumFallDistance": 200,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "PlayerDresser",
@@ -104,15 +161,33 @@
           "component_id": "088ccdf7-7a51-47f6-be5c-88081217e16e",
           "go": "d0a8e1e1-bce2-477a-908c-3cfc0ac57de8",
           "component_type": "SkinnedModelRenderer"
-        }
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "PlayerCameraEffects",
-        "__guid": "c7be83f2-1e17-43f2-982d-a850624a8fe7"
+        "__guid": "c7be83f2-1e17-43f2-982d-a850624a8fe7",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "PlayerUse",
-        "__guid": "bd3a46b0-19ab-4ee9-9622-04087fd1a8ee"
+        "__guid": "bd3a46b0-19ab-4ee9-9622-04087fd1a8ee",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -131,23 +206,42 @@
         "MassCenterOverride": "0,0,36",
         "MassOverride": 500,
         "MotionEnabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "OverrideMassCenter": true,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
       },
       {
         "__type": "PlayerInventory",
-        "__guid": "7c22a360-416f-4878-a4ba-154dfa33997d"
+        "__guid": "7c22a360-416f-4878-a4ba-154dfa33997d",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Sandbox.ModelHitboxes",
         "__guid": "ed032ac2-ec8a-4160-bd81-4ca214bfe54c",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Renderer": {
           "_type": "component",
           "component_id": "088ccdf7-7a51-47f6-be5c-88081217e16e",
           "go": "d0a8e1e1-bce2-477a-908c-3cfc0ac57de8",
           "component_type": "SkinnedModelRenderer"
-        }
+        },
+        "Target": null
       }
     ],
     "Children": [
@@ -164,9 +258,20 @@
             "End": "0,0,45.05097",
             "Friction": 0,
             "IsTrigger": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Radius": 11.313708,
             "Start": "0,0,60.68629",
             "Static": false,
+            "Surface": null,
             "SurfaceVelocity": "0,0,0"
           },
           {
@@ -175,8 +280,19 @@
             "Center": "0,0,18",
             "Friction": 0,
             "IsTrigger": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Scale": "16,16,36",
             "Static": false,
+            "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
         ]
@@ -190,11 +306,21 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "088ccdf7-7a51-47f6-be5c-88081217e16e",
+            "AnimationGraph": null,
             "BodyGroups": 341,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": true,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/citizen/citizen.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -202,6 +328,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -1081,6 +1208,12 @@
             "Mode": "PushToTalk",
             "MorphScale": 2,
             "MorphSmoothTime": 0.1,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PushToTalkInput": "voice",
             "Renderer": {
               "_type": "component",
