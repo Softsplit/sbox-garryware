@@ -220,6 +220,8 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 			bool succeeded = Winners.Contains( player );
 
 			CurrentMinigame?.WinEvent( succeeded, player );
+
+			player.Points += succeeded ? 1 : 0;
 		}
 	}
 
@@ -231,7 +233,8 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		var results = new Dictionary<Player, bool>();
 
 		List<Player> players = new();
-		foreach ( var player in Scene.GetAllComponents<Player>() )
+		var playerComponents = Scene.GetAllComponents<Player>().OrderBy( x => x.Points );
+		foreach ( var player in playerComponents )
 		{
 			bool succeeded = minigame.WinCondition( player );
 			results[player] = succeeded;

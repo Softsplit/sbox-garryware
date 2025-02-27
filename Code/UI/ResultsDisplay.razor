@@ -12,7 +12,7 @@
 					@foreach (var player in Scene.GetAllComponents<Player>()
 										.Where(p => LastResult.ContainsKey(p) && LastResult[p]))
 					{
-						<div class="player">@player.Network.Owner.DisplayName</div>
+						<div class="player">@($"{player.Points} - {player.Network.Owner.DisplayName}")</div>
 					}
 				</div>
 			</div>
@@ -22,7 +22,7 @@
 					@foreach (var player in Scene.GetAllComponents<Player>()
 										.Where(p => LastResult.ContainsKey(p) && !LastResult[p]))
 					{
-						<div class="player">@player.Network.Owner.DisplayName</div>
+						<div class="player">@($"{player.Points} - {player.Network.Owner.DisplayName}")</div>
 					}
 				</div>
 			</div>
