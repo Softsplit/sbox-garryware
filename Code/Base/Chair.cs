@@ -1,19 +1,12 @@
-﻿
-public class Chair : Component, Component.IPressable
+﻿public class Chair : Component, Component.IPressable
 {
 	public Player Occupant { get; set; }
 
 	bool wasThirdPerson;
-	
+
 	[Rpc.Broadcast]
 	public void Occupy( GameObject user )
 	{
-		if ( user.Network.Owner != Rpc.Caller )
-			return;
-
-		if ( IsProxy )
-			return;
-
 		Occupant = user.GetComponent<Player>();
 		if ( Occupant.IsValid() )
 		{
@@ -24,7 +17,6 @@ public class Chair : Component, Component.IPressable
 			Occupant.Controller.Body.PhysicsBody.Enabled = false;
 			Occupant.Controller.ThirdPerson = true;
 		}
-
 	}
 
 	[Rpc.Broadcast]
@@ -34,7 +26,7 @@ public class Chair : Component, Component.IPressable
 			return;
 		var position = Occupant.WorldPosition;
 		Occupant.GameObject.Parent = Scene;
-		Occupant.WorldPosition = position + Vector3.Up*7;
+		Occupant.WorldPosition = position + Vector3.Up * 7;
 		Occupant.CurrentChair = null;
 		Occupant.Controller.Body.PhysicsBody.Enabled = true;
 		Occupant.Controller.ThirdPerson = wasThirdPerson;
@@ -57,7 +49,6 @@ public class Chair : Component, Component.IPressable
 
 	public bool CanPress( IPressable.Event e )
 	{
-
 		return true;
 	}
 }

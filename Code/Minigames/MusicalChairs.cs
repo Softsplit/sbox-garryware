@@ -19,7 +19,7 @@
 	{
 		DontStopSprinting = true;
 		var music = Sound.Play( Game.Random.FromList( Music ) );
-		await GameTask.DelaySeconds( 7 );
+		await GameTask.DelaySeconds( 7.5f );
 		music.Stop();
 		DontStopSprinting = false;
 
