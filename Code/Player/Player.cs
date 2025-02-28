@@ -56,6 +56,8 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		}
 	}
 
+	[Sync] public bool IsSitting { get; set; } = false;
+
 	public bool IsDead => Health <= 0;
 
 	public Transform EyeTransform => Controller.EyeTransform;

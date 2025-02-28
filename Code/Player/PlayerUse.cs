@@ -72,6 +72,33 @@ public sealed class PlayerUse : Component, PlayerController.IEvents
 
 		carrying = default;
 	}
+	void UpdateTooltips( Component lookingAt, Component pressed )
+	{
+
+		if ( !lookingAt.IsValid() || pressed.IsValid() )
+		{
+			Tooltip = null;
+			Interative = false;
+			return;
+		}
+
+		var tt = lookingAt.GetComponent<Tooltip>();
+		if ( tt is not null )
+		{
+			Tooltip = tt.Text;
+			TooltipIcon = tt.Icon;
+			Interative = true;
+			return;
+		}
+	}
+	
+	protected override void OnUpdate()
+	{
+		if ( IsProxy )
+			return;
+
+		UpdateTooltips( Player.Controller.Hovered, Player.Controller.Pressed );
+	}
 
 	protected override void OnFixedUpdate()
 	{
@@ -96,4 +123,11 @@ public sealed class PlayerUse : Component, PlayerController.IEvents
 			carrying.PhysicsBody.SmoothMove( targetTransform, moveSpeed, Time.Delta );
 		}
 	}
+}
+
+
+public class Tooltip : Component
+{
+	[Property] public string Text { get; set; }
+	[Property, ImageAssetPath] public string Icon { get; set; }
 }

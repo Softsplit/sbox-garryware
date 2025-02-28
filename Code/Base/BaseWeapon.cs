@@ -17,6 +17,7 @@ public partial class BaseWeapon : Component
 	[Property] public float SecondaryRate { get; set; } = 15.0f;
 	[Property] public float ReloadTime { get; set; } = 3.0f;
 
+	[Sync] public bool IsSitting { get; set; }
 	[Sync] public bool IsReloading { get; set; }
 	[Sync] public RealTimeSince TimeSinceReload { get; set; }
 	[Sync] public RealTimeSince TimeSinceDeployed { get; set; }
