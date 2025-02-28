@@ -2,6 +2,8 @@
 public class Chair : Component, Component.IPressable
 {
 	public Player Occupant { get; set; }
+
+	bool wasThirdPerson;
 	
 	[Rpc.Broadcast]
 	public void Occupy( GameObject user )
@@ -15,6 +17,7 @@ public class Chair : Component, Component.IPressable
 		Occupant = user.GetComponent<Player>();
 		if ( Occupant.IsValid() )
 		{
+			wasThirdPerson = Occupant.Controller.ThirdPerson;
 			Occupant.GameObject.Parent = GameObject;
 			Occupant.CurrentChair = this;
 			Occupant.LocalPosition = new Vector3( 7, 0, 7 );
@@ -35,7 +38,7 @@ public class Chair : Component, Component.IPressable
 		Occupant.WorldPosition = position + Vector3.Up*7;
 		Occupant.CurrentChair = null;
 		Occupant.Controller.Body.PhysicsBody.Enabled = true;
-		Occupant.Controller.ThirdPerson = true;
+		Occupant.Controller.ThirdPerson = wasThirdPerson;
 	}
 
 	protected override void OnDestroy()
