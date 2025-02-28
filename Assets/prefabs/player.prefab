@@ -66,7 +66,7 @@
         "RunSpeed": 320,
         "ShowColliderComponents": false,
         "ShowRigidbodyComponent": false,
-        "ThirdPerson": true,
+        "ThirdPerson": false,
         "ToggleCameraModeButton": "view",
         "UseAnimatorControls": true,
         "UseButton": "use",
@@ -132,8 +132,8 @@
           "_type": "gameobject",
           "go": "d0a8e1e1-bce2-477a-908c-3cfc0ac57de8"
         },
+        "CurrentChair": null,
         "Health": 100,
-        "IsSitting": false,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
