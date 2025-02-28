@@ -32,7 +32,6 @@ public class Chair : Component, Component.IPressable
 	{
 		if ( !Occupant.IsValid() )
 			return;
-
 		var position = Occupant.WorldPosition;
 		Occupant.GameObject.Parent = Scene;
 		Occupant.WorldPosition = position + Vector3.Up*7;

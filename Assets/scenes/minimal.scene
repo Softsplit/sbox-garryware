@@ -255,6 +255,66 @@
           ]
         },
         {
+          "__guid": "9ac76f4f-2482-48d0-bfa4-bb07fde39721",
+          "Flags": 0,
+          "Name": "Musical Chairs",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "MusicalChairs",
+              "__guid": "2d0cb9a2-9a57-4f64-a9cc-fe2703938548",
+              "FloorSpawnPoints": [
+                {
+                  "_type": "gameobject",
+                  "go": "80903eaf-c19e-491e-9a33-f6b3b4e76794"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "3b0267ed-c952-48c0-8083-cbea1bd73f68"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "10442e65-8871-4808-acb1-b16998a1fe3a"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "a004661d-fe84-4322-8b8d-24f988073256"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "2a14abb5-06eb-42db-8a79-32ec570ec765"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "498c7763-3b1a-40dd-9d59-e560de53f40f"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "d1220b0d-b361-4435-9b7a-89a3dbe25f60"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "3abe05e8-a6d0-463a-a9a5-52d4e8c3e044"
+                }
+              ],
+              "Music": [
+                "music/jingle jams.sound",
+                "music/bouncing around.sound",
+                "menu_music.sound",
+                "sounds/whistling_cattail.sound",
+                "sounds/the_s&box_song.sound",
+                "sounds/live_it_alone.sound"
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
           "__guid": "580067e5-9ffa-4557-8d41-052660e8c396",
           "Flags": 0,
           "Name": "Last Man Standing!",
@@ -877,6 +937,70 @@
               ]
             }
           ]
+        },
+        {
+          "__guid": "fb6d7084-c05e-4119-9af4-0d6671276d5e",
+          "Flags": 0,
+          "Name": "Floor",
+          "Enabled": true,
+          "Children": [
+            {
+              "__guid": "80903eaf-c19e-491e-9a33-f6b3b4e76794",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "63.09269,0,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "3b0267ed-c952-48c0-8083-cbea1bd73f68",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "63.09269,-64,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "10442e65-8871-4808-acb1-b16998a1fe3a",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "0,-64,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "a004661d-fe84-4322-8b8d-24f988073256",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-64,-64,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "2a14abb5-06eb-42db-8a79-32ec570ec765",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-64.61516,0,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "498c7763-3b1a-40dd-9d59-e560de53f40f",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-64.61516,64.26123,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "d1220b0d-b361-4435-9b7a-89a3dbe25f60",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-0.5243225,64.26123,0",
+              "Enabled": true
+            },
+            {
+              "__guid": "3abe05e8-a6d0-463a-a9a5-52d4e8c3e044",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "64.24567,64.26123,0",
+              "Enabled": true
+            }
+          ]
         }
       ]
     },
@@ -1339,44 +1463,6 @@
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "de31b583-416e-4a1b-a647-7a29069ad6ca",
-      "Flags": 0,
-      "Name": "wooden_chair_a",
-      "Position": "-103.118,2.735731,0.01968078",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.Prop",
-          "__guid": "4e4ef4c1-1db0-4d10-9ca9-8288c57143a8",
-          "BodyGroups": 18446744073709551615,
-          "Health": 0,
-          "IsStatic": true,
-          "MaterialGroup": null,
-          "Model": "models/props/trim_sheets/chairs/wooden_chair_a.vmdl",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnPropBreak": null,
-          "OnPropTakeDamage": null,
-          "StartAsleep": false,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Chair",
-          "__guid": "bdb70d08-b6b0-4f13-90f7-880e122bb109",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -1408,7 +1494,12 @@
   "Title": "minimal",
   "Description": null,
   "__references": [
-    "facepunch.wooden_chair_a#43573"
+    "carsonk.mus_bouncing_around#59993",
+    "carsonk.mus_jingle_jams#59994",
+    "carsonk.mus_live_it_alone#49029",
+    "carsonk.mus_whistling_cattail#49044",
+    "metalpotato.menu_music#56256",
+    "mungus.the_sbox_song#9620"
   ],
   "__version": 2
 }
