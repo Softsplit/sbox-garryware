@@ -13,10 +13,10 @@ public class Chair : Component, Component.IPressable
 			return;
 
 		Occupant = user.GetComponent<Player>();
-		if ( Occupant.IsValid )
+		if ( Occupant.IsValid() )
 		{
 			Occupant.GameObject.Parent = GameObject;
-			Occupant.IsSitting = true;
+			Occupant.CurrentChair = this;
 			Occupant.LocalPosition = new Vector3( 7, 0, 7 );
 			Occupant.Controller.Body.PhysicsBody.Enabled = false;
 			Occupant.Controller.ThirdPerson = true;
@@ -25,13 +25,15 @@ public class Chair : Component, Component.IPressable
 	}
 
 	[Rpc.Broadcast]
-	private void RemoveOccupant()
+	public void RemoveOccupant()
 	{
-		if ( !Occupant.IsValid )
+		if ( !Occupant.IsValid() )
 			return;
-		
+
+		var position = Occupant.WorldPosition;
 		Occupant.GameObject.Parent = Scene;
-		Occupant.IsSitting = false;
+		Occupant.WorldPosition = position + Vector3.Up*7;
+		Occupant.CurrentChair = null;
 		Occupant.Controller.Body.PhysicsBody.Enabled = true;
 		Occupant.Controller.ThirdPerson = true;
 	}
@@ -43,8 +45,9 @@ public class Chair : Component, Component.IPressable
 
 	public bool Press( IPressable.Event e )
 	{
+		if ( GameObject.Children.Count > 0 )
+			return false;
 
-		
 		Occupy( e.Source.GameObject );
 
 		return true;

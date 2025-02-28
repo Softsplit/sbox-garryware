@@ -133,6 +133,7 @@
           "go": "d0a8e1e1-bce2-477a-908c-3cfc0ac57de8"
         },
         "Health": 100,
+        "IsSitting": false,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,

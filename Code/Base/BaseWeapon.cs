@@ -27,7 +27,7 @@ public partial class BaseWeapon : Component
 	public ViewModel ViewModel => Scene?.Camera?.GetComponentInChildren<ViewModel>( true );
 	public SkinnedModelRenderer WorldModel => GameObject?.GetComponentInChildren<SkinnedModelRenderer>( true );
 	public SkinnedModelRenderer LocalWorldModel => !Owner.IsValid() || !Owner.Controller.IsValid() || Owner.Controller.ThirdPerson || IsProxy ? WorldModel : ViewModel?.Renderer;
-	public Player Owner => GameObject?.Root?.GetComponent<Player>();
+	public Player Owner => GameObject?.Root?.Components.Get<Player>(FindMode.EverythingInSelfAndDescendants);
 
 	public Transform Attachment( string name )
 	{

@@ -56,7 +56,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		}
 	}
 
-	[Sync] public bool IsSitting { get; set; } = false;
+	[Property, Sync] public Chair CurrentChair { get; set; }
 
 	public bool IsDead => Health <= 0;
 

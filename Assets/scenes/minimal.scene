@@ -1352,7 +1352,7 @@
           "__guid": "4e4ef4c1-1db0-4d10-9ca9-8288c57143a8",
           "BodyGroups": 18446744073709551615,
           "Health": 0,
-          "IsStatic": false,
+          "IsStatic": true,
           "MaterialGroup": null,
           "Model": "models/props/trim_sheets/chairs/wooden_chair_a.vmdl",
           "OnComponentDestroy": null,
