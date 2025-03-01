@@ -11,7 +11,7 @@ public class Fireball : Component, Component.ITriggerListener
 
 		var sphere = Scene.FindInPhysics( new Sphere( WorldPosition, 1024f ) );
 
-		DebugOverlay.Sphere( new Sphere( WorldPosition, 1024f ) );
+		// DebugOverlay.Sphere( new Sphere( WorldPosition, 1024f ) );
 
 		foreach ( var obj in sphere )
 		{
