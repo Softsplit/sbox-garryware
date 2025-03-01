@@ -1,12 +1,11 @@
 {
   "UI": true,
-  "Volume": "0.3",
+  "Volume": "1",
   "Pitch": "1",
   "Decibels": 70,
   "SelectionMode": "Random",
   "Sounds": [
-    "sounds/local_exo_won1.vsnd",
-    "sounds/local_exo_won2.vsnd"
+    "sounds/music/game_prologue.vsnd"
   ],
   "Occlusion": true,
   "AirAbsorption": true,

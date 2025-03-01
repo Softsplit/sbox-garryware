@@ -1,12 +1,11 @@
 {
   "UI": true,
-  "Volume": "0.3",
+  "Volume": "0.39999986",
   "Pitch": "1",
   "Decibels": 70,
-  "SelectionMode": "Random",
+  "SelectionMode": "Forward",
   "Sounds": [
-    "sounds/local_exo_won1.vsnd",
-    "sounds/local_exo_won2.vsnd"
+    "sounds/music/exp_loop_2.vsnd"
   ],
   "Occlusion": true,
   "AirAbsorption": true,

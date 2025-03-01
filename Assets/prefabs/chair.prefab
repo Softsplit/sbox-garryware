@@ -2,8 +2,7 @@
   "RootObject": {
     "__guid": "de31b583-416e-4a1b-a647-7a29069ad6ca",
     "Flags": 0,
-    "Name": "wooden_chair_a",
-    "Position": "-103.118,2.735731,0.01968078",
+    "Name": "chair",
     "Enabled": true,
     "Components": [
       {
@@ -35,7 +34,32 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null
       }
-    ]
+    ],
+    "Children": [],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,

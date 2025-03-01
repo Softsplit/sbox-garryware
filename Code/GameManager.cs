@@ -11,20 +11,24 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 	[Property] public List<GameObject> SpawnGroups { get; set; }
 
-	[Property, Sync( Flags = SyncFlags.FromHost )] public GameState State { get; private set; } = GameState.Intermission;
+	[Property, Sync( Flags = SyncFlags.FromHost )]
+	public GameState State { get; private set; } = GameState.Intermission;
+
 	[Sync( Flags = SyncFlags.FromHost )] public RealTimeSince TimeInState { get; private set; }
 	[Sync( Flags = SyncFlags.FromHost )] public int MinPlayers { get; set; } = 2;
 	[Sync( Flags = SyncFlags.FromHost )] public int CurrentMinigameIndex { get; set; } = -1;
 
 	private List<Minigame> Minigames { get; set; } = new();
 
-	public const float INTERMISSION_DURATION = 10f;
+	public const float INTERMISSION_DURATION = 15f;
 	public const float MINIGAME_DURATION = 5f;
 	public const float PAUSE_DURATION = 5f;
 
 	public Minigame CurrentMinigame => CurrentMinigameIndex >= 0 ? Minigames[CurrentMinigameIndex] : null;
 
 	public int PlayerCount => Scene.Components.GetAll<Player>().Count();
+
+	public static SoundHandle BackgroundMusic;
 
 	public float TimeLeft => State switch
 	{
@@ -68,6 +72,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 				ReviveAllPlayers();
 				ResetWeapons();
 				DistributeWeapon( "prefabs/weapons/fists/w_fists.prefab" );
+
 				CurrentMinigameIndex = -1;
 				break;
 			case GameState.Playing:
@@ -105,7 +110,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 		List<int> availableMinigames = new();
 
-		for (int i = 0; i < Minigames.Count; i++ )
+		for ( int i = 0; i < Minigames.Count; i++ )
 		{
 			if ( !Minigames[i].Requirements() )
 				continue;
@@ -130,7 +135,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 		if ( State == GameState.Playing )
 		{
-			if( !CurrentMinigame.WaitTillEnd )
+			if ( !CurrentMinigame.WaitTillEnd )
 			{
 				bool playerCouldStillWin = false;
 
@@ -138,7 +143,6 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 				{
 					if ( !player.IsDead && !CurrentMinigame.WinCondition( player ) )
 						playerCouldStillWin = true;
-
 				}
 
 				if ( !playerCouldStillWin )
@@ -160,6 +164,13 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		}
 	}
 
+	[Rpc.Broadcast]
+	private void StopBgm()
+	{
+		BackgroundMusic?.Stop();
+		BackgroundMusic = null;
+	}
+
 	private void HandleStateLogic()
 	{
 		if ( !HasMinimumPlayers() )
@@ -178,19 +189,31 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 		switch ( State )
 		{
 			case GameState.Intermission:
+
 				if ( TimeInState >= INTERMISSION_DURATION )
 				{
 					PlaySound( "start" );
+					StopBgm();
+					Sound.Play( "new_game" );
+
+					BackgroundMusic = Sound.Play( "exp_loop" );
 					ChangeState( GameState.Playing );
 				}
+
 				break;
 			case GameState.Playing:
 				if ( TimeInState >= CurrentMinigame.Duration )
 				{
 					EvaluateMinigame();
+
+					StopBgm();
+					Sound.Play( "new_game" );
+					BackgroundMusic = Sound.Play( "exp_loop" );
+
 					CurrentMinigame.OnEnd();
 					ChangeState( GameState.Pause );
 				}
+
 				CurrentMinigame.FixedUpdate();
 				GetWinners();
 				break;
@@ -198,8 +221,13 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 				if ( TimeInState >= PAUSE_DURATION )
 				{
 					PlaySound( "start" );
+					StopBgm();
+					Sound.Play( "new_game" );
+
+					BackgroundMusic = Sound.Play( "exp_loop" );
 					ChangeState( GameState.Playing );
 				}
+
 				break;
 		}
 	}
@@ -261,12 +289,11 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	{
 		var startLocation = FindSpawnLocation().WithScale( 1 );
 
-		var playerGo = GameObject.Clone( "/prefabs/player.prefab", new CloneConfig
-		{
-			Name = $"Player - {channel.DisplayName}",
-			StartEnabled = true,
-			Transform = startLocation
-		} );
+		var playerGo = GameObject.Clone( "/prefabs/player.prefab",
+			new CloneConfig
+			{
+				Name = $"Player - {channel.DisplayName}", StartEnabled = true, Transform = startLocation
+			} );
 
 		var player = playerGo.Components.Get<Player>( true );
 		playerGo.NetworkSpawn( channel );
@@ -287,9 +314,9 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	{
 		var spawnPoints = SpawnGroups[0].Children;
 
-		foreach ( var group in SpawnGroups)
+		foreach ( var group in SpawnGroups )
 		{
-			if (group.Name != spawnGroup)
+			if ( group.Name != spawnGroup )
 				continue;
 
 			spawnPoints = group.Children;
@@ -317,10 +344,11 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 	[Rpc.Broadcast]
 	public static void PlaySound( string sound, Player to = null, string guidTo = null )
 	{
-		if ( (to != null && Connection.Local != to.Network.Owner) || (guidTo != null && Connection.Local.Id.ToString() != guidTo) )
+		if ( (to != null && Connection.Local != to.Network.Owner) ||
+		     (guidTo != null && Connection.Local.Id.ToString() != guidTo) )
 			return;
 
-		Sound.Play( sound );
+		var soundHandle = Sound.Play( sound );
 	}
 
 	[ConCmd( "gw_state" )]
