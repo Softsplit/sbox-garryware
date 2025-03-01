@@ -18,7 +18,7 @@ public sealed partial class GameManager : Component, Component.INetworkListener
 
 	private List<Minigame> Minigames { get; set; } = new();
 
-	public const float INTERMISSION_DURATION = 10f;
+	public const float INTERMISSION_DURATION = 2f;
 	public const float MINIGAME_DURATION = 5f;
 	public const float PAUSE_DURATION = 5f;
 

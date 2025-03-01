@@ -50,6 +50,10 @@
             {
               "_type": "gameobject",
               "go": "236b0afa-e0d6-4658-8824-87e431a9b535"
+            },
+            {
+              "_type": "gameobject",
+              "go": "c7d63182-9450-4ae3-8f9a-156bba8baf07"
             }
           ],
           "State": "Intermission"
@@ -60,7 +64,6 @@
           "__guid": "48a1a4b6-2a69-4950-95be-1876a4957fa9",
           "Flags": 0,
           "Name": "Don't Move!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "DontMove",
@@ -78,7 +81,6 @@
           "__guid": "c1db0567-e6b0-4849-a87b-0130028e032e",
           "Flags": 0,
           "Name": "Look Up!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "LookUp",
@@ -96,7 +98,6 @@
           "__guid": "d6d376ea-420d-4c7c-b9e4-796775d325bd",
           "Flags": 0,
           "Name": "Stay On The Floor!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "StayOnTheFloor",
@@ -115,7 +116,6 @@
           "__guid": "dc644ee6-b39e-44fe-97de-85e0669fe4aa",
           "Flags": 0,
           "Name": "Floor is Lava!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "FloorIsLava",
@@ -134,7 +134,6 @@
           "__guid": "b98bfa6f-4c34-4db2-8182-18627f51ff1d",
           "Flags": 0,
           "Name": "Don't Pop A Balloon",
-          "Enabled": true,
           "Components": [
             {
               "__type": "DontPopABalloons",
@@ -157,7 +156,6 @@
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
           "Name": "Pop the Balloons!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PopTheBalloons",
@@ -180,7 +178,6 @@
           "__guid": "7547b98f-4152-4a67-b725-d40c5fa9515e",
           "Flags": 0,
           "Name": "Grab A Melon!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "GrabAMelon",
@@ -202,7 +199,6 @@
           "__guid": "add67e68-154f-4bbe-9e76-a7ca2514630e",
           "Flags": 0,
           "Name": "Punch This Guy!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PunchThisGuy",
@@ -220,7 +216,6 @@
           "__guid": "15aa8740-3694-45e6-9776-7581e49c35e4",
           "Flags": 0,
           "Name": "Get Together!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "GetTogether",
@@ -239,7 +234,6 @@
           "__guid": "3dd1802e-8df2-4430-86e9-8055697da398",
           "Flags": 0,
           "Name": "Spread Apart!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "SpreadApart",
@@ -258,7 +252,6 @@
           "__guid": "9ac76f4f-2482-48d0-bfa4-bb07fde39721",
           "Flags": 0,
           "Name": "Musical Chairs",
-          "Enabled": true,
           "Components": [
             {
               "__type": "MusicalChairs",
@@ -318,7 +311,6 @@
           "__guid": "580067e5-9ffa-4557-8d41-052660e8c396",
           "Flags": 0,
           "Name": "Last Man Standing!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "LastManStanding",
@@ -336,7 +328,6 @@
           "__guid": "5d4627c5-46ad-4bd9-bce3-a121bedff34d",
           "Flags": 0,
           "Name": "Everyone Calm Down!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "AllStanding",
@@ -354,7 +345,6 @@
           "__guid": "504fd9f5-3907-465c-8928-b1aadc4afb2f",
           "Flags": 0,
           "Name": "Murder Someone!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "MurderSomeone",
@@ -372,7 +362,6 @@
           "__guid": "2f87dc06-32f8-4df3-9cfc-5f5d9f6d7715",
           "Flags": 0,
           "Name": "Reach the End!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "ReachTheEnd",
@@ -394,7 +383,6 @@
           "__guid": "02030332-9c30-48e0-8ee3-33e3adcfdc2e",
           "Flags": 0,
           "Name": "ReachTheEnd",
-          "Enabled": true,
           "Components": [
             {
               "__type": "ReachTheEnd",
@@ -416,7 +404,6 @@
           "__guid": "7ce579a9-dfe3-4df7-8f60-27eec94920a8",
           "Flags": 0,
           "Name": "Race",
-          "Enabled": true,
           "Components": [
             {
               "__type": "Race",
@@ -438,7 +425,6 @@
           "__guid": "e52eca14-db57-44b4-bf22-739783e00579",
           "Flags": 0,
           "Name": "Avoid The Fireball!",
-          "Enabled": true,
           "Components": [
             {
               "__type": "AvoidTheFireball",
@@ -453,6 +439,191 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "698e1264-ba19-4d90-9f12-a14ac3576c7a",
+          "Flags": 0,
+          "Name": "Pick the Cup!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "PickTheCup",
+              "__guid": "bec39512-98aa-4017-b647-84c7ef85fab2",
+              "Ball": {
+                "_type": "gameobject",
+                "go": "b5331f62-df4b-40e2-898b-217ab20f7c84"
+              },
+              "BallCup": {
+                "_type": "gameobject",
+                "go": "9955c34a-5902-4176-adf2-68ac3fb88370"
+              },
+              "CuppingSpeed": 10,
+              "Cups": [
+                {
+                  "Pos": "-1664,1280,32",
+                  "CupModel": {
+                    "_type": "gameobject",
+                    "go": "4f7dd822-a35c-465c-8367-78b2ef07a6f9"
+                  },
+                  "Platform": {
+                    "Mins": "-1516,1163.2,-0.2999958",
+                    "Maxs": "-1280,1400,326.3"
+                  }
+                },
+                {
+                  "Pos": "-1664,1536,32",
+                  "CupModel": {
+                    "_type": "gameobject",
+                    "go": "9955c34a-5902-4176-adf2-68ac3fb88370"
+                  },
+                  "Platform": {
+                    "Mins": "-1516,1419.2,-0.2999958",
+                    "Maxs": "-1280,1656,326.3"
+                  }
+                },
+                {
+                  "Pos": "-1664,1792,32",
+                  "CupModel": {
+                    "_type": "gameobject",
+                    "go": "02a8ce9d-63af-4504-9105-1fb54a24c535"
+                  },
+                  "Platform": {
+                    "Mins": "-1516,1675.2,-0.2999958",
+                    "Maxs": "-1280,1912,326.3"
+                  }
+                }
+              ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "4f7dd822-a35c-465c-8367-78b2ef07a6f9",
+              "Flags": 0,
+              "Name": "roadcone01 (1)",
+              "Position": "-1664,1280,32",
+              "Scale": "10.09526,10.09526,10.09526",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.Prop",
+                  "__guid": "9ec6ab8e-3d54-489d-aa58-2de95d02b8ae",
+                  "BodyGroups": 18446744073709551615,
+                  "Health": 0,
+                  "IsStatic": true,
+                  "MaterialGroup": null,
+                  "Model": "models/citizen_props/roadcone01.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnPropBreak": null,
+                  "OnPropTakeDamage": null,
+                  "StartAsleep": false,
+                  "Tint": "1,1,1,1"
+                }
+              ]
+            },
+            {
+              "__guid": "9955c34a-5902-4176-adf2-68ac3fb88370",
+              "Flags": 0,
+              "Name": "roadcone01",
+              "Position": "-1664,1536,32",
+              "Scale": "10.09526,10.09526,10.09526",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "NetworkOrphaned": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.Prop",
+                  "__guid": "21e5509b-6138-4f33-98cb-812e0d3aad4d",
+                  "BodyGroups": 18446744073709551615,
+                  "Health": 0,
+                  "IsStatic": true,
+                  "MaterialGroup": null,
+                  "Model": "models/citizen_props/roadcone01.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnPropBreak": null,
+                  "OnPropTakeDamage": null,
+                  "StartAsleep": false,
+                  "Tint": "1,1,1,1"
+                }
+              ]
+            },
+            {
+              "__guid": "02a8ce9d-63af-4504-9105-1fb54a24c535",
+              "Flags": 0,
+              "Name": "roadcone01 (2)",
+              "Position": "-1664,1792,32",
+              "Scale": "10.09526,10.09526,10.09526",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.Prop",
+                  "__guid": "55d7fff9-3921-4f52-9522-adf96d9c9cff",
+                  "BodyGroups": 18446744073709551615,
+                  "Health": 0,
+                  "IsStatic": true,
+                  "MaterialGroup": null,
+                  "Model": "models/citizen_props/roadcone01.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnPropBreak": null,
+                  "OnPropTakeDamage": null,
+                  "StartAsleep": false,
+                  "Tint": "1,1,1,1"
+                }
+              ]
+            },
+            {
+              "__guid": "b5331f62-df4b-40e2-898b-217ab20f7c84",
+              "Flags": 0,
+              "Name": "beachball",
+              "Position": "-1664,1536,32.59125",
+              "Scale": "2.201657,2.201657,2.201657",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.Prop",
+                  "__guid": "8b48de91-ef3f-4d3e-ade4-2836440a8d62",
+                  "BodyGroups": 18446744073709551615,
+                  "Health": 0,
+                  "IsStatic": true,
+                  "MaterialGroup": null,
+                  "Model": "models/citizen_props/beachball.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnPropBreak": null,
+                  "OnPropTakeDamage": null,
+                  "StartAsleep": false,
+                  "Tint": "1,1,1,1"
+                }
+              ]
             }
           ]
         }
@@ -948,6 +1119,196 @@
                 {
                   "__type": "Sandbox.SpawnPoint",
                   "__guid": "0cf5d7c3-3887-4fdc-94c0-e6cf97b0e6a1",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "c7d63182-9450-4ae3-8f9a-156bba8baf07",
+          "Flags": 0,
+          "Name": "CupGame",
+          "Position": "-864.0001,1524.202,0.001107678",
+          "Rotation": "0,0,1,-0.00000004371139",
+          "Enabled": true,
+          "Children": [
+            {
+              "__guid": "1604f82f-1af8-41f3-bd29-9574297f689d",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "7.456177,0,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "1dcd2151-4af6-4f78-89d5-369e21f8b399",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "7b6a724a-53af-41d2-9748-c75910692fc1",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-56.54382,0,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "9d0939c8-5a9c-4fbd-b1d9-85b06c39111f",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "c32d79d3-df01-406b-8155-b33b642128fb",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "71.45618,0,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "2040c12a-de37-4030-9dec-5dddf7803d9c",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "cdc08196-44e8-44ea-8194-54e89de2fd74",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "7.456177,-255,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "ec3579a5-26fd-49fd-85b4-99e6349c4c01",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "e55a55e4-3c18-4635-9710-c3507f364c9b",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-56.54382,-255,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "a2124283-4ea3-4c05-9a29-468e6076d3fc",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "b9fa684f-419d-4fbe-82a1-31f521cc6397",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "71.45618,-255,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "0067bba3-9e0a-46e9-a0ca-4e9a7ae96b71",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "24a6097c-bf91-4e80-a109-bfee948085e5",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "7.456177,255,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "1d402069-b7ef-405d-b094-e5be19db6f95",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "25ffb159-e81f-4512-ae75-c3cd699abb0c",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "-56.54382,255,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "f038f375-8baf-4b86-a57f-e4f865fa0313",
+                  "Color": "0.8902,0.31765,0.05098,1",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null
+                }
+              ]
+            },
+            {
+              "__guid": "3abcf924-5ac1-4c6b-baaa-1dcf921bc4f0",
+              "Flags": 0,
+              "Name": "Spawn",
+              "Position": "71.45618,255,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.SpawnPoint",
+                  "__guid": "96e6b0ed-e70e-4456-b2cb-92cd97bcc0ec",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
