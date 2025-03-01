@@ -1,4 +1,5 @@
 using Sandbox;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public sealed class PickTheCup : Component, Minigame
 {
@@ -6,12 +7,16 @@ public sealed class PickTheCup : Component, Minigame
 	[Property] private GameObject Ball { get; set; }
 	[Property] private GameObject BallCup { get; set; }
 	[Property] private float CuppingSpeed { get; set; } = 10f;
+	[Property] private Vector3 ShuffleOffset { get; set; } = new Vector3( -9.509f, 0, 0 );
 	public string Name => "Pick the Right Cup!";
 	public string Description => "After the cups have suffled stand on the corresponding platform.";
 	public string SpawnGroup => "CupGame";
 	public float Duration => 25;
 	private class cup
 	{
+		[Hide] public Vector3 PreviousPos { get; set; }
+		[Hide] public float lerp { get; set; }
+		[Hide] public float shuffleDir { get; set; } = 1;
 		public Vector3 Pos { get; set; }
 		public GameObject CupModel { get; set; }
 		public BBox Platform { get; set; }
@@ -37,7 +42,7 @@ public sealed class PickTheCup : Component, Minigame
 		foreach ( var cup in Cups )
 		{
 			cup.CupModel.Network.AssignOwnership(Connection.Host);
-
+			cup.PreviousPos = cup.CupModel.WorldPosition;
 			if ( cup.CupModel.IsValid() )
 				cup.CupModel.WorldPosition = cup.Pos;
 		}
@@ -102,6 +107,14 @@ public sealed class PickTheCup : Component, Minigame
 
 		randomCup1.CupModel = randomCup2.CupModel;
 		randomCup2.CupModel = model;
+
+		randomCup1.PreviousPos = randomCup1.CupModel.WorldPosition;
+		randomCup1.shuffleDir = 1;
+		randomCup1.lerp = randomCup1 == randomCup2 ? 1 : 0;
+
+		randomCup2.PreviousPos = randomCup2.CupModel.WorldPosition;
+		randomCup2.shuffleDir = -1;
+		randomCup2.lerp = randomCup1 == randomCup2 ? 1 : 0;
 	}
 
 	void Guessing()
@@ -134,17 +147,30 @@ public sealed class PickTheCup : Component, Minigame
 		PositionCups( Vector3.Up * 256 );
 	}
 
-
+	Vector3 lerpedOffset;
 	void PositionCups(Vector3 offset = default)
 	{
 		foreach ( var cup in Cups )
 		{
-			if ( cup.CupModel.IsValid() )
-				cup.CupModel.WorldPosition = cup.CupModel.WorldPosition.LerpTo( cup.Pos + offset, CuppingSpeed * Time.Delta );
+			if ( !cup.CupModel.IsValid() )
+				return;
+
+			cup.lerp = MathX.Clamp(cup.lerp + Time.Delta * CuppingSpeed, 0, 1 );
+
+			var shuffleDis = Vector3.DistanceBetween( cup.PreviousPos, cup.Pos ) / 256;
+
+			var targetPos = Vector3.Lerp(cup.PreviousPos, cup.Pos, cup.lerp ) + ShuffleOffset * easeOutQuint(1 - MathF.Abs(cup.lerp - 0.5f)*2) * cup.shuffleDir * shuffleDis;
+
+			lerpedOffset = lerpedOffset.LerpTo( offset, CuppingSpeed * 2 * Time.Delta );
+			cup.CupModel.WorldPosition = targetPos + lerpedOffset;
 		}
 	}
 
-	public void OnEnd()
+	float easeOutQuint( float x) {
+		return 1 -MathF.Pow(1 - x, 5);
+	}
+
+public void OnEnd()
 	{
 		foreach ( var cup in Cups )
 		{

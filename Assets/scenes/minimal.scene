@@ -459,10 +459,13 @@
                 "_type": "gameobject",
                 "go": "9955c34a-5902-4176-adf2-68ac3fb88370"
               },
-              "CuppingSpeed": 10,
+              "CuppingSpeed": 4,
               "Cups": [
                 {
-                  "Pos": "-1664,1280,32",
+                  "PreviousPos": "0,0,0",
+                  "lerp": 0,
+                  "shuffleDir": 1,
+                  "Pos": "-1792,1280,32",
                   "CupModel": {
                     "_type": "gameobject",
                     "go": "4f7dd822-a35c-465c-8367-78b2ef07a6f9"
@@ -473,7 +476,10 @@
                   }
                 },
                 {
-                  "Pos": "-1664,1536,32",
+                  "PreviousPos": "0,0,0",
+                  "lerp": 0,
+                  "shuffleDir": 1,
+                  "Pos": "-1792,1536,32",
                   "CupModel": {
                     "_type": "gameobject",
                     "go": "9955c34a-5902-4176-adf2-68ac3fb88370"
@@ -484,7 +490,10 @@
                   }
                 },
                 {
-                  "Pos": "-1664,1792,32",
+                  "PreviousPos": "0,0,0",
+                  "lerp": 0,
+                  "shuffleDir": 1,
+                  "Pos": "-1792,1792,32",
                   "CupModel": {
                     "_type": "gameobject",
                     "go": "02a8ce9d-63af-4504-9105-1fb54a24c535"
@@ -500,7 +509,8 @@
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
-              "OnComponentUpdate": null
+              "OnComponentUpdate": null,
+              "ShuffleOffset": "105,0,0"
             }
           ],
           "Children": [
@@ -508,8 +518,8 @@
               "__guid": "4f7dd822-a35c-465c-8367-78b2ef07a6f9",
               "Flags": 0,
               "Name": "roadcone01 (1)",
-              "Position": "-1664,1280,32",
-              "Scale": "10.09526,10.09526,10.09526",
+              "Position": "-1792,1280,32",
+              "Scale": "10,10,10",
               "Enabled": true,
               "NetworkMode": 1,
               "Components": [
@@ -538,8 +548,8 @@
               "__guid": "9955c34a-5902-4176-adf2-68ac3fb88370",
               "Flags": 0,
               "Name": "roadcone01",
-              "Position": "-1664,1536,32",
-              "Scale": "10.09526,10.09526,10.09526",
+              "Position": "-1792,1536,32",
+              "Scale": "10,10,10",
               "Enabled": true,
               "NetworkMode": 1,
               "NetworkOrphaned": 1,
@@ -569,8 +579,8 @@
               "__guid": "02a8ce9d-63af-4504-9105-1fb54a24c535",
               "Flags": 0,
               "Name": "roadcone01 (2)",
-              "Position": "-1664,1792,32",
-              "Scale": "10.09526,10.09526,10.09526",
+              "Position": "-1792,1792,32",
+              "Scale": "10,10,10",
               "Enabled": true,
               "NetworkMode": 1,
               "Components": [
@@ -599,7 +609,7 @@
               "__guid": "b5331f62-df4b-40e2-898b-217ab20f7c84",
               "Flags": 0,
               "Name": "beachball",
-              "Position": "-1664,1536,32.59125",
+              "Position": "-1792,1536,32.59125",
               "Scale": "2.201657,2.201657,2.201657",
               "Enabled": true,
               "NetworkMode": 1,
