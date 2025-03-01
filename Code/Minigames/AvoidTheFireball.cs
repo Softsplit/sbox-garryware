@@ -56,8 +56,9 @@ public sealed class AvoidTheFireball : Component, Minigame
 	{
 		var fireball = Fireball.Clone();
 		CurrentFireball = fireball;
-
 		fireball.WorldPosition = Bounds.RandomPointOnEdge;
+
+		fireball.NetworkSpawn();
 	}
 
 	public void FixedUpdate()
