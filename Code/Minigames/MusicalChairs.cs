@@ -1,4 +1,6 @@
-﻿public class MusicalChairs : Component, Minigame
+﻿using Sandbox.Audio;
+
+public class MusicalChairs : Component, Minigame
 {
 	public string Name => "Musical Chairs";
 	public string Description => $"Run around in a circle to the music!";
@@ -15,10 +17,12 @@
 
 	public List<Chair> Chairs = new();
 
+	[Rpc.Broadcast]
 	public async void Start()
 	{
 		DontStopSprinting = true;
 		var music = Sound.Play( Game.Random.FromList( Music ) );
+
 		await GameTask.DelaySeconds( 7.5f );
 		music.Stop();
 		DontStopSprinting = false;
