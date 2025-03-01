@@ -433,6 +433,28 @@
               "OnComponentUpdate": null
             }
           ]
+        },
+        {
+          "__guid": "e52eca14-db57-44b4-bf22-739783e00579",
+          "Flags": 0,
+          "Name": "Avoid The Fireball!",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "AvoidTheFireball",
+              "__guid": "99035028-5714-45a3-a850-3927c5681fa9",
+              "Bounds": {
+                "Mins": "450,469.4002,257.1003",
+                "Maxs": "-496.8997,-480.902,85.60023"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
+            }
+          ]
         }
       ]
     },
