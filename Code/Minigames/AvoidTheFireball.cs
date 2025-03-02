@@ -1,36 +1,76 @@
 using Sandbox;
 
-public class Fireball : Component, Component.ITriggerListener
+public class Fireball : Component
 {
-	public GameObject Target { get; set; }
+	[Property] public Player Target { get; set; }
 
+	[Property] public float MoveSpeed { get; set; } = 280f;
+
+	protected override void OnAwake()
+	{
+		base.OnAwake();
+
+		NetworkSound.ToggleSoundPoint( GameObject, true );
+		PickNewTarget();
+	}
+
+	private void PickNewTarget()
+	{
+		Target = Game.Random.FromList( Scene.GetAll<Player>().Where( x => !x.IsDead ).ToList() );
+	}
 
 	protected override void OnFixedUpdate()
 	{
-		base.OnFixedUpdate();
+		if ( !Target.IsValid() )
+			return;
 
-		var sphere = Scene.FindInPhysics( new Sphere( WorldPosition, 1024f ) );
+		var turnSpeed = 0.01f;
 
-		// DebugOverlay.Sphere( new Sphere( WorldPosition, 1024f ) );
+		// Chase target
+		var directionToTarget = Target?.Controller?.Renderer?.GetBoneObject( "spine_1" ).WorldPosition - WorldPosition;
 
-		foreach ( var obj in sphere )
+		if ( directionToTarget != null )
 		{
-			if ( obj.Components.TryGet<Player>( out var player ) )
-			{
-				Target = player.GameObject;
+			var idealRotation = Rotation.LookAt( (Vector3)directionToTarget, Vector3.Up );
 
-				WorldPosition = WorldPosition.LerpTo( Target.WorldPosition + Vector3.Up * 55, Time.Delta * 2 );
-				WorldRotation = Rotation.LookAt( GameObject.WorldPosition - Target.WorldPosition );
+			WorldRotation = Rotation.Slerp( WorldRotation, idealRotation, Time.Delta * turnSpeed )
+				.Clamp( idealRotation, 0.02f, out _ );
+		}
+
+		var nextLocation = WorldPosition + WorldRotation.Forward * MoveSpeed * Time.Delta;
+
+		// Check if we came into contact with a player
+		var results = Scene.Trace.Sphere( 12f, WorldPosition, nextLocation )
+			.WithTag( "player" )
+			.RunAll();
+
+		DebugOverlay.Sphere( new Sphere( WorldPosition, 12f ) );
+
+		if ( results != null )
+		{
+			foreach ( var tr in results )
+			{
+				if ( tr.Hit )
+				{
+					if ( tr.GameObject.Components.TryGet( out Player player ) )
+					{
+						if ( !player.IsValid() )
+							return;
+
+						player.Kill();
+
+						// Pick a new target if we got who we were chasing
+						if ( player == Target )
+						{
+							PickNewTarget();
+						}
+					}
+				}
 			}
 		}
-	}
 
-	void ITriggerListener.OnTriggerEnter( GameObject other )
-	{
-		if ( other.Components.TryGet<Player>( out var player ) )
-		{
-			player.Kill();
-		}
+		// Move into the new location
+		WorldPosition = nextLocation;
 	}
 }
 
@@ -38,7 +78,7 @@ public sealed class AvoidTheFireball : Component, Minigame
 {
 	public string Name => "Avoid The Fireball!";
 	public string Description => "Self explanatory.";
-	public float Duration => 5;
+	public float Duration => 9;
 	private GameObject Fireball => GameObject.GetPrefab( "prefabs/fireball.prefab" );
 
 	[Property] public BBox Bounds { get; set; }
@@ -58,11 +98,15 @@ public sealed class AvoidTheFireball : Component, Minigame
 		CurrentFireball = fireball;
 		fireball.WorldPosition = Bounds.RandomPointOnEdge;
 
-		fireball.NetworkSpawn();
+		fireball.NetworkSpawn( Connection.Host );
 	}
 
 	public void FixedUpdate()
 	{
+		if ( Scene.GetAll<Player>().All( x => x.IsDead ) )
+		{
+			CurrentFireball.Destroy();
+		}
 	}
 
 	public void OnEnd()
