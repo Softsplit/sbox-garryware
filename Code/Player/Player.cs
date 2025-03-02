@@ -5,53 +5,55 @@ using static Sandbox.Component;
 /// </summary>
 public sealed partial class Player : Component, IDamageable, PlayerController.IEvents
 {
-	[Sync( SyncFlags.FromHost )]
-	public int Points { get; set; }
+	[Sync( SyncFlags.FromHost )] public int Points { get; set; }
+
 	public static Player FindLocalPlayer()
 	{
 		return Game.ActiveScene.GetAllComponents<Player>().Where( x => !x.IsProxy ).FirstOrDefault();
 	}
 
-	[RequireComponent]
-	public PlayerController Controller { get; set; }
+	[RequireComponent] public PlayerController Controller { get; set; }
 
 	PlayerInventory _inventory;
+
 	public PlayerInventory Inventory
 	{
 		get
 		{
-			if(_inventory == null)
+			if ( _inventory == null )
 				_inventory = GetComponent<PlayerInventory>();
 			return _inventory;
 		}
 	}
 
 	ModelHitboxes _hitboxes;
-	public ModelHitboxes Hitboxes 
-	{ 
-		get 
+
+	public ModelHitboxes Hitboxes
+	{
+		get
 		{
-			if(_hitboxes == null)
+			if ( _hitboxes == null )
 				_hitboxes = GetComponent<ModelHitboxes>();
-			return _hitboxes; 
-		} 
+			return _hitboxes;
+		}
 	}
 
-	[Property]
-	public GameObject Body { get; set; }
+	[Property] public GameObject Body { get; set; }
 
 	float health = 100;
+
 	[Property, Range( 0, 100 )]
-	[Sync] public float Health 
-	{ 
-		get { return health; } 
-		set 
+	[Sync]
+	public float Health
+	{
+		get { return health; }
+		set
 		{
 			bool alreadyDead = health <= 0;
 
 			health = value;
 
-			if(health <= 0 && !alreadyDead)
+			if ( health <= 0 && !alreadyDead )
 				Gib();
 		}
 	}
@@ -62,7 +64,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 	public Transform EyeTransform => Controller.EyeTransform;
 
-	public Ray AimRay => new( EyeTransform.Position, EyeTransform.Rotation.Forward );
+	public Ray AimRay => new(EyeTransform.Position, EyeTransform.Rotation.Forward);
 
 	public event Action<bool, float, Guid> OnDamaged;
 
@@ -70,14 +72,17 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 	bool movementSettingsSaved = false;
 
 	bool wasDead;
+
 	protected override void OnFixedUpdate()
 	{
-
 		if ( IsDead )
 		{
 			Controller.ThirdPerson = true;
 			Controller.DuckedHeight = Controller.BodyHeight;
 		}
+
+		if ( !Body.IsValid() || !Controller.IsValid() || !Hitboxes.IsValid() )
+			return;
 
 		Body.Enabled = !IsDead;
 
@@ -85,6 +90,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		Controller.Body.Enabled = !IsDead;
 		Hitboxes.Enabled = !IsDead;
 	}
+
 	private void Gib()
 	{
 		GameObject go = new GameObject();
@@ -104,15 +110,16 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 		if ( !myRenderer.IsValid() )
 			return;
 
-		for(int i = 0; i < myRenderer.GetBoneTransforms(true).Count(); i++ )
+		for ( int i = 0; i < myRenderer.GetBoneTransforms( true ).Count(); i++ )
 		{
 			if ( !modelRenderer.GetBoneObject( i ).IsValid() || !myRenderer.GetBoneObject( i ).IsValid() )
 				continue;
 
-			modelRenderer.GetBoneObject(i).WorldTransform = myRenderer.GetBoneObject(i).WorldTransform;
+			modelRenderer.GetBoneObject( i ).WorldTransform = myRenderer.GetBoneObject( i ).WorldTransform;
 		}
 
-		SandboxBaseExtensions.CreateParticle( "particles/impact.flesh.bloodpuff-big.vpcf", null, WorldPosition + Vector3.Up * Controller.BodyHeight / 2, Rotation.Identity, false );
+		SandboxBaseExtensions.CreateParticle( "particles/impact.flesh.bloodpuff-big.vpcf", null,
+			WorldPosition + Vector3.Up * Controller.BodyHeight / 2, Rotation.Identity, false );
 
 		var sound = ResourceLibrary.Get<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound" );
 
@@ -122,14 +129,14 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 
 		var gibs = prop.CreateGibs();
 
-		foreach(var gib in gibs)
+		foreach ( var gib in gibs )
 		{
 			var rb = gib.GameObject.GetComponent<Rigidbody>();
 
 			if ( !rb.IsValid() )
 				continue;
 
-			rb.ApplyImpulse( (gib.WorldPosition - WorldPosition).Normal * 5000 * rb.Mass);
+			rb.ApplyImpulse( (gib.WorldPosition - WorldPosition).Normal * 5000 * rb.Mass );
 		}
 
 		prop.GameObject.Destroy();
@@ -179,7 +186,7 @@ public sealed partial class Player : Component, IDamageable, PlayerController.IE
 	{
 		if ( IsProxy ) return;
 
-		if(movementSettingsSaved)
+		if ( movementSettingsSaved )
 		{
 			Controller.ThirdPerson = thirdPerson;
 		}
