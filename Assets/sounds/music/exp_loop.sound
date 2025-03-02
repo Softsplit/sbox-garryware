@@ -5,7 +5,8 @@
   "Decibels": 70,
   "SelectionMode": "Forward",
   "Sounds": [
-    "sounds/music/exp_loop_2.vsnd"
+    "sounds/music/exp_loop_2.vsnd",
+    "sounds/music/exp_loop_1.vsnd"
   ],
   "Occlusion": true,
   "AirAbsorption": true,
