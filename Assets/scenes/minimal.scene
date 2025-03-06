@@ -64,6 +64,7 @@
           "__guid": "48a1a4b6-2a69-4950-95be-1876a4957fa9",
           "Flags": 0,
           "Name": "Don't Move!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "DontMove",
@@ -81,6 +82,7 @@
           "__guid": "c1db0567-e6b0-4849-a87b-0130028e032e",
           "Flags": 0,
           "Name": "Look Up!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "LookUp",
@@ -98,6 +100,7 @@
           "__guid": "d6d376ea-420d-4c7c-b9e4-796775d325bd",
           "Flags": 0,
           "Name": "Stay On The Floor!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "StayOnTheFloor",
@@ -115,7 +118,8 @@
         {
           "__guid": "dc644ee6-b39e-44fe-97de-85e0669fe4aa",
           "Flags": 0,
-          "Name": "Floor is Lava!",
+          "Name": "The Floor Is Lava!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "FloorIsLava",
@@ -134,6 +138,7 @@
           "__guid": "b98bfa6f-4c34-4db2-8182-18627f51ff1d",
           "Flags": 0,
           "Name": "Don't Pop The Balloons!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "DontPopABalloons",
@@ -156,6 +161,7 @@
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
           "Name": "Pop The Balloons!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "PopTheBalloons",
@@ -178,6 +184,7 @@
           "__guid": "7547b98f-4152-4a67-b725-d40c5fa9515e",
           "Flags": 0,
           "Name": "Grab A Melon!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "GrabAMelon",
@@ -199,6 +206,7 @@
           "__guid": "add67e68-154f-4bbe-9e76-a7ca2514630e",
           "Flags": 0,
           "Name": "Punch This Guy!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "PunchThisGuy",
@@ -216,6 +224,7 @@
           "__guid": "15aa8740-3694-45e6-9776-7581e49c35e4",
           "Flags": 0,
           "Name": "Get Together!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "GetTogether",
@@ -234,6 +243,7 @@
           "__guid": "3dd1802e-8df2-4430-86e9-8055697da398",
           "Flags": 0,
           "Name": "Spread Apart!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "SpreadApart",
@@ -251,7 +261,8 @@
         {
           "__guid": "9ac76f4f-2482-48d0-bfa4-bb07fde39721",
           "Flags": 0,
-          "Name": "Musical Chairs",
+          "Name": "Musical Chairs!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "MusicalChairs",
@@ -311,6 +322,7 @@
           "__guid": "580067e5-9ffa-4557-8d41-052660e8c396",
           "Flags": 0,
           "Name": "Last Man Standing!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "LastManStanding",
@@ -328,6 +340,7 @@
           "__guid": "5d4627c5-46ad-4bd9-bce3-a121bedff34d",
           "Flags": 0,
           "Name": "Everyone Calm Down!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "AllStanding",
@@ -345,6 +358,7 @@
           "__guid": "504fd9f5-3907-465c-8928-b1aadc4afb2f",
           "Flags": 0,
           "Name": "Murder Someone!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "MurderSomeone",
@@ -362,6 +376,7 @@
           "__guid": "2f87dc06-32f8-4df3-9cfc-5f5d9f6d7715",
           "Flags": 0,
           "Name": "Reach The End!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "ReachTheEnd",
@@ -382,7 +397,8 @@
         {
           "__guid": "7ce579a9-dfe3-4df7-8f60-27eec94920a8",
           "Flags": 0,
-          "Name": "Race",
+          "Name": "Race!",
+          "Enabled": true,
           "Components": [
             {
               "__type": "Race",
