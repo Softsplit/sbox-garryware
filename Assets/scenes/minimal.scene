@@ -1771,31 +1771,6 @@
           ]
         },
         {
-          "__guid": "5d8c4418-5a22-4e2d-98e1-dea0f906d0fa",
-          "Flags": 0,
-          "Name": "Sun",
-          "Rotation": "0.2132118,0.409576,-0.409576,0.7867882",
-          "Tags": "light_directional,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DirectionalLight",
-              "__guid": "916a46fa-8413-402e-a069-0d7fe58611f9",
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.91373,0.98039,1,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Shadows": true,
-              "SkyColor": "0,0,0,0"
-            }
-          ]
-        },
-        {
           "__guid": "768faff9-3abd-43d0-99d0-cd4545a6b271",
           "Flags": 0,
           "Name": "Envmap Probe",
