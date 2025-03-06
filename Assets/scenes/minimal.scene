@@ -836,7 +836,7 @@
           "__guid": "236b0afa-e0d6-4658-8824-87e431a9b535",
           "Flags": 0,
           "Name": "Race",
-          "Position": "-1280,-1024,0",
+          "Position": "-733.5543,-1405.145,0.00008669496",
           "Enabled": true,
           "Children": [
             {
@@ -963,7 +963,7 @@
               "__guid": "e19ebbdb-908d-4ed1-ad39-d6892ce7b63a",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "32,-192,0",
+              "Position": "32,-192,-3.063725",
               "Enabled": true,
               "Components": [
                 {
@@ -1842,7 +1842,7 @@
           "__guid": "053b9354-3f9b-4cbf-837b-932a5a04f3ae",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/gw_game.vmap",
+          "MapName": "maps/garryware.vmap",
           "NoOrigin": true,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
