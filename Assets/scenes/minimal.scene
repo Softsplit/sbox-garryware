@@ -133,7 +133,7 @@
         {
           "__guid": "b98bfa6f-4c34-4db2-8182-18627f51ff1d",
           "Flags": 0,
-          "Name": "Don't Pop A Balloon",
+          "Name": "Don't Pop The Balloons!",
           "Components": [
             {
               "__type": "DontPopABalloons",
@@ -155,7 +155,7 @@
         {
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
-          "Name": "Pop the Balloons!",
+          "Name": "Pop The Balloons!",
           "Components": [
             {
               "__type": "PopTheBalloons",
@@ -361,32 +361,11 @@
         {
           "__guid": "2f87dc06-32f8-4df3-9cfc-5f5d9f6d7715",
           "Flags": 0,
-          "Name": "Reach the End!",
+          "Name": "Reach The End!",
           "Components": [
             {
               "__type": "ReachTheEnd",
               "__guid": "d95aaa8c-62ab-4729-8c50-6d2947b4559b",
-              "FinishLineBounds": {
-                "Mins": "384,-1280,0",
-                "Maxs": "512,-768,256"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null
-            }
-          ]
-        },
-        {
-          "__guid": "02030332-9c30-48e0-8ee3-33e3adcfdc2e",
-          "Flags": 0,
-          "Name": "ReachTheEnd",
-          "Components": [
-            {
-              "__type": "ReachTheEnd",
-              "__guid": "2da4a786-9884-4127-9d42-44f1bec59b50",
               "FinishLineBounds": {
                 "Mins": "384,-1280,0",
                 "Maxs": "512,-768,256"
@@ -445,8 +424,7 @@
         {
           "__guid": "698e1264-ba19-4d90-9f12-a14ac3576c7a",
           "Flags": 0,
-          "Name": "Pick the Cup!",
-          "Enabled": true,
+          "Name": "Pick The Cup!",
           "Components": [
             {
               "__type": "PickTheCup",
@@ -836,7 +814,7 @@
           "__guid": "236b0afa-e0d6-4658-8824-87e431a9b535",
           "Flags": 0,
           "Name": "Race",
-          "Position": "-1280,-1024,0",
+          "Position": "-733.5543,-1405.145,0.00008669496",
           "Enabled": true,
           "Children": [
             {
@@ -963,7 +941,7 @@
               "__guid": "e19ebbdb-908d-4ed1-ad39-d6892ce7b63a",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "32,-192,0",
+              "Position": "32,-192,-3.063725",
               "Enabled": true,
               "Components": [
                 {
@@ -1771,31 +1749,6 @@
           ]
         },
         {
-          "__guid": "5d8c4418-5a22-4e2d-98e1-dea0f906d0fa",
-          "Flags": 0,
-          "Name": "Sun",
-          "Rotation": "0.2132118,0.409576,-0.409576,0.7867882",
-          "Tags": "light_directional,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DirectionalLight",
-              "__guid": "916a46fa-8413-402e-a069-0d7fe58611f9",
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.91373,0.98039,1,1",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Shadows": true,
-              "SkyColor": "0,0,0,0"
-            }
-          ]
-        },
-        {
           "__guid": "768faff9-3abd-43d0-99d0-cd4545a6b271",
           "Flags": 0,
           "Name": "Envmap Probe",
@@ -1842,7 +1795,7 @@
           "__guid": "053b9354-3f9b-4cbf-837b-932a5a04f3ae",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/gw_game.vmap",
+          "MapName": "maps/garryware.vmap",
           "NoOrigin": true,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
