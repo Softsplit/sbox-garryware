@@ -7,7 +7,7 @@ public sealed class PickTheRightCup : Component, Minigame
 	[Property] private float CuppingSpeed { get; set; } = 10f;
 	[Property] private Vector3 ShuffleOffset { get; set; } = new Vector3( -9.509f, 0, 0 );
 	public string Name => "Pick the Right Cup!";
-	public string Description => "After the cups have suffled, stand on the corresponding platform.";
+	public string Description => "After the cups have shuffled, stand on the corresponding platform.";
 	public string SpawnGroup => "CupGame";
 	public float Duration => 25;
 	private class cup
