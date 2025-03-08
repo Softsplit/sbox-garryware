@@ -404,8 +404,8 @@
               "__type": "Race",
               "__guid": "7f20a887-9c8d-4576-9325-e3282b76262d",
               "FinishLineBounds": {
-                "Mins": "384,-1280,0",
-                "Maxs": "512,-768,256"
+                "Mins": "880,-1920,0",
+                "Maxs": "1168,-896.0003,660"
               },
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
