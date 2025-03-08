@@ -1,6 +1,4 @@
-﻿using Sandbox.Audio;
-
-public class MusicalChairs : Component, Minigame
+﻿public class MusicalChairs : Component, Minigame
 {
 	public string Name => "Musical Chairs";
 	public string Description => $"Run around in a circle to the music!";

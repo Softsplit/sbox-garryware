@@ -1,8 +1,7 @@
-﻿using Sandbox.Utility;
-
+﻿[Title( "Pop the Balloons" )]
 public class PopTheBalloons : Component, Minigame
 {
-	public string Name => "Pop The Balloons!";
+	public string Name => "Pop the Balloons!";
 	public string Description => $"Pop {BalloonTarget} balloons!";
 	public float Duration => 10;
 
@@ -71,7 +70,7 @@ public class PopTheBalloons : Component, Minigame
 
 	public void WinEvent( bool succeeded, Player player )
 	{
-		if( !succeeded )
+		if ( !succeeded )
 			GameManager.PlaySound( "fail", player );
 
 		if ( !succeeded )
@@ -97,7 +96,7 @@ public class PopTheBalloons : Component, Minigame
 
 			playerBalloonsPopped[propDestroyedListener.LastAttacker]++;
 
-			if( playerBalloonsPopped[propDestroyedListener.LastAttacker] >= BalloonTarget && !internalSucceeded.Contains(propDestroyedListener.LastAttacker ) )
+			if ( playerBalloonsPopped[propDestroyedListener.LastAttacker] >= BalloonTarget && !internalSucceeded.Contains( propDestroyedListener.LastAttacker ) )
 			{
 				internalSucceeded.Add( propDestroyedListener.LastAttacker );
 				GameManager.PlaySound( "win", null, propDestroyedListener.LastAttacker.ToString() );

@@ -1,9 +1,8 @@
-﻿using Sandbox.Utility;
-
-public class DontPopABalloons : Component, Minigame
+﻿[Title( "Don't Pop the Balloons" )]
+public class DontPopTheBalloons : Component, Minigame
 {
-	public string Name => "Don't Pop A Balloon!";
-	public string Description => $"Don't pop a balloon";
+	public string Name => "Don't Pop the Balloons!";
+	public string Description => $"Don't pop any balloon!";
 	public float Duration => 10;
 
 	[Property] private BBox BalloonBounds { get; set; }
@@ -41,7 +40,7 @@ public class DontPopABalloons : Component, Minigame
 	{
 		foreach ( var propListener in BalloonPropListeners )
 		{
-			if(propListener.PropHelper.IsValid())
+			if ( propListener.PropHelper.IsValid() )
 				propListener?.PropHelper?.Damage( 1000, Guid.Empty );
 		}
 	}
@@ -72,7 +71,7 @@ public class DontPopABalloons : Component, Minigame
 
 	public void WinEvent( bool succeeded, Player player )
 	{
-		if( succeeded )
+		if ( succeeded )
 			GameManager.PlaySound( "win", player );
 
 		if ( !succeeded )
@@ -98,7 +97,7 @@ public class DontPopABalloons : Component, Minigame
 
 			playerBalloonsPopped[propDestroyedListener.LastAttacker]++;
 
-			if( playerBalloonsPopped[propDestroyedListener.LastAttacker] >= 0 && !internalFailed.Contains(propDestroyedListener.LastAttacker ) )
+			if ( playerBalloonsPopped[propDestroyedListener.LastAttacker] >= 0 && !internalFailed.Contains( propDestroyedListener.LastAttacker ) )
 			{
 				internalFailed.Add( propDestroyedListener.LastAttacker );
 
@@ -106,7 +105,7 @@ public class DontPopABalloons : Component, Minigame
 
 				foreach ( var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 				{
-					if(player.Network.OwnerId == propDestroyedListener.LastAttacker )
+					if ( player.Network.OwnerId == propDestroyedListener.LastAttacker )
 						player.Kill();
 				}
 			}

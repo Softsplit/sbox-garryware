@@ -1,7 +1,8 @@
-﻿public class ReachTheEnd : Component, Minigame
+﻿[Title( "Reach the End" )]
+public class ReachTheEnd : Component, Minigame
 {
-	public string Name => "Get to the END!!";
-	public string Description => "Reach the fucking  End CUNT!!";
+	public string Name => "Get To the End!";
+	public string Description => "Reach the end to win!";
 	public string SpawnGroup => "Race";
 
 	public float Duration => 8;
@@ -10,7 +11,6 @@
 
 	public void OnEnd()
 	{
-
 	}
 
 	protected override void DrawGizmos()
@@ -43,7 +43,7 @@
 				GameManager.PlaySound( "win", player );
 				InternalSuceeded.Add( player );
 			}
-			if ( !win && InternalSuceeded.Contains( player ) )
+			else if ( !win && InternalSuceeded.Contains( player ) )
 			{
 				GameManager.PlaySound( "fail", player );
 				InternalSuceeded.Remove( player );
@@ -53,7 +53,6 @@
 
 	public void WinEvent( bool succeeded, Player player )
 	{
-
 		if ( !succeeded )
 		{
 			player.Kill();

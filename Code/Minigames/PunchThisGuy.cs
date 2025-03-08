@@ -1,7 +1,7 @@
 public class PunchThisGuy : Component, Minigame
 {
 	public string Name => Player.FindLocalPlayer() == Punched ? $"Don't Get Punched" : $"Punch\n{Punched.Network.Owner.DisplayName}!";
-	public string Description => Player.FindLocalPlayer() == Punched ? "Everyone wants to punch you, good luck." : "Punch This Guy!";
+	public string Description => Player.FindLocalPlayer() == Punched ? "Everyone wants to punch you, good luck." : "This guy sucks, punch him!";
 
 	public float Duration = 10;
 
@@ -18,29 +18,29 @@ public class PunchThisGuy : Component, Minigame
 	{
 		var players = Scene.GetAllComponents<Player>();
 		Punched = players.ElementAt( Random.Shared.Next( players.Count() ) );
-		PlayerListener = new(Punched);
+		PlayerListener = new( Punched );
 		internalSucceeded = new();
 	}
 
 	public void OnEnd()
 	{
 		if ( !Punched.IsValid() )
-			GameManager.DisplayToast( "Punched Player Left... What a Looser!" );
+			GameManager.DisplayToast( "Punched player left... what a loser!" );
 	}
 
 	List<Player> internalSucceeded;
 	public void FixedUpdate()
 	{
-		if( !Punched.IsValid() )
+		if ( !Punched.IsValid() )
 			Duration = 0;
 
-		foreach(var player in Scene.GetAllComponents<Player>())
+		foreach ( var player in Scene.GetAllComponents<Player>() )
 		{
 			var attackers = PlayerListener.Attackers.Keys.ToList();
 
-			if (attackers.Contains(player.Network.OwnerId) && !internalSucceeded.Contains(player))
+			if ( attackers.Contains( player.Network.OwnerId ) && !internalSucceeded.Contains( player ) )
 			{
-				internalSucceeded.Add(player);
+				internalSucceeded.Add( player );
 				GameManager.PlaySound( "win", player );
 			}
 		}
@@ -66,6 +66,6 @@ public class PunchThisGuy : Component, Minigame
 
 		Log.Info( attackers.Count );
 
-		return player == Punched ? attackers.Count <= 0 : attackers.Contains(player.Network.OwnerId);
+		return player == Punched ? attackers.Count <= 0 : attackers.Contains( player.Network.OwnerId );
 	}
 }

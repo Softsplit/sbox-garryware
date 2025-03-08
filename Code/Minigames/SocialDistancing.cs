@@ -1,8 +1,9 @@
-﻿public class GetTogether : Component, Minigame
+﻿public class SocialDistancing : Component, Minigame
 {
-	public string Name => "Spread Apart!";
-	public string Description => $"Get Within {Distance} Meters from someone.";
-	[Property, Title("Distance (Meters)")] public float Distance { get; set; } = 2;
+	public string Name => "Social Distancing";
+	public string Description => $"It's quarantine time! Stay {Distance} meters away from everyone.";
+	[Property, Title( "Distance (Meters)" )] public float Distance { get; set; } = 2;
+	public bool WaitTillEnd => true;
 
 	public void FixedUpdate()
 	{
@@ -29,9 +30,10 @@
 			if ( player.GameObject.IsDescendant( collider ) )
 				continue;
 
-			if ( collider.Tags.Contains("player") )
+			if ( collider.Tags.Contains( "player" ) )
 				return false;
 		}
+
 		return true;
 	}
 }

@@ -27,6 +27,128 @@
       ]
     },
     {
+      "__guid": "0c339912-bf0b-44bd-8d33-8e332d73e8cb",
+      "Flags": 0,
+      "Name": "Camera",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "cc44fe5e-eff7-413f-b9ad-874b8ec6455f",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 90,
+          "FovAxis": "Horizontal",
+          "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 100000,
+          "ZNear": 1
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "a8f28f6e-402a-403a-a500-f7a6d1eed2e0",
+          "__version": 1,
+          "AutoExposureEnabled": true,
+          "ExposureBias": 2,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 3,
+          "MinimumExposure": 0,
+          "Mode": "Legacy",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.Bloom",
+          "__guid": "7c41d9ee-70df-4b31-9a98-57ac05716a8b",
+          "BloomColor": {
+            "blend": "Linear",
+            "color": [
+              {
+                "t": 0,
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "BloomCurve": [
+            {
+              "x": 0,
+              "y": 0,
+              "in": -1.6799997,
+              "out": 1.6799997,
+              "mode": "Mirrored"
+            },
+            {
+              "x": 1,
+              "y": 1,
+              "in": -0.57142836,
+              "out": 0.57142836,
+              "mode": "Mirrored"
+            }
+          ],
+          "Mode": "Additive",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Strength": 0.2,
+          "Threshold": 0.2,
+          "ThresholdWidth": 0.2
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "ff470606-a2bd-4fd7-b9b4-064e040fe8e4",
+          "__version": 1,
+          "DenoiseMode": "Temporal",
+          "FalloffRange": 0.75,
+          "Intensity": 0.15,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Quality": "High",
+          "Radius": 128,
+          "ThinCompensation": 0
+        },
+        {
+          "__type": "Sandbox.Highlight",
+          "__guid": "f85b3460-0142-4530-901f-c92c5199f686",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ]
+    },
+    {
       "__guid": "7bc9fa91-32be-4930-951d-519d7b207113",
       "Flags": 0,
       "Name": "Game Manager",
@@ -50,10 +172,6 @@
             {
               "_type": "gameobject",
               "go": "236b0afa-e0d6-4658-8824-87e431a9b535"
-            },
-            {
-              "_type": "gameobject",
-              "go": "c7d63182-9450-4ae3-8f9a-156bba8baf07"
             }
           ],
           "State": "Intermission"
@@ -99,7 +217,7 @@
         {
           "__guid": "d6d376ea-420d-4c7c-b9e4-796775d325bd",
           "Flags": 0,
-          "Name": "Stay On The Floor!",
+          "Name": "Stay On the Floor!",
           "Enabled": true,
           "Components": [
             {
@@ -122,8 +240,8 @@
           "Enabled": true,
           "Components": [
             {
-              "__type": "FloorIsLava",
-              "__guid": "187a3e3e-9b7a-40c9-86d8-ecc8bc7fa4f5",
+              "__type": "TheFloorIsLava",
+              "__guid": "475ea208-9533-4dbd-b478-09cec7347983",
               "FloorLevel": 10,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -141,11 +259,11 @@
           "Enabled": true,
           "Components": [
             {
-              "__type": "DontPopABalloons",
-              "__guid": "49507eb6-51ea-41de-b369-beb316ed6ba9",
+              "__type": "DontPopTheBalloons",
+              "__guid": "3a01fdb7-b0ef-4af2-bcf3-8b5d123643fe",
               "BalloonBounds": {
-                "Mins": "-500,500,255",
-                "Maxs": "500,-500,64"
+                "Mins": "-500,564,255",
+                "Maxs": "500,-436.0001,64"
               },
               "BalloonCount": 50,
               "OnComponentDestroy": null,
@@ -160,15 +278,15 @@
         {
           "__guid": "e0f1f165-9601-4202-ab4c-7ca9e9018093",
           "Flags": 0,
-          "Name": "Pop The Balloons!",
+          "Name": "Pop the Balloons!",
           "Enabled": true,
           "Components": [
             {
               "__type": "PopTheBalloons",
               "__guid": "dc606f33-0b99-4f02-887b-7b7378f6d2b6",
               "BalloonBounds": {
-                "Mins": "-500,500,255",
-                "Maxs": "500,-500,64"
+                "Mins": "-500,564,255",
+                "Maxs": "500,-436.0001,64"
               },
               "BalloonTarget": 3,
               "OnComponentDestroy": null,
@@ -183,7 +301,7 @@
         {
           "__guid": "7547b98f-4152-4a67-b725-d40c5fa9515e",
           "Flags": 0,
-          "Name": "Grab A Melon!",
+          "Name": "Grab a Melon!",
           "Enabled": true,
           "Components": [
             {
@@ -242,12 +360,12 @@
         {
           "__guid": "3dd1802e-8df2-4430-86e9-8055697da398",
           "Flags": 0,
-          "Name": "Spread Apart!",
+          "Name": "Social Distancing!",
           "Enabled": true,
           "Components": [
             {
-              "__type": "SpreadApart",
-              "__guid": "d3011bc0-a666-4663-938e-f2027154a200",
+              "__type": "SocialDistancing",
+              "__guid": "5cec7b11-6187-473a-8bf4-b94942a46732",
               "Distance": 2,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -261,7 +379,7 @@
         {
           "__guid": "9ac76f4f-2482-48d0-bfa4-bb07fde39721",
           "Flags": 0,
-          "Name": "Musical Chairs!",
+          "Name": "Musical Chairs",
           "Enabled": true,
           "Components": [
             {
@@ -270,35 +388,43 @@
               "FloorSpawnPoints": [
                 {
                   "_type": "gameobject",
-                  "go": "80903eaf-c19e-491e-9a33-f6b3b4e76794"
+                  "go": "63d78e65-c240-4b39-bd07-36f3b81bba1c"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "3b0267ed-c952-48c0-8083-cbea1bd73f68"
+                  "go": "7d5f2535-5dcb-41b3-b86b-f747e2a84ee1"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "10442e65-8871-4808-acb1-b16998a1fe3a"
+                  "go": "5836e925-7129-4835-9cdb-9cc69ce257df"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "a004661d-fe84-4322-8b8d-24f988073256"
+                  "go": "f959f24e-aed5-4853-b570-9f0455730801"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "2a14abb5-06eb-42db-8a79-32ec570ec765"
+                  "go": "5f38d0fd-a605-4156-a717-eaa52f50e165"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "498c7763-3b1a-40dd-9d59-e560de53f40f"
+                  "go": "5e729270-dd18-4d60-9b94-2be2fbc1c537"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "d1220b0d-b361-4435-9b7a-89a3dbe25f60"
+                  "go": "29fa2568-d5c5-468d-90af-3c12f4d5f753"
                 },
                 {
                   "_type": "gameobject",
-                  "go": "3abe05e8-a6d0-463a-a9a5-52d4e8c3e044"
+                  "go": "939c0e7a-1494-4f72-948f-807d9698d5c2"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "a6524cbb-2063-47b7-90b1-7bd2e9d81b77"
+                },
+                {
+                  "_type": "gameobject",
+                  "go": "939c0e7a-1494-4f72-948f-807d9698d5c2"
                 }
               ],
               "Music": [
@@ -343,8 +469,8 @@
           "Enabled": true,
           "Components": [
             {
-              "__type": "AllStanding",
-              "__guid": "d95dbdb5-1aa0-484c-b829-ead939df3045",
+              "__type": "EveryoneCalmDown",
+              "__guid": "97a2b637-1170-40fd-8813-429133b8bb4c",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -375,15 +501,15 @@
         {
           "__guid": "2f87dc06-32f8-4df3-9cfc-5f5d9f6d7715",
           "Flags": 0,
-          "Name": "Reach The End!",
+          "Name": "Reach the End!",
           "Enabled": true,
           "Components": [
             {
               "__type": "ReachTheEnd",
               "__guid": "d95aaa8c-62ab-4729-8c50-6d2947b4559b",
               "FinishLineBounds": {
-                "Mins": "384,-1280,0",
-                "Maxs": "512,-768,256"
+                "Mins": "880,-1920,0",
+                "Maxs": "1168,-896.0003,660"
               },
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -415,234 +541,20 @@
               "OnComponentUpdate": null
             }
           ]
-        },
-        {
-          "__guid": "e52eca14-db57-44b4-bf22-739783e00579",
-          "Flags": 0,
-          "Name": "Avoid The Fireball!",
-          "Components": [
-            {
-              "__type": "AvoidTheFireball",
-              "__guid": "99035028-5714-45a3-a850-3927c5681fa9",
-              "Bounds": {
-                "Mins": "450,469.4002,257.1003",
-                "Maxs": "-496.8997,-480.902,85.60023"
-              },
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null
-            }
-          ]
-        },
-        {
-          "__guid": "698e1264-ba19-4d90-9f12-a14ac3576c7a",
-          "Flags": 0,
-          "Name": "Pick The Cup!",
-          "Components": [
-            {
-              "__type": "PickTheCup",
-              "__guid": "bec39512-98aa-4017-b647-84c7ef85fab2",
-              "Ball": {
-                "_type": "gameobject",
-                "go": "b5331f62-df4b-40e2-898b-217ab20f7c84"
-              },
-              "BallCup": {
-                "_type": "gameobject",
-                "go": "9955c34a-5902-4176-adf2-68ac3fb88370"
-              },
-              "CuppingSpeed": 4,
-              "Cups": [
-                {
-                  "PreviousPos": "0,0,0",
-                  "lerp": 0,
-                  "shuffleDir": 1,
-                  "Pos": "-1792,1280,32",
-                  "CupModel": {
-                    "_type": "gameobject",
-                    "go": "4f7dd822-a35c-465c-8367-78b2ef07a6f9"
-                  },
-                  "Platform": {
-                    "Mins": "-1516,1163.2,-0.2999958",
-                    "Maxs": "-1280,1400,326.3"
-                  }
-                },
-                {
-                  "PreviousPos": "0,0,0",
-                  "lerp": 0,
-                  "shuffleDir": 1,
-                  "Pos": "-1792,1536,32",
-                  "CupModel": {
-                    "_type": "gameobject",
-                    "go": "9955c34a-5902-4176-adf2-68ac3fb88370"
-                  },
-                  "Platform": {
-                    "Mins": "-1516,1419.2,-0.2999958",
-                    "Maxs": "-1280,1656,326.3"
-                  }
-                },
-                {
-                  "PreviousPos": "0,0,0",
-                  "lerp": 0,
-                  "shuffleDir": 1,
-                  "Pos": "-1792,1792,32",
-                  "CupModel": {
-                    "_type": "gameobject",
-                    "go": "02a8ce9d-63af-4504-9105-1fb54a24c535"
-                  },
-                  "Platform": {
-                    "Mins": "-1516,1675.2,-0.2999958",
-                    "Maxs": "-1280,1912,326.3"
-                  }
-                }
-              ],
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "ShuffleOffset": "105,0,0"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "4f7dd822-a35c-465c-8367-78b2ef07a6f9",
-              "Flags": 0,
-              "Name": "roadcone01 (1)",
-              "Position": "-1792,1280,32",
-              "Scale": "10,10,10",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "Components": [
-                {
-                  "__type": "Sandbox.Prop",
-                  "__guid": "9ec6ab8e-3d54-489d-aa58-2de95d02b8ae",
-                  "BodyGroups": 18446744073709551615,
-                  "Health": 0,
-                  "IsStatic": true,
-                  "MaterialGroup": null,
-                  "Model": "models/citizen_props/roadcone01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnPropBreak": null,
-                  "OnPropTakeDamage": null,
-                  "StartAsleep": false,
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            },
-            {
-              "__guid": "9955c34a-5902-4176-adf2-68ac3fb88370",
-              "Flags": 0,
-              "Name": "roadcone01",
-              "Position": "-1792,1536,32",
-              "Scale": "10,10,10",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkOrphaned": 1,
-              "Components": [
-                {
-                  "__type": "Sandbox.Prop",
-                  "__guid": "21e5509b-6138-4f33-98cb-812e0d3aad4d",
-                  "BodyGroups": 18446744073709551615,
-                  "Health": 0,
-                  "IsStatic": true,
-                  "MaterialGroup": null,
-                  "Model": "models/citizen_props/roadcone01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnPropBreak": null,
-                  "OnPropTakeDamage": null,
-                  "StartAsleep": false,
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            },
-            {
-              "__guid": "02a8ce9d-63af-4504-9105-1fb54a24c535",
-              "Flags": 0,
-              "Name": "roadcone01 (2)",
-              "Position": "-1792,1792,32",
-              "Scale": "10,10,10",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "Components": [
-                {
-                  "__type": "Sandbox.Prop",
-                  "__guid": "55d7fff9-3921-4f52-9522-adf96d9c9cff",
-                  "BodyGroups": 18446744073709551615,
-                  "Health": 0,
-                  "IsStatic": true,
-                  "MaterialGroup": null,
-                  "Model": "models/citizen_props/roadcone01.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnPropBreak": null,
-                  "OnPropTakeDamage": null,
-                  "StartAsleep": false,
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            },
-            {
-              "__guid": "b5331f62-df4b-40e2-898b-217ab20f7c84",
-              "Flags": 0,
-              "Name": "beachball",
-              "Position": "-1792,1536,32.59125",
-              "Scale": "2.201657,2.201657,2.201657",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "Components": [
-                {
-                  "__type": "Sandbox.Prop",
-                  "__guid": "8b48de91-ef3f-4d3e-ade4-2836440a8d62",
-                  "BodyGroups": 18446744073709551615,
-                  "Health": 0,
-                  "IsStatic": true,
-                  "MaterialGroup": null,
-                  "Model": "models/citizen_props/beachball.vmdl",
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnPropBreak": null,
-                  "OnPropTakeDamage": null,
-                  "StartAsleep": false,
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
-          ]
         }
       ]
     },
     {
       "__guid": "e76ca89f-35d7-4b18-893f-4ed5cbdd5fb9",
       "Flags": 0,
-      "Name": "SpawnPoints",
+      "Name": "Spawn Points",
       "Enabled": true,
       "Children": [
         {
           "__guid": "041ef2ff-20ca-43b1-a6e7-b5fc2c201341",
           "Flags": 0,
           "Name": "Main",
+          "Position": "0,60,0",
           "Enabled": true,
           "Children": [
             {
@@ -1136,23 +1048,22 @@
           ]
         },
         {
-          "__guid": "c7d63182-9450-4ae3-8f9a-156bba8baf07",
+          "__guid": "766d51ca-3c64-4075-ad23-a61872cd2c02",
           "Flags": 0,
-          "Name": "CupGame",
-          "Position": "-864.0001,1524.202,0.001107678",
-          "Rotation": "0,0,1,-0.00000004371139",
+          "Name": "Musical Chairs",
+          "Position": "0,60,0",
           "Enabled": true,
           "Children": [
             {
-              "__guid": "1604f82f-1af8-41f3-bd29-9574297f689d",
+              "__guid": "63d78e65-c240-4b39-bd07-36f3b81bba1c",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "7.456177,0,0",
+              "Position": "0,60,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "1dcd2151-4af6-4f78-89d5-369e21f8b399",
+                  "__guid": "f635dd00-7573-4ee9-9211-e1c69d2c3d8e",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1164,15 +1075,15 @@
               ]
             },
             {
-              "__guid": "7b6a724a-53af-41d2-9748-c75910692fc1",
+              "__guid": "7d5f2535-5dcb-41b3-b86b-f747e2a84ee1",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "-56.54382,0,0",
+              "Position": "60,60,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "9d0939c8-5a9c-4fbd-b1d9-85b06c39111f",
+                  "__guid": "379833b3-51b0-41d5-92de-97530783e15e",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1184,15 +1095,15 @@
               ]
             },
             {
-              "__guid": "c32d79d3-df01-406b-8155-b33b642128fb",
+              "__guid": "5836e925-7129-4835-9cdb-9cc69ce257df",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "71.45618,0,0",
+              "Position": "-60,60,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "2040c12a-de37-4030-9dec-5dddf7803d9c",
+                  "__guid": "6c985d4c-d646-4b64-b9ee-b27a0c6a3bf2",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1204,15 +1115,15 @@
               ]
             },
             {
-              "__guid": "cdc08196-44e8-44ea-8194-54e89de2fd74",
+              "__guid": "f959f24e-aed5-4853-b570-9f0455730801",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "7.456177,-255,0",
+              "Position": "0,-60,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "ec3579a5-26fd-49fd-85b4-99e6349c4c01",
+                  "__guid": "220f8213-31b4-46dd-939e-62e288c97cf2",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1224,15 +1135,15 @@
               ]
             },
             {
-              "__guid": "e55a55e4-3c18-4635-9710-c3507f364c9b",
+              "__guid": "5f38d0fd-a605-4156-a717-eaa52f50e165",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "-56.54382,-255,0",
+              "Position": "60,-60,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "a2124283-4ea3-4c05-9a29-468e6076d3fc",
+                  "__guid": "29e1753a-b602-497e-9822-462a4cd2c96d",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1244,15 +1155,15 @@
               ]
             },
             {
-              "__guid": "b9fa684f-419d-4fbe-82a1-31f521cc6397",
+              "__guid": "5e729270-dd18-4d60-9b94-2be2fbc1c537",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "71.45618,-255,0",
+              "Position": "-60,-60,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "0067bba3-9e0a-46e9-a0ca-4e9a7ae96b71",
+                  "__guid": "2b64ff24-1dae-4828-940a-dd0354c24846",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1264,15 +1175,14 @@
               ]
             },
             {
-              "__guid": "24a6097c-bf91-4e80-a109-bfee948085e5",
+              "__guid": "29fa2568-d5c5-468d-90af-3c12f4d5f753",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "7.456177,255,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "1d402069-b7ef-405d-b094-e5be19db6f95",
+                  "__guid": "b36050f3-1ecb-45aa-8281-0c1aa672b1c1",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1284,15 +1194,15 @@
               ]
             },
             {
-              "__guid": "25ffb159-e81f-4512-ae75-c3cd699abb0c",
+              "__guid": "a6524cbb-2063-47b7-90b1-7bd2e9d81b77",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "-56.54382,255,0",
+              "Position": "60,0,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "f038f375-8baf-4b86-a57f-e4f865fa0313",
+                  "__guid": "90e036db-a441-4d12-8984-cc9928866e07",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1304,15 +1214,15 @@
               ]
             },
             {
-              "__guid": "3abcf924-5ac1-4c6b-baaa-1dcf921bc4f0",
+              "__guid": "939c0e7a-1494-4f72-948f-807d9698d5c2",
               "Flags": 0,
               "Name": "Spawn",
-              "Position": "71.45618,255,0",
+              "Position": "-60,0,0",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.SpawnPoint",
-                  "__guid": "96e6b0ed-e70e-4456-b2cb-92cd97bcc0ec",
+                  "__guid": "7f6b602c-66ec-48f3-a621-30ed22f89aa3",
                   "Color": "0.8902,0.31765,0.05098,1",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
@@ -1324,312 +1234,6 @@
               ]
             }
           ]
-        },
-        {
-          "__guid": "fb6d7084-c05e-4119-9af4-0d6671276d5e",
-          "Flags": 0,
-          "Name": "Floor",
-          "Enabled": true,
-          "Children": [
-            {
-              "__guid": "80903eaf-c19e-491e-9a33-f6b3b4e76794",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "63.09269,0,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "3b0267ed-c952-48c0-8083-cbea1bd73f68",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "63.09269,-64,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "10442e65-8871-4808-acb1-b16998a1fe3a",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "0,-64,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "a004661d-fe84-4322-8b8d-24f988073256",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "-64,-64,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "2a14abb5-06eb-42db-8a79-32ec570ec765",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "-64.61516,0,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "498c7763-3b1a-40dd-9d59-e560de53f40f",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "-64.61516,64.26123,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "d1220b0d-b361-4435-9b7a-89a3dbe25f60",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "-0.5243225,64.26123,0",
-              "Enabled": true
-            },
-            {
-              "__guid": "3abe05e8-a6d0-463a-a9a5-52d4e8c3e044",
-              "Flags": 0,
-              "Name": "Spawn",
-              "Position": "64.24567,64.26123,0",
-              "Enabled": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "__guid": "13c7b36c-22bb-4f0a-87c0-6d659ff39331",
-      "Flags": 0,
-      "Name": "Boxpoints",
-      "Enabled": true,
-      "Children": [
-        {
-          "__guid": "9275c3f0-8d71-4edd-9cec-c68d25ecdd2f",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-384,384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "630f409b-41b6-4907-bae3-a98b479ce4f8",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-128,384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "a2ad4b82-affc-45b7-8b02-e14bcce708d4",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "128,384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "90f5d251-1284-41db-aef1-e867ada7973a",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "384,384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "bd1a2766-77e7-47f0-9581-64246f3371b7",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-384,128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "316e1505-4921-4906-9c2b-0afa6c3c4538",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-128,128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "7dc0df7a-bbe5-4a7d-9218-8fcca594aae1",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "128,128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "2034794f-9c74-4746-9352-67b551c84dfc",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "384,128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "be8497c6-66e4-4a05-aaf4-77dcc74915ab",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-384,-128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "62f5e220-82d6-4571-8185-1b7808b249f9",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-128,-128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "c1f4fde3-521e-49b5-ae6c-436e3425a847",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "128,-128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "b32612f4-97c4-4f43-9c16-d670f4fb906a",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "384,-128,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "300c3682-8cba-4796-b619-d28bde2030d3",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-384,-384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "9b09034e-302d-4771-8a06-b317fbc96dfc",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "-128,-384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "d9f2cda1-a311-49f5-ac2c-df25cd363e39",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "128,-384,64",
-          "Enabled": true
-        },
-        {
-          "__guid": "25372e01-8e3a-4257-82a2-fbd1053f4801",
-          "Flags": 0,
-          "Name": "Object",
-          "Position": "384,-384,64",
-          "Enabled": true
-        }
-      ]
-    },
-    {
-      "__guid": "0c339912-bf0b-44bd-8d33-8e332d73e8cb",
-      "Flags": 0,
-      "Name": "Camera",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.CameraComponent",
-          "__guid": "cc44fe5e-eff7-413f-b9ad-874b8ec6455f",
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-          "ClearFlags": "All",
-          "FieldOfView": 90,
-          "FovAxis": "Horizontal",
-          "IsMainCamera": true,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Orthographic": false,
-          "OrthographicHeight": 1204,
-          "Priority": 1,
-          "RenderExcludeTags": "",
-          "RenderTags": "",
-          "TargetEye": "None",
-          "Viewport": "0,0,1,1",
-          "ZFar": 100000,
-          "ZNear": 1
-        },
-        {
-          "__type": "Sandbox.Tonemapping",
-          "__guid": "a8f28f6e-402a-403a-a500-f7a6d1eed2e0",
-          "__version": 1,
-          "AutoExposureEnabled": true,
-          "ExposureBias": 2,
-          "ExposureCompensation": 0,
-          "ExposureMethod": "RGB",
-          "MaximumExposure": 3,
-          "MinimumExposure": 0,
-          "Mode": "Legacy",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Rate": 1
-        },
-        {
-          "__type": "Sandbox.Bloom",
-          "__guid": "7c41d9ee-70df-4b31-9a98-57ac05716a8b",
-          "BloomColor": {
-            "blend": "Linear",
-            "color": [
-              {
-                "t": 0,
-                "c": "1,1,1,1"
-              },
-              {
-                "t": 1,
-                "c": "1,1,1,1"
-              }
-            ],
-            "alpha": []
-          },
-          "BloomCurve": [
-            {
-              "x": 0,
-              "y": 0,
-              "in": -1.6799997,
-              "out": 1.6799997,
-              "mode": "Mirrored"
-            },
-            {
-              "x": 1,
-              "y": 1,
-              "in": -0.57142836,
-              "out": 0.57142836,
-              "mode": "Mirrored"
-            }
-          ],
-          "Mode": "Additive",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Strength": 0.2,
-          "Threshold": 0.2,
-          "ThresholdWidth": 0.2
-        },
-        {
-          "__type": "Sandbox.AmbientOcclusion",
-          "__guid": "ff470606-a2bd-4fd7-b9b4-064e040fe8e4",
-          "__version": 1,
-          "DenoiseMode": "Temporal",
-          "FalloffRange": 0.75,
-          "Intensity": 0.15,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Quality": "High",
-          "Radius": 128,
-          "ThinCompensation": 0
-        },
-        {
-          "__type": "Sandbox.Highlight",
-          "__guid": "f85b3460-0142-4530-901f-c92c5199f686",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
         }
       ]
     },

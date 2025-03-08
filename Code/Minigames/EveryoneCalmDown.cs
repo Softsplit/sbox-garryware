@@ -1,7 +1,7 @@
-public class AllStanding : Component, Minigame
+public class EveryoneCalmDown : Component, Minigame
 {
 	public string Name => "Everyone Calm Down!";
-	public string Description => "Do NOT kill ANYONE!";
+	public string Description => "Don't kill ANYONE!";
 
 	public float Duration = 10;
 
@@ -30,7 +30,7 @@ public class AllStanding : Component, Minigame
 
 	public bool WinCondition( Player player )
 	{
-		foreach( var p in Scene.GetAllComponents<Player>() )
+		foreach ( var p in Scene.GetAllComponents<Player>() )
 		{
 			if ( p.IsDead )
 				return false;

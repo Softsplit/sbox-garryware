@@ -1,4 +1,5 @@
-﻿public class GrabAMelon : Component, Minigame
+﻿[Title( "Grab a Melon" )]
+public class GrabAMelon : Component, Minigame
 {
 	public string Name => "Grab a Melon!";
 	public string Description => "There's not enough for all of us!";
@@ -17,7 +18,7 @@
 	[Rpc.Broadcast]
 	public void OnEnd()
 	{
-		foreach(var melon in melons)
+		foreach ( var melon in melons )
 		{
 			melon.GameObject.Destroy();
 		}

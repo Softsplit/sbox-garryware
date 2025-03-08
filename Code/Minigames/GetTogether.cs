@@ -1,9 +1,8 @@
-﻿public class SpreadApart : Component, Minigame
+﻿public class GetTogether : Component, Minigame
 {
-	public string Name => "Spread Apart!";
-	public string Description => $"Stay {Distance} Meters away from anyone.";
-	[Property, Title("Distance (Meters)")] public float Distance { get; set; } = 2;
-	public bool WaitTillEnd => true;
+	public string Name => "Get Together!";
+	public string Description => $"Get within {Distance} meters from someone.";
+	[Property, Title( "Distance (Meters)" )] public float Distance { get; set; } = 2;
 
 	public void FixedUpdate()
 	{
@@ -30,9 +29,10 @@
 			if ( player.GameObject.IsDescendant( collider ) )
 				continue;
 
-			if ( collider.Tags.Contains("player") )
-				return false;
+			if ( collider.Tags.Contains( "player" ) )
+				return true;
 		}
-		return true;
+
+		return false;
 	}
 }

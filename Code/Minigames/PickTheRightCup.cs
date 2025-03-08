@@ -1,7 +1,5 @@
-using Sandbox;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-public sealed class PickTheCup : Component, Minigame
+[Title( "Pick the Right Cup" )]
+public sealed class PickTheRightCup : Component, Minigame
 {
 	[Property] private List<cup> Cups { get; set; }
 	[Property] private GameObject Ball { get; set; }
@@ -9,7 +7,7 @@ public sealed class PickTheCup : Component, Minigame
 	[Property] private float CuppingSpeed { get; set; } = 10f;
 	[Property] private Vector3 ShuffleOffset { get; set; } = new Vector3( -9.509f, 0, 0 );
 	public string Name => "Pick the Right Cup!";
-	public string Description => "After the cups have suffled stand on the corresponding platform.";
+	public string Description => "After the cups have suffled, stand on the corresponding platform.";
 	public string SpawnGroup => "CupGame";
 	public float Duration => 25;
 	private class cup
@@ -41,7 +39,7 @@ public sealed class PickTheCup : Component, Minigame
 		Ball.Network.AssignOwnership( Connection.Host );
 		foreach ( var cup in Cups )
 		{
-			cup.CupModel.Network.AssignOwnership(Connection.Host);
+			cup.CupModel.Network.AssignOwnership( Connection.Host );
 			cup.PreviousPos = cup.CupModel.WorldPosition;
 			if ( cup.CupModel.IsValid() )
 				cup.CupModel.WorldPosition = cup.Pos;
@@ -51,7 +49,7 @@ public sealed class PickTheCup : Component, Minigame
 	public void FixedUpdate()
 	{
 
-		switch (GameState)
+		switch ( GameState )
 		{
 			case CupGameStates.Intro:
 				Intro();
@@ -74,8 +72,8 @@ public sealed class PickTheCup : Component, Minigame
 
 	void Intro()
 	{
-		PositionCups(Vector3.Up*256);
-		if(StateStart > 5)
+		PositionCups( Vector3.Up * 256 );
+		if ( StateStart > 5 )
 		{
 			GameState = CupGameStates.Shuffling;
 			StateStart = 0;
@@ -90,11 +88,11 @@ public sealed class PickTheCup : Component, Minigame
 			shuffle();
 		PositionCups();
 
-		if (StateStart > 10)
+		if ( StateStart > 10 )
 		{
 			GameState = CupGameStates.Guessing;
 			StateStart = 0;
-			ToastNotification.Current.AddToast("Guess!",3);
+			ToastNotification.Current.AddToast( "Guess!", 3 );
 		}
 	}
 
@@ -130,9 +128,9 @@ public sealed class PickTheCup : Component, Minigame
 	List<Player> internalSucceeded = new();
 	void GetWinners()
 	{
-		foreach (var cup in Cups)
+		foreach ( var cup in Cups )
 		{
-			if(cup.CupModel == BallCup)
+			if ( cup.CupModel == BallCup )
 			{
 				foreach ( var player in GameManager.Current.Scene.GetAllComponents<Player>() )
 				{
@@ -148,29 +146,30 @@ public sealed class PickTheCup : Component, Minigame
 	}
 
 	Vector3 lerpedOffset;
-	void PositionCups(Vector3 offset = default)
+	void PositionCups( Vector3 offset = default )
 	{
 		foreach ( var cup in Cups )
 		{
 			if ( !cup.CupModel.IsValid() )
 				return;
 
-			cup.lerp = MathX.Clamp(cup.lerp + Time.Delta * CuppingSpeed, 0, 1 );
+			cup.lerp = MathX.Clamp( cup.lerp + Time.Delta * CuppingSpeed, 0, 1 );
 
 			var shuffleDis = Vector3.DistanceBetween( cup.PreviousPos, cup.Pos ) / 256;
 
-			var targetPos = Vector3.Lerp(cup.PreviousPos, cup.Pos, cup.lerp ) + ShuffleOffset * easeOutQuint(1 - MathF.Abs(cup.lerp - 0.5f)*2) * cup.shuffleDir * shuffleDis;
+			var targetPos = Vector3.Lerp( cup.PreviousPos, cup.Pos, cup.lerp ) + ShuffleOffset * easeOutQuint( 1 - MathF.Abs( cup.lerp - 0.5f ) * 2 ) * cup.shuffleDir * shuffleDis;
 
 			lerpedOffset = lerpedOffset.LerpTo( offset, CuppingSpeed * 2 * Time.Delta );
 			cup.CupModel.WorldPosition = targetPos + lerpedOffset;
 		}
 	}
 
-	float easeOutQuint( float x) {
-		return 1 -MathF.Pow(1 - x, 5);
+	float easeOutQuint( float x )
+	{
+		return 1 - MathF.Pow( 1 - x, 5 );
 	}
 
-public void OnEnd()
+	public void OnEnd()
 	{
 		foreach ( var cup in Cups )
 		{
@@ -186,7 +185,7 @@ public void OnEnd()
 
 	protected override void DrawGizmos()
 	{
-		foreach(var cup in Cups)
+		foreach ( var cup in Cups )
 		{
 			Gizmo.Draw.LineBBox( cup.Platform );
 		}

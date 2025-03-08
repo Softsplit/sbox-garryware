@@ -1,7 +1,7 @@
 ﻿public class MurderSomeone : Component, Minigame
 {
 	public string Name => "Murder Someone!";
-	public string Description => "Someones got to die";
+	public string Description => "Someone has got to die...";
 
 	public float Duration = 10;
 
@@ -32,7 +32,7 @@
 	{
 		foreach ( var p in Scene.GetAllComponents<Player>() )
 		{
-			if ( p.IsDead && p.lastAttacker == player.Network.OwnerId)
+			if ( p.IsDead && p.lastAttacker == player.Network.OwnerId )
 				return true;
 		}
 		return false;

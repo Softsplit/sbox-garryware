@@ -1,16 +1,15 @@
 ﻿public class Race : Component, Minigame
 {
 	public string Name => "Race!";
-	public string Description => "ONLY 1 WINNER!!";
+	public string Description => "Be the first to reach the end!";
 	public string SpawnGroup => "Race";
 	public bool WaitTillEnd => false;
-	public float Duration => 800;
+	public float Duration => 8;
 
 	[Property] private BBox FinishLineBounds { get; set; }
 
 	public void OnEnd()
 	{
-
 	}
 
 	protected override void DrawGizmos()
@@ -39,10 +38,9 @@
 		{
 			if ( InternalSuceeded.Count > 0 )
 			{
-				if( !InternalSuceeded.Contains(player) && !player.IsDead)
+				if ( !InternalSuceeded.Contains( player ) && !player.IsDead )
 					player.Kill();
 			}
-
 
 			bool win = FinishLineBounds.Contains( player.WorldPosition + Vector3.Up * 10 );
 			if ( win && !InternalSuceeded.Contains( player ) )
@@ -60,7 +58,6 @@
 
 	public void WinEvent( bool succeeded, Player player )
 	{
-
 		if ( !succeeded )
 		{
 			player.Kill();

@@ -1,7 +1,8 @@
-﻿public class StayOnTheFloor : Component, Minigame
+﻿[Title( "Stay On the Floor" )]
+public class StayOnTheFloor : Component, Minigame
 {
-	public string Name => "Stay On The Floor!";
-	public string Description => "Get and then stay on the floor.";
+	public string Name => "Stay On the Floor!";
+	public string Description => "Stay on the floor.";
 
 	[Property] public float FloorLevel { get; set; } = 10f;
 
@@ -51,7 +52,7 @@
 		if ( succeeded )
 			GameManager.PlaySound( "win" );
 
-		if(!succeeded)
+		if ( !succeeded )
 			player.Kill();
 
 		GameManager.DisplayToast( succeeded ?

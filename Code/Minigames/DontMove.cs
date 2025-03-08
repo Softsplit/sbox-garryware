@@ -1,4 +1,5 @@
-﻿public class DontMove : Component, Minigame
+﻿[Title( "Don't Move" )]
+public class DontMove : Component, Minigame
 {
 	public string Name => "Don't Move!";
 	public string Description => "Stop moving!";

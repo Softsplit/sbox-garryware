@@ -1,6 +1,6 @@
-﻿public class FloorIsLava : Component, Minigame
+﻿public class TheFloorIsLava : Component, Minigame
 {
-	public string Name => "Floor is Lava!";
+	public string Name => "The Floor Is Lava!";
 	public string Description => "Stay off the floor!";
 
 	[Property] public float FloorLevel { get; set; } = 10f;
@@ -51,7 +51,7 @@
 		if ( succeeded )
 			GameManager.PlaySound( "win" );
 
-		if(!succeeded)
+		if ( !succeeded )
 			player.Kill();
 
 		GameManager.DisplayToast( succeeded ?
