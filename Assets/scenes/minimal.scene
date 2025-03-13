@@ -59,14 +59,14 @@
         {
           "__type": "Sandbox.Tonemapping",
           "__guid": "a8f28f6e-402a-403a-a500-f7a6d1eed2e0",
-          "__version": 1,
+          "__version": 2,
           "AutoExposureEnabled": true,
           "ExposureBias": 2,
           "ExposureCompensation": 0,
           "ExposureMethod": "RGB",
           "MaximumExposure": 3,
           "MinimumExposure": 0,
-          "Mode": "Legacy",
+          "Mode": "HableFilmic",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -539,6 +539,29 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null
+            }
+          ]
+        },
+        {
+          "__guid": "c1bb64dd-780e-4d0e-b9d1-587880976134",
+          "Flags": 0,
+          "Name": "Pick the Right Cup",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "PickTheRightCup",
+              "__guid": "152f7fe0-dad0-4659-8792-c2da8f81bdc6",
+              "Ball": null,
+              "BallCup": null,
+              "CuppingSpeed": 10,
+              "Cups": [],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "ShuffleOffset": "-9.509,0,0"
             }
           ]
         }
