@@ -577,6 +577,7 @@
           "__guid": "041ef2ff-20ca-43b1-a6e7-b5fc2c201341",
           "Flags": 0,
           "Name": "Main",
+          "Position": "0,60,0",
           "Enabled": true,
           "Children": [
             {
@@ -1073,6 +1074,7 @@
           "__guid": "766d51ca-3c64-4075-ad23-a61872cd2c02",
           "Flags": 0,
           "Name": "Musical Chairs",
+          "Position": "0,60,0",
           "Enabled": true,
           "Children": [
             {
@@ -1362,24 +1364,66 @@
       ]
     },
     {
-      "__guid": "e3d439b7-dfb0-4e75-bac3-d011888fca83",
+      "__guid": "4a5725e3-fdb9-4492-9e04-be455686922e",
       "Flags": 0,
-      "Name": "2D Skybox",
-      "Tags": "skybox",
+      "Name": "Environment",
       "Enabled": true,
-      "Components": [
+      "Children": [
         {
-          "__type": "Sandbox.SkyBox2D",
-          "__guid": "0512ba5a-0354-4a18-8b27-dcf6fb20221c",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "SkyIndirectLighting": true,
-          "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
-          "Tint": "1,1,1,1"
+          "__guid": "e3d439b7-dfb0-4e75-bac3-d011888fca83",
+          "Flags": 0,
+          "Name": "2D Skybox",
+          "Tags": "skybox",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SkyBox2D",
+              "__guid": "0512ba5a-0354-4a18-8b27-dcf6fb20221c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "SkyIndirectLighting": true,
+              "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "768faff9-3abd-43d0-99d0-cd4545a6b271",
+          "Flags": 0,
+          "Name": "Envmap Probe",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.EnvmapProbe",
+              "__guid": "9bb65bb6-f387-44f5-b937-15d63433e1e6",
+              "Bounds": {
+                "Mins": "-1000,-1000,-1000",
+                "Maxs": "1000,1000,1000"
+              },
+              "DelayBetweenUpdates": 0.1,
+              "Feathering": 0.02,
+              "FrameInterval": 5,
+              "MaxDistance": 512,
+              "MultiBounce": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Projection": "Box",
+              "RenderDynamically": true,
+              "Texture": "textures/cubemaps/default2.vtex",
+              "TintColor": "1,1,1,1",
+              "UpdateStrategy": "OnEnabled",
+              "ZFar": 4096,
+              "ZNear": 16
+            }
+          ]
         }
       ]
     },
@@ -1394,7 +1438,7 @@
           "__guid": "053b9354-3f9b-4cbf-837b-932a5a04f3ae",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/warehouse.vmap",
+          "MapName": "maps/garryware.vmap",
           "NoOrigin": true,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
