@@ -11,6 +11,7 @@
 
 	private void MovementEffects( CameraComponent camera )
 	{
-		camera.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView );
+		camera.FovAxis = CameraComponent.Axis.Vertical;
+		camera.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView, 9.0f / 16.0f );
 	}
 }

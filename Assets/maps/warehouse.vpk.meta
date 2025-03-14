@@ -1,19 +1,19 @@
 {
   "publish": {
-    "Enabled": false,
+    "Enabled": true,
     "ProjectConfig": {
-      "Title": "Gw Game",
+      "Title": "Warehouse",
       "Type": "map",
       "Org": "local",
-      "Ident": "gwgame",
+      "Ident": "warehouse",
       "Schema": 0,
       "IncludeSourceFiles": false,
       "Resources": null,
-      "PackageReferences": [],
-      "EditorReferences": [],
-      "IsWhitelistDisabled": false,
+      "PackageReferences": null,
+      "EditorReferences": null,
+      "IsStandaloneOnly": false,
       "Metadata": {
-        "SingleAssetSource": "maps/gw_game.vmap",
+        "SingleAssetSource": "maps/warehouse.vpk",
         "ParentPackage": "softsplit.garryware"
       }
     }
